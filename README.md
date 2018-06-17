@@ -1,4 +1,4 @@
-# Curious Containers
+![Curious Containers Logo](images/logo.svg)
 
 Welcome to the **Curious Containers** project and its **RED** file format for reproducible experiments.
 
