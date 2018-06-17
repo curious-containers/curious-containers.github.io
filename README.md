@@ -23,6 +23,7 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 * [CC FAICE](cc/faice.md)
 * [CC Agency](cc/agency.md)
 * [Versions](cc/versions.md)
+* [Publications](cc/publications.md)
 
 
 ## Acknowledgements
