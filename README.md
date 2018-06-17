@@ -9,21 +9,21 @@ Curious Containers provides a reference implementation of RED in Python (`cc-cor
 Together, RED and Curious Containers support the [FAIR principles](https://www.force11.org/fairprinciples) for reproducible research. If you are new to the project, we advise you to work through the [RED Beginners Guide](red/guide.md).
 
 
-## RED Docs
-
-* [RED Beginners Guide](red/guide.md)
-* [RED Format](red/format.md)
-* [RED Connectors](red/connectors.md)
-* [RED Engines](red/engines.md)
+## Documentation
 
 
-## Curious Containers Docs
+* [RED Beginners Guide](red-beginners-guide.md)
+* [RED Format](red-format.md)
+* [RED Connectors](red-connectors.md)
+* [RED Engines](red-engines.md)
+* [CC Core](cc-core.md)
+* [CC FAICE](cc-faice.md)
+* [CC Agency](cc-agency.md)
+* [Versions](versions.md)
+* [Publications](publications.md)
 
-* [CC Core](cc/core.md)
-* [CC FAICE](cc/faice.md)
-* [CC Agency](cc/agency.md)
-* [Versions](cc/versions.md)
-* [Publications](cc/publications.md)
+
+Edit this documentation [here](https://github.com/curious-containers/curious-containers.github.io).
 
 
 ## Acknowledgements
