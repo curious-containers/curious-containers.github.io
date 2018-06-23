@@ -1,4 +1,4 @@
-# RED Beginners Guide
+# RED Beginner's Guide
 
 This tutorial explains how to create a reproducible data-driven experiment and how to document it in a Reproducible Experiment Description (RED).
 
