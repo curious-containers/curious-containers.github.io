@@ -18,8 +18,7 @@ Run the following software components in separate terminals.
 ### Terminal 1 - MongoDB
 
 ```bash
-docker-compose -f compose/docker-compose.yml build
-docker-compose -f compose/docker-compose.yml up
+docker-compose -f compose/docker-compose.yml up --build
 ```
 
 The created database is stored in the local filesystem (see `compose/docker-compose.yml` for details) and will persist if the container is deleted.
@@ -42,4 +41,6 @@ poetry run python3 -m cc_agency.controller -c compose/cc-agency.yml
 
 ### Terminal 4 - CC-Agency Broker
 
-
+```bash
+PYTHONPATH=../cc-core:${PYTHONPATH} poetry run uwsgi --ini uwsgi.ini
+```
