@@ -27,30 +27,45 @@ Run the following software components in separate terminals.
 
 #### Terminal 1 - MongoDB
 
+Run MongoDB in a Docker container.
+
 ```bash
-docker-compose -f compose/docker-compose.yml up
+docker-compose -f dev/docker-compose.yml up
 ```
 
-The created database is stored in the local filesystem (see `compose/docker-compose.yml` for details) and will persist if the container is deleted.
+The created database is stored in the local filesystem (see `dev/docker-compose.yml` for details) and will persist if the container is deleted.
 
-A MongoDB admin user account is created automatically by a `mongo-seed` container defined in `compose/docker-compose.yml`. The credentials are read from `compose/cc-agency.yml`.
+A MongoDB admin user account is created automatically by a `mongo-seed` container defined in `dev/docker-compose.yml`. The credentials are read from `dev/cc-agency.yml`.
 
-#### Terminal 2 - Create Users
+#### Terminal 2 - CC-Agency Controller
+
+You can only run one instance of CC-Agency Controller at a time. It provides the central scheduling component, which connectes to a cluster of docker-engines.
 
 ```bash
-PYTHONPATH=../cc-core poetry run python3 -m cc_agency.tools create-broker-user -c compose/cc-agency.yml
+PYTHONPATH=../cc-core poetry run python3 -m cc_agency.controller -c dev/cc-agency.yml
 ```
 
-You can create as many CC-Agency Broker (REST API component) user accounts as you need. Accounts are stored in MongoDB. Users can be added at all times, even while Controller and Broker are running.
+#### Terminal 3 - CC-Agency Broker
 
-#### Terminal 3 - CC-Agency Controller
+CC-Agency Broker provides a REST API, to schedule RED experiments, receive agent callbacks and to query information. It informs the Controller about changes via a ZMQ socket. Edit `dev/uwsgi.ini` to increase the number of Broker processes or threads.
 
 ```bash
-PYTHONPATH=../cc-core poetry run python3 -m cc_agency.controller -c compose/cc-agency.yml
+PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi.ini
 ```
 
-#### Terminal 4 - CC-Agency Broker
+### Create Users
+
+Create users to authenticate with the CC-Agency Broker REST API, with or without admin privileges. Admin privileges can change the behaviour of certain API endpoints.
 
 ```bash
-PYTHONPATH=../cc-core poetry run uwsgi --ini uwsgi-dev.ini
+PYTHONPATH=../cc-core poetry run python3 -m cc_agency.tools create-broker-user -c dev/cc-agency.yml
+```
+
+### Reset Database
+
+Specify collections to be dropped from database.
+
+```bash
+COLLECTIONS="experiments batches users tokens block_entries"
+PYTHONPATH=../cc-core poetry run python3 -m cc_agency.tools drop-db-collections -c dev/cc-agency.yml ${COLLECTIONS}
 ```
