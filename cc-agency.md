@@ -61,9 +61,23 @@ Create users to authenticate with the CC-Agency Broker REST API, with or without
 PYTHONPATH=../cc-core poetry run python3 -m cc_agency.tools create-broker-user -c dev/cc-agency.yml
 ```
 
+### Create CC-Core Image
+
+The conf file `dev/cc-agency.yml` references a `cc-core` Docker image. You can build it locally.
+
+```bash
+docker build -t cc-core ../cc-core
+```
+
+Run a container based on this image, to check if everything is working.
+
+```
+docker run -u 1000:1000 cc-core ccagent --help
+```
+
 ### Reset Database
 
-Specify collections to be dropped from database.
+If you need to reset the database during development, run the following command and specify the collections to be dropped.
 
 ```bash
 COLLECTIONS="experiments batches users tokens block_entries"
