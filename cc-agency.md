@@ -80,6 +80,6 @@ docker run -u 1000:1000 cc-core ccagent --help
 If you need to reset the database during development, run the following command and specify the collections to be dropped.
 
 ```bash
-COLLECTIONS="experiments batches users tokens block_entries"
+COLLECTIONS="experiments batches users tokens block_entries callback_tokens"
 PYTHONPATH=../cc-core poetry run python3 -m cc_agency.tools drop-db-collections -c dev/cc-agency.yml ${COLLECTIONS}
 ```
