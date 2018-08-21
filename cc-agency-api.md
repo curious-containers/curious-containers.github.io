@@ -24,7 +24,7 @@ yaml = YAML(typ='safe')
 | /red | [POST](#post-/red) |
 | /experiments/count | [GET](#get-experimentscount) |
 | /experiments | [GET](#get-experiments) |
-| /experiments/{{experimentId}} | [GET](#get-experimentexperimentid) |
+| /experiments/{{experimentId}} | [GET](#get-experimentsexperimentid) |
 | /batches/count | [GET](#get-batchescount) |
 | /batches | [GET](#get-batches) |
 | /batches/{{batchId}} | [GET](#get-batchesbatchid) |
