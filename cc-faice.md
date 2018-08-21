@@ -1,3 +1,3 @@
-# CC FAICE
+# CC-FAICE
 
 TODO
