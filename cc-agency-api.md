@@ -18,10 +18,10 @@ yaml = YAML(typ='safe')
 
 | Endpoint | Method |
 | --- | --- |
-| / | [GET](#get-/) |
-| /token | [GET](#get-/token) |
-| /version | [GET](#get-/version) |
-| /red | [POST](#post-/red) |
+| / | [GET](#get-) |
+| /token | [GET](#get-token) |
+| /version | [GET](#get-version) |
+| /red | [POST](#post-red) |
 | /experiments/count | [GET](#get-experimentscount) |
 | /experiments | [GET](#get-experiments) |
 | /experiments/{{experimentId}} | [GET](#get-experimentsexperimentid) |
