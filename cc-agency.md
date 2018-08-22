@@ -207,7 +207,7 @@ sudo systemctl restart apache2
 
 *As cc user.*
 
-Edit `~/.config/cc-agency.yml` and add the individual docker-machines in the `controller.docker.nodes` dictionary. If you are connecting to remote machines, the docker-engines must listen on a port. Using TLS is optional, but recommended. If you are not using TLS, remove the corresponding `tls` sections from the config.
+Edit `~/.config/cc-agency.yml` and add the individual docker-machines in the `controller.docker.nodes` dictionary. If you are connecting to remote machines, the docker-engines must listen on a TCP port (see [Docker documentation](https://docs.docker.com/edge/engine/reference/commandline/dockerd/#daemon-socket-option)). Using TLS is optional, but recommended. If you are not using TLS, remove the corresponding `tls` sections from the config.
 
 ```yaml
 controller:
