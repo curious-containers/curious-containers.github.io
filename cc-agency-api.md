@@ -16,7 +16,7 @@ yaml = YAML(typ='safe')
 
 ## Table of Contents
 
-| Endpoint | Method |
+| Endpoint | Methods |
 | --- | --- |
 | / | [GET](#get-) |
 | /token | [GET](#get-token) |
@@ -27,8 +27,7 @@ yaml = YAML(typ='safe')
 | /experiments/EXPERIMENT_ID | [GET](#get-experimentsexperiment_id) |
 | /batches/count | [GET](#get-batchescount) |
 | /batches | [GET](#get-batches) |
-| /batches/BATCH_ID | [GET](#get-batchesbatch_id) |
-|  | [DELETE](#delete-batchesbatch_id) |
+| /batches/BATCH_ID | [GET](#get-batchesbatch_id), [DELETE](#delete-batchesbatch_id) |
 | /nodes | [GET](#get-nodes) |
 
 ## GET /
