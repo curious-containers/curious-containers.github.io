@@ -57,9 +57,7 @@ USER cc
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
 
-RUN pip3 install --no-input --user cc-core=5.2.0
-
-ADD --chown=cc:cc . /opt/cc-core
+RUN pip3 install --no-input --user cc-core==5.2.0
 ```
 
 Build with Docker.
