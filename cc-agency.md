@@ -203,6 +203,38 @@ sudo a2ensite ccagency-broker
 sudo systemctl restart apache2
 ```
 
+### Docker Cluster
+
+*As cc user.*
+
+Edit `~/.config/cc-agency.yml` and add the individual docker-machines in the `controller.docker.nodes` dictionary. If you are connecting to remote machines, the docker-engines must listen on a port. Using TLS is optional, but recommended. If you are not using TLS, remove the corresponding `tls` sections from the config.
+
+```yaml
+controller:
+  docker:
+    nodes:
+      node1:
+        base_url: "tcp://192.168.0.100:2376"
+        tls:
+          verify: "/home/cc/.docker/machine/machines/node1/ca.pem"
+          client_cert:
+            - "/home/cc/.docker/machine/machines/node1/cert.pem"
+            - "/home/cc/.docker/machine/machines/node1/key.pem"
+          assert_hostname: False
+      node2:
+        base_url: "tcp://192.168.0.101:2375"
+      node3:
+        base_url: "unix://var/run/docker.sock"
+```
+
+*As admin user.*
+
+Restart CC-Agency Controller:
+
+```bash
+sudo systemctl restart ccagency-controller
+```
+
 ### Status and Logging
 
 *As admin user.*
