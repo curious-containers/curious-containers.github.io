@@ -26,6 +26,8 @@ To improve data protection you should use **temporary credentials** whenever pos
 
 CC-Agency will store these in its database. We plan to implement an automatic removal of credentials, which will delete these entries from the database after the processing of the corresponding experiment is finished (as of version 5.2.0, this is feature is **not yet available**).
 
+All data handling is done inside of Docker containers. The container file systems are deleted after processing, leaving no traces of your data on remote servers.
+
 ## Installation
 
 The following instructions have been tested on Ubuntu 18.04 with Python 3.6. Instructions for other Linux distributions should be similar.
