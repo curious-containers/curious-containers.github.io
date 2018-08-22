@@ -31,3 +31,14 @@ If this tool cannot be found, you should modify `PATH` (e.g. append `${HOME}/.lo
 ```bash
 python3 -m cc_faice --version
 ```
+
+## Agents
+
+CC-FAICE implements two meta agents, `cwl` and `red`, which refer to the corresponding [CC-Core agents](cc-core.md#agents). While the CC-Core agents execute an experiment directly, the CC-FAICE agents only work with Docker containers, where CC-Core has to be installed in the Docker image beforehand. A CC-FAICE meta agent will launch the corresponding CC-Core agent via Docker, which will then take over control to download input files, run the experiment and upload output files **within the container**.
+
+Use the following CLI tools.
+
+```bash
+faice agent cwl --help
+faice agent red --help
+```
