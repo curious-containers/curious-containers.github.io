@@ -1,8 +1,10 @@
 # CC-Agency API
 
-This is a documentation of the available REST API endpoints of CC-Agency. Usage examples are provided as Python code.
+This is a documentation of the available REST API endpoints of CC-Agency. 
 
-Install and import the following Python modules to prepare for the examples.
+**Before using** the CC-Agency API, you should read the [user information](cc-agency.md#user-information) and [data protection](cc-agency.md#data-protection) sections in the CC-Agency documentation.
+
+Usage examples are provided as Python code. Install and import the following Python modules to prepare for the examples.
 
 ```bash
 pip3 install --user --upgrade requests ruamel.yaml
@@ -110,6 +112,12 @@ Response (JSON):
 ## POST /red
 
 Send RED data to CC-Agency, which will result in one database entry in the `experiments` collection and one or more entries in the `batches` collection. The agency's scheduler will trigger the parallel processing of the batches in the distributed cluster of docker-engines.
+
+Additionally **required** fields:
+
+* `outputs`
+* `container.settings.image.url`
+* `container.settings.image.ram`
 
 File red.yml:
 

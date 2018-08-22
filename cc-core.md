@@ -3,7 +3,7 @@
 CC-Core is a Python package which, as the name says, provides core functionality to the Curious Containers ecosystem. The main purposes of this package are:
 
 1. Providing JSON-schema definitions for the supported [CWL Command Line Tool Description](https://www.commonwl.org/v1.0/CommandLineTool.html) standard and the [RED format](red-format.md).
-2. Implementing CLI programs, so-called [Agents](#agents), to execute data-driven experiments in Docker containers.
+2. Implementing CLI programs, so-called [agents](#agents), to run data-driven experiments in CWL or RED format.
 3. Being a software library for shared functionality in [CC-FAICE](cc-faice.md) and [CC-Agency](cc-agency.md).
 
 ## Installation
@@ -31,6 +31,7 @@ pip3 install --user --upgrade cc-core==5.2.0
 Run CLI tool.
 
 ```bash
+ccagent --version
 ccagent --help
 ```
 
