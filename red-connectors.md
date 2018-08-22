@@ -11,8 +11,8 @@ The following documentation refers to the official RED connectors.
 | Connector |
 | --- |
 | [HTTP](#http) |
-[SSH SFTP](#ssh-sftp) |
-[XNAT HTTP](#xnat-http) |
+| [SSH SFTP](#ssh-sftp) |
+| [XNAT HTTP](#xnat-http) |
 
 
 ## HTTP
