@@ -209,7 +209,7 @@ sudo systemctl restart apache2
 
 Use the following commands to inspect the status and log files of the configured software components.
 
-```
+```bash
 # MongoDB
 sudo systemctl status mongod
 sudo journalctl -u mongod
