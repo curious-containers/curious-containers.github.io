@@ -16,19 +16,18 @@ yaml = YAML(typ='safe')
 
 ## Table of Contents
 
-| Endpoint | Method |
+| Endpoint | Methods |
 | --- | --- |
-| / | [GET](#get-/) |
-| /token | [GET](#get-/token) |
-| /version | [GET](#get-/version) |
-| /red | [POST](#post-/red) |
+| / | [GET](#get-) |
+| /token | [GET](#get-token) |
+| /version | [GET](#get-version) |
+| /red | [POST](#post-red) |
 | /experiments/count | [GET](#get-experimentscount) |
 | /experiments | [GET](#get-experiments) |
-| /experiments/{{experimentId}} | [GET](#get-experimentsexperimentid) |
+| /experiments/EXPERIMENT_ID | [GET](#get-experimentsexperiment_id) |
 | /batches/count | [GET](#get-batchescount) |
 | /batches | [GET](#get-batches) |
-| /batches/{{batchId}} | [GET](#get-batchesbatchid) |
-|  | [DELETE](#delete-batchesbatchid) |
+| /batches/BATCH_ID | [GET](#get-batchesbatch_id), [DELETE](#delete-batchesbatch_id) |
 | /nodes | [GET](#get-nodes) |
 
 ## GET /
@@ -262,7 +261,7 @@ Response (JSON):
 TODO
 
 
-## GET /experiments/{{experimentId}}
+## GET /experiments/EXPERIMENT_ID
 
 Get full experiment stored in database by its `experimentId`.
 
@@ -344,7 +343,7 @@ Response (JSON):
 TODO
 
 
-## GET /batches/{{batchId}}
+## GET /batches/BATCH_ID
 
 Get full batch stored in database by its `batchId`.
 
@@ -364,7 +363,7 @@ Response (JSON):
 TODO
 
 
-## DELETE /batches/{{batchId}}
+## DELETE /batches/BATCH_ID
 
 Cancel unfinished batch by its `batchId`. This will not delete their database entries.
 
