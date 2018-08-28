@@ -117,3 +117,7 @@ Run the CLI tool.
 ```bash
 ccagent connected --help
 ```
+
+### Source
+
+[github.com/curious-containers/cc-core](https://github.com/curious-containers/cc-core)
