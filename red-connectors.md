@@ -57,16 +57,32 @@ This connector can be used with the SFTP protocol via SSH.
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.1
+pip3 install --user --upgrade red-connector-ssh==0.2
 ```
 
-### Download
+### Download and Upload
 
-TODO
+| Access | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| host | string | no | | Remote host domain name or IP address |
+| port | integer | yes | 22 | TCP port of SSH service on remote host |
+| username | string | no | | Username |
+| password | string | no | | Password |
+| fileDir | string | no | | File directory on remote host |
+| fileName | string | no | | File name on remote host |
 
-### Upload
 
-TODO
+```yaml
+pyModule: "red_connectors_ssh.sftp"
+pyClass: "Sftp"
+access:
+  host: "example.com"
+  port: 22
+  username: "username"
+  password: "password"
+  fileDir: "/home/username/files"
+  fileName: "data.csv"
+```
 
 
 ## XNAT HTTP
