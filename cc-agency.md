@@ -127,9 +127,8 @@ socket = /home/cc/.cache/cc-agency-broker.sock
 wsgi-file = /home/cc/.local/lib/python3.6/site-packages/cc_agency/broker/app.py
 uid = cc
 gid = cc
-processes = 4 
+processes = 4
 lazy-apps = True
-worker-reload-mercy = 4
 ```
 
 ### MongoDB User
