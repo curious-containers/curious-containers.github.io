@@ -545,7 +545,7 @@ Before the experiment can be executed, the file server needs to be started.
 
 ```bash
 # start server as background job
-faice file-server --bind-host=172.17.0.1 &
+faice file-server &
 ```
 
 
