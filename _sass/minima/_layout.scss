@@ -8,8 +8,11 @@
 
   // Positioning context for the mobile navigation icon
   position: relative;
+
+  background-color: #9ec3d7;
 }
 
+/*
 .site-title {
   @include relative-font-size(1.625);
   font-weight: 300;
@@ -22,6 +25,12 @@
   &:visited {
     color: $grey-color-dark;
   }
+}
+*/
+
+header img {
+  height: 100%;
+  float: left;
 }
 
 .site-nav {
