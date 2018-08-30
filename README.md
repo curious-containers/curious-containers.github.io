@@ -1,5 +1,3 @@
-![Curious Containers Logo](images/logo.svg)
-
 Welcome to the **Curious Containers** project and its **RED** file format for reproducible experiments.
 
 RED (Reproducible Experiment Description) is a JSON or YAML based file format to describe data-driven experiments. A RED file allows researchers to share or publish their computational experiments, such that others can reproduce the results or customize the experiments. A minimal RED file consists of an application's commandline interface (CLI) description in [Common Workflow Language](https://www.commonwl.org/v1.0/CommandLineTool.html) (CWL) syntax, as well as CLI arguments and input file references.
