@@ -14,7 +14,7 @@ If you are new to RED and Curious Containers, please work through the [RED Begin
 
 It is advised to test and validate your RED files and containers locally with [CC-FAICE](cc-faice.md).
 
-In order to make your **resources** referenced in a RED file, like a Docker image and input/output file locations, available to a remote Docker cluster, they have to be **published** in an appropriate way. This means that Docker images have to be uploaded to a Docker registry, like the official [DockerHub](https://hub.docker.com/) or a private [registry](https://docs.docker.com/registry/), and that data exchange must be handled through a data management system (DMS) via the network. We provide [RED connector](#red-connectors.md) plugins for secure file exchange protocols and the [XNAT](https://www.xnat.org/) DMS. Of course, as demanded by the [FAIR princibles](https://www.force11.org/fairprinciples), common authentication mechanisms are supported for Docker registry and data connections to protect your files in transit.
+In order to make your **resources** referenced in a RED file, like a Docker image and input/output file locations, available to a remote Docker cluster, they have to be **published** in an appropriate way. This means that Docker images have to be uploaded to a Docker registry, like the official [DockerHub](https://hub.docker.com/) or a private [registry](https://docs.docker.com/registry/), and that data exchange must be handled through a data management system (DMS) via the network. We provide [RED connector](#red-connectors.md) plugins for secure file exchange protocols and the [XNAT](https://www.xnat.org/) DMS. Of course, as demanded by the [FAIR princibles](https://www.force11.org/fairprinciples), common authentication mechanisms are supported for Docker registry and data connections.
 
 As a positive side-effect, your experiments do not rely on any local files, which allows you to share and store your RED files in a **reproducible** way.
 
@@ -24,7 +24,7 @@ As a technical necessity, you are required to send your Docker image and data ac
 
 To improve data protection you should use **temporary credentials** whenever possible.
 
-CC-Agency will store these in its database. We plan to implement an automatic removal of credentials, which will delete these entries from the database after the processing of the corresponding experiment is finished (as of version 5.2.0, this is feature is **not yet available**).
+CC-Agency will store credentials temporarily in its database. As soon as a batch is processed, the values of **protected keys** under the `access` data in the connector sections of a batch are **overwritten** with `VOID` in the database. By default, only `password` is considered a protected key. You can specify a list of additional protected keys as `execution.settings.protectedKeys` (e.g. `['username', 'url']`) in the RED json data, before posting it to CC-Agency.
 
 All data handling is done inside of Docker containers. The container file systems are deleted after processing, leaving no traces of your data on remote servers.
 
@@ -73,7 +73,7 @@ sudo useradd -ms /bin/bash cc
 Install Python packages for user `cc`.
 
 ```bash
-pip3 install --user --upgrade cc-agency==5.2.0
+pip3 install --user --upgrade cc-agency==5.2.1
 source ~/.profile
 ```
 
