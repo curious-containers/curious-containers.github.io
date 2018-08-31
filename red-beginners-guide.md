@@ -359,7 +359,7 @@ RUN apt-get update \
 # install cc-core
 USER cc
 
-RUN pip3 install --no-input --user cc-core==5.2.1
+RUN pip3 install --no-input --user cc-core==5.2.2
 
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
@@ -371,7 +371,7 @@ ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
 
 As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.3-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
-As a first step, `python3-pip` is installed from Debian repositories, then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user, installs `cc-core==5.2.1` and explicitely sets required environment variables. Again, to ensure reproducible builds, it is advised to specify a certain version of `cc-core`. The last step is to install the application itself. In this case the `grepwrap` script is added to the image.
+As a first step, `python3-pip` is installed from Debian repositories, then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user, installs `cc-core==5.2.2` and explicitely sets required environment variables. Again, to ensure reproducible builds, it is advised to specify a certain version of `cc-core`. The last step is to install the application itself. In this case the `grepwrap` script is added to the image.
 
 Please note, that installing `cc-core` is necessary for compatibility with Curious Containers. This package provides the `ccagent` script with all the functionality demonstrated in this guide.
 
