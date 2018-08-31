@@ -2,7 +2,7 @@
 
 This is a documentation of the available REST API endpoints of CC-Agency. 
 
-**Before using** the CC-Agency API, you should read the [user information](cc-agency.md#user-information) and [data protection](cc-agency.md#data-protection) sections in the CC-Agency documentation.
+**Before using** the CC-Agency API, you should read the [user information](cc-agency.md#user-information) and [data security](cc-agency.md#data-security) sections in the CC-Agency documentation.
 
 Usage examples are provided as Python code. Install and import the following Python modules to prepare for the examples.
 
@@ -222,9 +222,9 @@ Count experiments stored in database.
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| username | string | yes | Filter by username. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| username | string | yes | | Filter by username. |
 
 Request (Python):
 
@@ -250,17 +250,18 @@ List experiments stored in database sorted by registration time in descending or
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| skip | integer >= 0 | yes | Skip a certain number of experiments. |
-| limit | integer >= 1 | yes | Limit the amount of experiments returned. |
-| username | string | yes | Filter by username. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| skip | integer >= 0 | yes | 0 |Skip a certain number of experiments. |
+| limit | integer >= 1 | yes | | Limit the amount of experiments returned. |
+| ascending | boolean | yes | False | Sort results by registrationTime in ascending order. Order is descending (newest first) by default. |
+| username | string | yes | | Filter by username. |
 
 Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments',
+    'http://localhost/experiments?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
@@ -298,12 +299,12 @@ Count batches stored in database.
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| username | string | yes | Filter by username. |
-| node | string | yes | Filter by node. |
-| state | string | yes | Filter by state. |
-| experimentId | string | yes | Filter by experimentId. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| username | string | yes | | Filter by username. |
+| node | string | yes | | Filter by node. |
+| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):
 
@@ -329,20 +330,21 @@ List batches stored in database sorted by registration time in descending order.
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| skip | integer >= 0 | yes | Skip a certain number of experiments. |
-| limit | integer >= 1 | yes | Limit the amount of experiments returned. |
-| username | string | yes | Filter by username. |
-| node | string | yes | Filter by node. |
-| state | string | yes | Filter by state. |
-| experimentId | string | yes | Filter by experimentId. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| skip | integer >= 0 | yes | 0 |Skip a certain number of experiments. |
+| limit | integer >= 1 | yes | | Limit the amount of experiments returned. |
+| ascending | boolean | yes | False | Sort results by registrationTime in ascending order. Order is descending (newest first) by default. |
+| username | string | yes | | Filter by username. |
+| node | string | yes | | Filter by node. |
+| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches',
+    'http://localhost/batches?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
