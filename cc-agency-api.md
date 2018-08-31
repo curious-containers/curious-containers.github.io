@@ -260,7 +260,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments',
+    'http://localhost/experiments?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
@@ -343,7 +343,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches',
+    'http://localhost/batches?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
