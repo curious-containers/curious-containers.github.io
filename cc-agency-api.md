@@ -2,7 +2,7 @@
 
 This is a documentation of the available REST API endpoints of CC-Agency. 
 
-**Before using** the CC-Agency API, you should read the [user information](cc-agency.md#user-information) and [data protection](cc-agency.md#data-protection) sections in the CC-Agency documentation.
+**Before using** the CC-Agency API, you should read the [user information](cc-agency.md#user-information) and [data security](cc-agency.md#data-security) sections in the CC-Agency documentation.
 
 Usage examples are provided as Python code. Install and import the following Python modules to prepare for the examples.
 
