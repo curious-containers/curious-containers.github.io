@@ -221,9 +221,9 @@ Count experiments stored in database.
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| username | string | yes | Filter by username. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| username | string | yes | | Filter by username. |
 
 Request (Python):
 
@@ -249,11 +249,12 @@ List experiments stored in database sorted by registration time in descending or
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| skip | integer >= 0 | yes | Skip a certain number of experiments. |
-| limit | integer >= 1 | yes | Limit the amount of experiments returned. |
-| username | string | yes | Filter by username. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| skip | integer >= 0 | yes | 0 |Skip a certain number of experiments. |
+| limit | integer >= 1 | yes | | Limit the amount of experiments returned. |
+| ascending | boolean | yes | False | Sort results by registrationTime in ascending order. Order is descending (newest first) by default. |
+| username | string | yes | | Filter by username. |
 
 Request (Python):
 
@@ -297,12 +298,12 @@ Count batches stored in database.
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| username | string | yes | Filter by username. |
-| node | string | yes | Filter by node. |
-| state | string | yes | Filter by state. |
-| experimentId | string | yes | Filter by experimentId. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| username | string | yes | | Filter by username. |
+| node | string | yes | | Filter by node. |
+| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):
 
@@ -328,14 +329,15 @@ List batches stored in database sorted by registration time in descending order.
 
 URL parameters:
 
-| Parameter | Type | Optional | Description |
-| --- | --- | --- | --- |
-| skip | integer >= 0 | yes | Skip a certain number of experiments. |
-| limit | integer >= 1 | yes | Limit the amount of experiments returned. |
-| username | string | yes | Filter by username. |
-| node | string | yes | Filter by node. |
-| state | string | yes | Filter by state. |
-| experimentId | string | yes | Filter by experimentId. |
+| Parameter | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| skip | integer >= 0 | yes | 0 |Skip a certain number of experiments. |
+| limit | integer >= 1 | yes | | Limit the amount of experiments returned. |
+| ascending | boolean | yes | False | Sort results by registrationTime in ascending order. Order is descending (newest first) by default. |
+| username | string | yes | | Filter by username. |
+| node | string | yes | | Filter by node. |
+| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):
 
