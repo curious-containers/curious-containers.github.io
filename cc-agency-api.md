@@ -104,7 +104,7 @@ Response (JSON):
 ```json
 {
     "agencyVersion": "5.3.0",
-    "coreVersion": "5.3.0"
+    "coreVersion": "5.3.1"
 }
 ```
 
