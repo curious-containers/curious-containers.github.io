@@ -191,7 +191,6 @@ execution:
   engine: "ccagency"
   settings:
     disablePull: True
-    protectedKeys: ['username', 'url']
 ```
 
 Request (Python):

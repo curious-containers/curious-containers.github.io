@@ -24,7 +24,7 @@ As a technical necessity, you are required to send your Docker image and data ac
 
 To improve data protection you should use **temporary credentials** whenever possible.
 
-CC-Agency will store credentials temporarily in its database. As soon as a batch is processed, the values of **protected keys** under the `access` data in the connector sections of a batch are **overwritten** with `VOID` in the database. By default, only `password` is considered a protected key. You can specify a list of additional protected keys as `execution.settings.protectedKeys` (e.g. `['username', 'url']`) in the RED json data, before posting it to CC-Agency.
+CC-Agency will store credentials temporarily in its database. As soon as the processing of a batch or experiment finishes, the values of **protected keys** under the `access` data in the connector sections and under the `auth` data in the engine sections are **overwritten** in the database. By default, only `password` is considered a protected key. You can protect other keys if they refer to string values, by prepending `_` (e.g. `_username`) in the RED data (see [Protected Keys](red-format.md#protected-keys)), before posting it to CC-Agency.
 
 All data handling is done inside of Docker containers. The container file systems are deleted after processing, leaving no traces of your data on remote servers.
 
