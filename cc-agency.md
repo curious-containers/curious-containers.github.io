@@ -73,7 +73,7 @@ sudo useradd -ms /bin/bash cc
 Install Python packages for user `cc`.
 
 ```bash
-pip3 install --user --upgrade cc-agency==5.3.3
+pip3 install --user --upgrade cc-agency==5.3.4
 source ~/.profile
 ```
 

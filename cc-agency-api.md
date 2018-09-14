@@ -103,7 +103,7 @@ Response (JSON):
 
 ```json
 {
-    "agencyVersion": "5.3.3",
+    "agencyVersion": "5.3.4",
     "coreVersion": "5.3.1"
 }
 ```
