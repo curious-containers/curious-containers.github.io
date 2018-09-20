@@ -73,7 +73,7 @@ sudo useradd -ms /bin/bash cc
 Install Python packages for user `cc`.
 
 ```bash
-pip3 install --user --upgrade cc-agency==5.3.4
+pip3 install --user --upgrade cc-agency==5.3.5
 source ~/.profile
 ```
 
@@ -105,7 +105,7 @@ controller:
   bind_port: 6001
   docker:
     core_image:
-      url: "docker.io/curiouscontainers/cc-core:5.3.1"
+      url: "docker.io/curiouscontainers/cc-core:5.3.2"
       disable_pull: False
     nodes: {}
   scheduling:
