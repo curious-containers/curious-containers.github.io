@@ -158,6 +158,13 @@ cli:
         glob: "out.txt"
       doc: "Query results."
 
+container:
+  engine: "docker"
+  settings:
+    image:
+      url: "docker.io/copla/grepwrap:5.3.2"
+    ram: 256
+
 inputs:
   query_term: "QU"
   text_file:
@@ -175,22 +182,15 @@ outputs:
     class: "File"
     connector:
       pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      pyClass: "HttpMockSend"
       access:
-        url: "http://172.17.0.1:5000/server-out.txt"
+        url: "https://example.com/out.txt"
         method: "POST"
-
-container:
-  engine: "docker"
-  settings:
-    image:
-      url: "grepwrap-image"
-    ram: 256
 
 execution:
   engine: "ccagency"
   settings:
-    disablePull: True
+    disablePull: False
 ```
 
 Request (Python):
@@ -265,10 +265,6 @@ requests.get(
 )
 ```
 
-Response (JSON):
-
-TODO
-
 
 ## GET /experiments/EXPERIMENT_ID
 
@@ -284,10 +280,6 @@ requests.get(
     auth=(guest, guest)
 )
 ```
-
-Response (JSON):
-
-TODO
 
 
 ## GET /batches/count
@@ -348,10 +340,6 @@ requests.get(
 )
 ```
 
-Response (JSON):
-
-TODO
-
 
 ## GET /batches/BATCH_ID
 
@@ -368,10 +356,6 @@ requests.get(
 )
 ```
 
-Response (JSON):
-
-TODO
-
 
 ## DELETE /batches/BATCH_ID
 
@@ -387,10 +371,6 @@ requests.delete(
     auth=(guest, guest)
 )
 ```
-
-Response (JSON):
-
-TODO
 
 
 ## GET /nodes
