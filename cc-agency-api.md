@@ -40,7 +40,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/'
+    'https://example.com/'
 )
 ```
 
@@ -60,7 +60,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/token',
+    'https://example.com/token',
     auth=('guest', 'guest')
 )
 ```
@@ -80,7 +80,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/version',
+    'https://example.com/version',
     auth=('guest', 'd474a3d73a57e5636b070b03eee8ac2a0d8c302798ffd38f')
 )
 ```
@@ -94,7 +94,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/version',
+    'https://example.com/version',
     auth=('guest', 'guest')
 )
 ```
@@ -200,7 +200,7 @@ with open('red.yml') as f:
     red = yaml.load(f)
 
 requests.post(
-    'http://localhost/red',
+    'https://example.com/red',
     auth=(guest, guest),
     json=red
 )
@@ -229,7 +229,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments/count',
+    'https://example.com/experiments/count',
     auth=(guest, guest)
 )
 ```
@@ -260,7 +260,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments?ascending=true&limit=10',
+    'https://example.com/experiments?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
@@ -276,7 +276,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments/5b7b2c98aafce967d9e2709b',
+    'https://example.com/experiments/5b7b2c98aafce967d9e2709b',
     auth=(guest, guest)
 )
 ```
@@ -301,7 +301,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches/count',
+    'https://example.com/batches/count',
     auth=(guest, guest)
 )
 ```
@@ -335,7 +335,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches?ascending=true&limit=10',
+    'https://example.com/batches?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
@@ -351,7 +351,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches/5b7b2c98aafce967d9e2709c',
+    'https://example.com/batches/5b7b2c98aafce967d9e2709c',
     auth=(guest, guest)
 )
 ```
@@ -367,7 +367,7 @@ Request (Python):
 
 ```python
 requests.delete(
-    'http://localhost/batches/5b7b2c98aafce967d9e2709c',
+    'https://example.com/batches/5b7b2c98aafce967d9e2709c',
     auth=(guest, guest)
 )
 ```
@@ -381,7 +381,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/nodes',
+    'https://example.com/nodes',
     auth=(guest, guest)
 )
 ```
