@@ -32,7 +32,7 @@ This paper describes a data processing platform based on XNAT as a data manageme
 In this paper we analyze our existing data processing platform and its individual software components in terms of the reproducibility of data-driven experiments guided by the [FAIR principles]((https://www.force11.org/fairprinciples)). It adresses the problem of reproducing these experiments in the scope of the platform, but also proposes a way to describe experiments in a way that they can be shared more easily and that enables other researchers to execute and derive experiments independently of the platform. The successor of the prototypical FAICE data format proposed in the paper is [RED](red-format.md) (Reproducible Experiment Description). The [FAICE](https://github.com/curious-containers/faice) (Fair Collaboration and Experiments) client software prototype is since deprecated and has been replaced by [CC-FAICE](cc-faice.md).
 
 ```bibtex
-@inproceedings{Jansen2017,
+@InProceedings{Jansen2017,
    author = {Jansen, Christoph and Beier, Maximilian and Witt, Michael and Frey, Sonja and Krefting, Dagmar},
    title = {Towards Reproducible Research in a Biomedical Collaboration Platform Following the FAIR Guiding Principles},
    booktitle = {Companion Proceedings of the10th International Conference on Utility and Cloud Computing},
