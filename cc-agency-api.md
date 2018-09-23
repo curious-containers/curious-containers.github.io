@@ -40,7 +40,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/'
+    'https://example.com/'
 )
 ```
 
@@ -60,7 +60,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/token',
+    'https://example.com/token',
     auth=('guest', 'guest')
 )
 ```
@@ -80,7 +80,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/version',
+    'https://example.com/version',
     auth=('guest', 'd474a3d73a57e5636b070b03eee8ac2a0d8c302798ffd38f')
 )
 ```
@@ -94,7 +94,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/version',
+    'https://example.com/version',
     auth=('guest', 'guest')
 )
 ```
@@ -103,8 +103,8 @@ Response (JSON):
 
 ```json
 {
-    "agencyVersion": "5.3.4",
-    "coreVersion": "5.3.1"
+    "agencyVersion": "5.3.5",
+    "coreVersion": "5.3.2"
 }
 ```
 
@@ -158,6 +158,13 @@ cli:
         glob: "out.txt"
       doc: "Query results."
 
+container:
+  engine: "docker"
+  settings:
+    image:
+      url: "docker.io/copla/grepwrap:5.3.2"
+    ram: 256
+
 inputs:
   query_term: "QU"
   text_file:
@@ -175,22 +182,15 @@ outputs:
     class: "File"
     connector:
       pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      pyClass: "HttpMockSend"
       access:
-        url: "http://172.17.0.1:5000/server-out.txt"
+        url: "https://example.com/out.txt"
         method: "POST"
-
-container:
-  engine: "docker"
-  settings:
-    image:
-      url: "grepwrap-image"
-    ram: 256
 
 execution:
   engine: "ccagency"
   settings:
-    disablePull: True
+    disablePull: False
 ```
 
 Request (Python):
@@ -200,7 +200,7 @@ with open('red.yml') as f:
     red = yaml.load(f)
 
 requests.post(
-    'http://localhost/red',
+    'https://example.com/red',
     auth=(guest, guest),
     json=red
 )
@@ -229,7 +229,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments/count',
+    'https://example.com/experiments/count',
     auth=(guest, guest)
 )
 ```
@@ -260,14 +260,10 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments?ascending=true&limit=10',
+    'https://example.com/experiments?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
-
-Response (JSON):
-
-TODO
 
 
 ## GET /experiments/EXPERIMENT_ID
@@ -280,14 +276,10 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/experiments/5b7b2c98aafce967d9e2709b',
+    'https://example.com/experiments/5b7b2c98aafce967d9e2709b',
     auth=(guest, guest)
 )
 ```
-
-Response (JSON):
-
-TODO
 
 
 ## GET /batches/count
@@ -309,7 +301,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches/count',
+    'https://example.com/batches/count',
     auth=(guest, guest)
 )
 ```
@@ -343,14 +335,10 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches?ascending=true&limit=10',
+    'https://example.com/batches?ascending=true&limit=10',
     auth=(guest, guest)
 )
 ```
-
-Response (JSON):
-
-TODO
 
 
 ## GET /batches/BATCH_ID
@@ -363,14 +351,10 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/batches/5b7b2c98aafce967d9e2709c',
+    'https://example.com/batches/5b7b2c98aafce967d9e2709c',
     auth=(guest, guest)
 )
 ```
-
-Response (JSON):
-
-TODO
 
 
 ## DELETE /batches/BATCH_ID
@@ -383,14 +367,10 @@ Request (Python):
 
 ```python
 requests.delete(
-    'http://localhost/batches/5b7b2c98aafce967d9e2709c',
+    'https://example.com/batches/5b7b2c98aafce967d9e2709c',
     auth=(guest, guest)
 )
 ```
-
-Response (JSON):
-
-TODO
 
 
 ## GET /nodes
@@ -401,7 +381,7 @@ Request (Python):
 
 ```python
 requests.get(
-    'http://localhost/nodes',
+    'https://example.com/nodes',
     auth=(guest, guest)
 )
 ```

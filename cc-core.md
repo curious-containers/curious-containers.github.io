@@ -25,7 +25,7 @@ sudo dnf install python3-pip
 It is recommended to install a specific version of `cc-core`.
 
 ```bash
-pip3 install --user --upgrade cc-core==5.3.1
+pip3 install --user --upgrade cc-core==5.3.2
 ```
 
 Run CLI tool.
@@ -57,25 +57,25 @@ USER cc
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
 
-RUN pip3 install --no-input --user cc-core==5.3.1
+RUN pip3 install --no-input --user cc-core==5.3.2
 ```
 
 Build with Docker.
 
 ```bash
-docker build -t cc-core:5.3.1 .
+docker build -t cc-core:5.3.2 .
 ```
 
 Run a container based on the image.
 
 ```bash
-docker run cc-core:5.3.1 ccagent --help
+docker run cc-core:5.3.2 ccagent --help
 ```
 
 Use as a base image for other application images in another Dockerfile.
 
 ```
-FROM cc-core:5.3.1
+FROM cc-core:5.3.2
 
 # add instructions to install your own application
 ```

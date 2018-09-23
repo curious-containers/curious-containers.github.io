@@ -110,7 +110,7 @@ The next steps of this guide, will demonstrate the formalization of the experime
 Install the current version of `cc-faice`, which will also install a compatible version of `cc-core` as a dependency.
 
 ```bash
-pip3 install --user cc-faice==5.3.0
+pip3 install --user cc-faice==5.3.1
 ```
 
 
@@ -359,7 +359,7 @@ RUN apt-get update \
 # install cc-core
 USER cc
 
-RUN pip3 install --no-input --user cc-core==5.3.1
+RUN pip3 install --no-input --user cc-core==5.3.2
 
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
