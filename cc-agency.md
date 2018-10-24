@@ -172,6 +172,7 @@ User=cc
 Group=cc
 ExecStart=/home/cc/.local/bin/ccagency-controller
 Restart=no
+Environment=PYTHONUNBUFFERED=1
 
 [Install]
 WantedBy=multi-user.target
