@@ -20,10 +20,10 @@ Docker makes it possible to run the applications specified in the RED file in an
 To run your application inside a docker container you have to specify which docker image to use.
 
 This docker image should meet the following conditions:
-- Should contain a linux user with name "cc"
+- Should contain a linux user with name `cc`
 - You should be able to run `ccagent --version` inside a container using this image
 - You should be able to run your application inside a container using this image
-- The image should be accessible from where you want to start your container
+- The image should be accessible from where you want to start your container  
   (For example via `docker pull <image-name>`)
 
 Information about how to build such an image can be found in the [RED Beginners Guide](https://www.curious-containers.cc/red-beginners-guide.html#container-image).
@@ -37,7 +37,7 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "grepwrap-image"
+      url: "example-image"
       auth:
         username: "username"
         password: "password"
