@@ -101,7 +101,7 @@ container:
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
-| engine | string | no | | = "docker" |
+| engine | string | no | | = "nvidia-docker" |
 | settings | dict | no | | Container information |
 | settings.image | dict | no | | The image |
 | settings.image.url | string | no | | The URL of the image |
