@@ -11,6 +11,8 @@ The following documentation refers to the official RED connectors.
 | Connector |
 | --- |
 | [HTTP](#http) |
+| [HTTP JSON](#http-json) |
+| [HTTP Mock Send](#http-mock-send) |
 | [SSH SFTP](#ssh-sftp) |
 | [XNAT HTTP](#xnat-http) |
 
@@ -47,6 +49,40 @@ access:
     password: "password"
     method: "BASIC"
   disableSSLVerification: False
+```
+
+
+## HTTP JSON
+
+This connector can be used to send and receive JSON via HTTP and HTTPS connections. Only works with valid JSON files and sets the correct JSON content type, but is otherwise equivalent to the standard [HTTP](#http) connector.
+
+### Installation
+
+Not required, because this connector is included in [CC-Core](cc-core.md).
+
+### Download and Upload
+
+```yaml
+pyModule: "cc_core.commons.connectors.http"
+pyClass: "HttpJson"
+# refer to HTTP connector for more details
+```
+
+
+## HTTP Mock Send
+
+This connector can be used for HTTP and HTTPS connections. This connector is derived from the [HTTP](#http) connector and overrides the `send` method to not do anything. It is only useful for testing.
+
+### Installation
+
+Not required, because this connector is included in [CC-Core](cc-core.md).
+
+### Download and Upload
+
+```yaml
+pyModule: "cc_core.commons.connectors.http"
+pyClass: "HttpMockSend"
+# refer to HTTP connector for more details
 ```
 
 

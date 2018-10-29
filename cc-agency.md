@@ -38,8 +38,8 @@ The following instructions have been tested on Ubuntu 18.04 with Python 3.6. Ins
 
 ```bash
 sudo apt-get update
-sudo apt-get install python3-pip uwsgi uwsgi-plugin-python3
-sudo apt-get install apache2 libapache2-mpm-itk libapache2-mod-proxy-uwsgi
+sudo apt-get install python3-pip python3-venv uwsgi uwsgi-plugin-python3
+sudo apt-get install apache2 libapache2-mod-proxy-uwsgi
 ```
 
 ### MongoDB
@@ -66,6 +66,35 @@ Create a new system user called `cc`. CC-Agency will run under the privileges of
 sudo useradd -ms /bin/bash cc
 ```
 
+If this tool cannot be found, you should modify `PATH` (e.g. append `${HOME}/.local/bin`).
+
+### UWSGI Configuration
+
+*As admin user.*
+
+```bash
+sudo mkdir -p /opt/ccagency/privileged /opt/ccagency/unprivileged
+sudo chown www-data:www-data /opt/ccagency/unprivileged
+```
+
+Create `/opt/ccagency/privileged/ccagency-broker.ini` for uwsgi. The `wsgi-file` path may vary for your version of Python 3.
+
+```ini
+[uwsgi]
+plugins = python3
+chown-socket = www-data:www-data
+socket = /opt/ccagency/unprivileged/ccagency-broker.sock
+wsgi-file = /home/cc/ccagency-venv/lib/python3.5/site-packages/cc_agency/broker/app.py
+uid = cc
+gid = cc
+processes = 4
+lazy-apps = True
+
+if-env = VIRTUAL_ENV
+virtualenv = %(_)
+endif =
+```
+
 ### Python Packages
 
 *As cc user.*
@@ -73,8 +102,10 @@ sudo useradd -ms /bin/bash cc
 Install Python packages for user `cc`.
 
 ```bash
-pip3 install --user --upgrade cc-agency==5.3.5
-source ~/.profile
+python3 -m venv ~/ccagency-venv
+source ~/ccagency-venv/bin/activate
+pip install wheel
+pip install cc-agency
 ```
 
 Run CLI tool.
@@ -83,9 +114,8 @@ Run CLI tool.
 ccagency --help
 ```
 
-If this tool cannot be found, you should modify `PATH` (e.g. append `${HOME}/.local/bin`).
 
-### Configuration
+### CC-Agency Configuration
 
 *As cc user.*
 
@@ -116,19 +146,6 @@ mongo:
   db: "ccagency"
   username: "ccadmin"
   password: "SECRET"
-```
-
-Create `~/.config/cc-agency-broker.ini` for uwsgi.
-
-```ini
-[uwsgi]
-plugins = python3
-socket = /home/cc/.cache/cc-agency-broker.sock
-wsgi-file = /home/cc/.local/lib/python3.6/site-packages/cc_agency/broker/app.py
-uid = cc
-gid = cc
-processes = 4
-lazy-apps = True
 ```
 
 ### MongoDB User
@@ -170,8 +187,9 @@ After=mongod.service
 Type=simple
 User=cc
 Group=cc
-ExecStart=/home/cc/.local/bin/ccagency-controller
+ExecStart=/home/cc/ccagency-venv/bin/ccagency-controller
 Restart=no
+Environment=PYTHONUNBUFFERED=1
 
 [Install]
 WantedBy=multi-user.target
@@ -195,10 +213,9 @@ After=ccagency-controller.service mongod.service apache2.service
 
 [Service]
 Type=simple
-User=cc
-Group=cc
-ExecStart=/usr/bin/uwsgi /home/cc/.config/cc-agency-broker.ini
+ExecStart=/usr/bin/uwsgi /opt/ccagency/privileged/ccagency-broker.ini
 Restart=no
+Environment=VIRTUAL_ENV=/home/cc/ccagency-venv
 
 [Install]
 WantedBy=multi-user.target
@@ -223,10 +240,8 @@ Listen 443
     SSLCertificateFile /opt/ssl/cert.pem
     SSLCertificateKeyFile /opt/ssl.key.pem
 
-    AssignUserId cc cc
-
     ProxyRequests Off
-    ProxyPass /cc unix:/home/cc/.cache/cc-agency-broker.sock|uwsgi://ccagency-broker/
+    ProxyPass /cc unix:/opt/ccagency/unprivileged/ccagency-broker.sock|uwsgi://ccagency-broker/
 </VirtualHost>
 ```
 
@@ -234,7 +249,6 @@ Enable Apache2 mods and site.
 
 ```bash
 sudo a2enmod ssl
-sudo a2enmod mpm_itk
 sudo a2enmod proxy_uwsgi
 
 sudo a2ensite ccagency-broker
