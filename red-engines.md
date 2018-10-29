@@ -21,9 +21,10 @@ To run your application inside a docker container you have to specify which dock
 
 This docker image should meet the following conditions:
 - Should contain a linux user with name "cc"
-- You should be able to run "ccagent --version" inside a container using this image
+- You should be able to run `ccagent --version` inside a container using this image
 - You should be able to run your application inside a container using this image
-- The image should be accessible from where you want to start your container (For example via docker pull <image-name>)
+- The image should be accessible from where you want to start your container
+  (For example via `docker pull <image-name>`)
 
 Information about how to build such an image can be found in the [RED Beginners Guide](https://www.curious-containers.cc/red-beginners-guide.html#container-image).
 
@@ -41,7 +42,7 @@ container:
         username: "username"
         password: "password"
         method: "BASIC"
-      ram: 256
+    ram: 256
 ```
 
 ### Explanation
