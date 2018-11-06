@@ -1,8 +1,0 @@
-# RED Connector SSH Guide
-
-A key aspect of Curious Containers are [connectors](red-connectors.md) which allow for complex configurations to access files. These connectors can use private user credentials to authorize access to restricted data resources. It is not recommended to store these credentials in a [RED file](red-format.md), but instead to replace this information with template variables (e.g. `password: "MY_SECRET"` becomes `password: "{{storage_password}}"`). When an experiment is executed locally with [CC-FAICE](cc-faice.md) (e.g. `faice agent red red.yml`), it will detect all template variables and asks you to enter these secrets interactively. In this case the credentials will not leave your local machine.
-
-With [CC-Agency](cc-agency.md) the situation is different, because it enables remote execution of experiments (e.g. in a cluster). This requires sending credentials to the CC-Agency server, which will store them in a database temporarily. Although CC-Agency overrides this information as soon as the experiment is finished (see section [CC-Agency | Data Security](cc-agency.md#data-security)), it is recommended to only send temporary credentials for maximum security.
-
-This guide assumes that you have access to a storage server via SSH for an unprivileged user. Usually you either need a *password* or a the *private key* of a ssh-keypair for authorization. Both are sensitive credentials, which you should not send to CC-Agency. Therefore this guide provides an alternative approach, employing your own SSH Certificate Authority (CA) to sign your public key for temporary access.
-

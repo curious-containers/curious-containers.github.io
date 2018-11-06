@@ -1,12 +1,12 @@
-# RED Engines
+# RED Container Engines
 
-RED Engines are used to execute programs in a virtual environment like a docker container.
+RED Container Engines are used to execute programs in a virtual environment like a docker container.
 There are currently two engines available in RED. The first one is "docker".
 To support nvidia GPUs there is a second engine called "nvidia-docker". If you want your application to use GPUs you have to use nvidia-docker.
 
 To use docker or nvidia-docker you first have to build a docker image with `docker build`
 (For more information see the [RED Beginners Guide](https://www.curious-containers.cc/red-beginners-guide.html#container-image) or
-the the [Docker build Documentation](https://docs.docker.com/engine/reference/commandline/build/)).
+the [Docker build Documentation](https://docs.docker.com/engine/reference/commandline/build/)).
 
 ## Table of Contents
 
@@ -16,15 +16,16 @@ the the [Docker build Documentation](https://docs.docker.com/engine/reference/co
 | [Nvidia-Docker](#nvidia-docker) |
 
 ## Docker
+
 Docker makes it possible to run the applications specified in the RED file in an isolated and secure environment.
 To run your application inside a docker container you have to specify which docker image to use.
 
 This docker image should meet the following conditions:
-- Should contain a linux user with name `cc`
-- You should be able to run `ccagent --version` inside a container using this image
-- You should be able to run your application inside a container using this image
-- The image should be accessible from where you want to start your container  
-  (For example via `docker pull <image-name>`)
+- The image must contain a Linux user with `uid:gid == 1000:1000` (usually the first user created after `root`)
+- `ccagent --version` must be executable in the container as uid:gid 1000:1000
+- Your application must be executable in the container as uid:gid 1000:1000
+- For portability the image should be downloadable from a docker registry via its URL.  
+  (For example via `docker pull <image-url>`)
 
 Information about how to build such an image can be found in the [RED Beginners Guide](https://www.curious-containers.cc/red-beginners-guide.html#container-image).
 
@@ -45,19 +46,17 @@ container:
     ram: 256
 ```
 
-### Explanation
+### Settings
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
-| engine | string | no | | = "docker" |
-| settings | dict | no | | Container information |
-| settings.image | dict | no | | The image |
-| settings.image.url | string | no | | The URL of the image |
-| settings.image.auth | dict | yes | | Authentication information |
-| settings.image.auth.username | string | no | | Username |
-| settings.image.auth.password | string | no | | Password |
-| settings.image.auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
-| settings.ram | int | yes | | The RAM limitation for the container in MB |
+| image | dict | no | | The image |
+| image.url | string | no | | The URL of the image |
+| image.auth | dict | yes | | Authentication information |
+| image.auth.username | string | no | | Username |
+| image.auth.password | string | no | | Password |
+| image.auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
+| ram | int | yes | | The RAM limitation for the container in MB |
 
 ## Nvidia-Docker
 
@@ -97,18 +96,16 @@ container:
       count: 1
 ```
 
-### Explanation
+### Settings
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
-| engine | string | no | | = "nvidia-docker" |
-| settings | dict | no | | Container information |
-| settings.image | dict | no | | The image |
-| settings.image.url | string | no | | The URL of the image |
-| settings.image.auth | dict | yes | | Authentication information |
-| settings.image.auth.username | string | no | | Username |
-| settings.image.auth.password | string | no | | Password |
-| settings.image.auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
-| settings.ram | int | yes | | The RAM limitation for the container in MB |
-| settings.gpus.min\_vram | int | yes | | The minimal VRAM that must be present in MB |
-| settings.gpus.count | int | yes | | The number of GPUs to allocate |
+| image | dict | no | | The image |
+| image.url | string | no | | The URL of the image |
+| image.auth | dict | yes | | Authentication information |
+| image.auth.username | string | no | | Username |
+| image.auth.password | string | no | | Password |
+| image.auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
+| ram | int | yes | | The RAM limitation for the container in MB |
+| gpus.min\_vram | int | yes | | The minimal VRAM that must be present in MB |
+| gpus.count | int | yes | | The number of GPUs to allocate |
