@@ -288,6 +288,34 @@ Restart CC-Agency Controller:
 sudo systemctl restart ccagency-controller
 ```
 
+If GPUs are available on a node, they can be configured as follows.
+
+```yaml
+controller:
+  docker:
+    nodes:
+      gpu_node1:
+        base_url: "tcp://192.168.0.101:2376"
+        tls:
+          verify: "/home/cc/.docker/machine/machines/gpu_node1/ca.pem"
+          client_cert:
+            - "/home/cc/.docker/machine/machines/gpu_node1/cert.pem"
+            - "/home/cc/.docker/machine/machines/gpu_node1/key.pem"
+          assert_hostname: False
+        hardware:
+          gpus:
+            - id: 0
+              vram: 1024
+            - id: 1
+              vram: 1024
+```
+
+This configuration means that two GPUs are present on a node "gpu\_node1".
+Each GPU has 1024 MB VRAM.
+Currently only Nvidia-GPUs are supported.
+The ids shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` for example
+(see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
+
 ### Status and Logging
 
 *As admin user.*
