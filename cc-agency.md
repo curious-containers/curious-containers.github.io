@@ -288,6 +288,8 @@ Restart CC-Agency Controller:
 sudo systemctl restart ccagency-controller
 ```
 
+#### GPU Nodes
+
 If GPUs are available on a node, they can be configured as follows.
 
 ```yaml
