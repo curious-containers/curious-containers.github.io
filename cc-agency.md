@@ -280,14 +280,6 @@ controller:
         base_url: "unix://var/run/docker.sock"
 ```
 
-*As admin user.*
-
-Restart CC-Agency Controller:
-
-```bash
-sudo systemctl restart ccagency-controller
-```
-
 #### GPU Nodes
 
 If GPUs are available on a node, they can be configured as follows.
@@ -315,8 +307,16 @@ controller:
 This configuration means that two GPUs are present on a node "gpu\_node1".
 Each GPU has 1024 MB VRAM.
 Currently only Nvidia-GPUs are supported.
-The ids shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` for example
+The IDs shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` for example
 (see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
+
+*As admin user.*
+
+Restart CC-Agency Controller:
+
+```bash
+sudo systemctl restart ccagency-controller
+```
 
 ### Status and Logging
 
