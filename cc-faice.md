@@ -16,7 +16,7 @@ sudo dnf install python3-pip
 It is recommended to install a specific version of `cc-faice`. This will automatically install the latest compatible version of `cc-core`.
 
 ```bash
-pip3 install --user --upgrade cc-faice==5.3.3
+pip3 install --user --upgrade cc-faice==5.4.0
 ```
 
 Run CLI tool.

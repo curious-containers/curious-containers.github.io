@@ -135,7 +135,7 @@ controller:
   bind_port: 6001
   docker:
     core_image:
-      url: "docker.io/curiouscontainers/cc-core:5.3.2"
+      url: "docker.io/curiouscontainers/cc-core:5.4.0"
       disable_pull: False
     nodes: {}
   scheduling:
