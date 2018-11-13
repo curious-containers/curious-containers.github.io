@@ -350,7 +350,7 @@ The next step is to explicitely document the runtime environment with all requir
 Create a new file and insert the following Dockerfile description with `nano Dockerfile`.
 
 ```Dockerfile
-FROM docker.io/debian:9.3-slim
+FROM docker.io/debian:9.5-slim
 
 RUN apt-get update \
 && apt-get install -y python3-pip \
@@ -369,7 +369,7 @@ ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
 ```
 
 
-As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.3-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
+As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
 As a first step, `python3-pip` is installed from Debian repositories, then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user, installs `cc-core==5.4.0` and explicitely sets required environment variables. Again, to ensure reproducible builds, it is advised to specify a certain version of `cc-core`. The last step is to install the application itself. In this case the `grepwrap` script is added to the image.
 
@@ -379,6 +379,12 @@ Use the Docker client to build the image and name it `grepwrap-image`.
 
 ```bash
 docker build --tag grepwrap-image .
+```
+
+To check if CC-Core is configured correctly, try running `ccagent --version` in a container based on the new image.
+
+```bash
+docker run --rm -u 1000:1000 grepwrap-image ccagent --version
 ```
 
 
