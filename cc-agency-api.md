@@ -70,7 +70,7 @@ Response (JSON):
 ```json
 {
     "token": "d474a3d73a57e5636b070b03eee8ac2a0d8c302798ffd38f",
-    "valid_for_seconds": 86400
+    "validForSeconds": 86400
 }
 ```
 
