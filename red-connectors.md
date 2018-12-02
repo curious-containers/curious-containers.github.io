@@ -109,7 +109,7 @@ pip3 install --user --upgrade red-connector-ssh==0.2
 
 
 ```yaml
-pyModule: "red_connectors_ssh.sftp"
+pyModule: "red_connector_ssh.sftp"
 pyClass: "Sftp"
 access:
   host: "example.com"
@@ -154,7 +154,7 @@ pip3 install --user --upgrade red-connector-xnat==0.5
 
 
 ```yaml
-pyModule: "red_connectors_xnat.http"
+pyModule: "red_connector_xnat.http"
 pyClass: "Http"
 access:
   baseUrl: "https://example.com/xnat"
@@ -188,7 +188,7 @@ access:
 
 
 ```yaml
-pyModule: "red_connectors_xnat.http"
+pyModule: "red_connector_xnat.http"
 pyClass: "Http"
 access:
   baseUrl: "https://example.com/xnat"
@@ -224,7 +224,7 @@ access:
 
 
 ```yaml
-pyModule: "red_connectors_xnat.http"
+pyModule: "red_connector_xnat.http"
 pyClass: "Http"
 access:
   baseUrl: "https://example.com/xnat"
