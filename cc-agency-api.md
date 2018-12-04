@@ -294,7 +294,7 @@ URL parameters:
 | --- | --- | --- | --- | --- |
 | username | string | yes | | Filter by username. |
 | node | string | yes | | Filter by node. |
-| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| state | enum: registered, scheduled, processing, succeeded, failed, cancelled | yes | | Filter by state. |
 | experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):
@@ -328,7 +328,7 @@ URL parameters:
 | ascending | boolean | yes | False | Sort results by registrationTime in ascending order. Order is descending (newest first) by default. |
 | username | string | yes | | Filter by username. |
 | node | string | yes | | Filter by node. |
-| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| state | enum: registered, scheduled, processing, succeeded, failed, cancelled | yes | | Filter by state. |
 | experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):
