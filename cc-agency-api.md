@@ -70,7 +70,7 @@ Response (JSON):
 ```json
 {
     "token": "d474a3d73a57e5636b070b03eee8ac2a0d8c302798ffd38f",
-    "valid_for_seconds": 86400
+    "validForSeconds": 86400
 }
 ```
 
@@ -103,8 +103,8 @@ Response (JSON):
 
 ```json
 {
-    "agencyVersion": "5.3.6",
-    "coreVersion": "5.3.2"
+    "agencyVersion": "5.4.0",
+    "coreVersion": "5.4.0"
 }
 ```
 
@@ -162,7 +162,7 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "docker.io/copla/grepwrap:5.3.2"
+      url: "docker.io/copla/grepwrap:5.4.0"
     ram: 256
 
 inputs:
@@ -294,7 +294,7 @@ URL parameters:
 | --- | --- | --- | --- | --- |
 | username | string | yes | | Filter by username. |
 | node | string | yes | | Filter by node. |
-| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| state | enum: registered, scheduled, processing, succeeded, failed, cancelled | yes | | Filter by state. |
 | experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):
@@ -328,7 +328,7 @@ URL parameters:
 | ascending | boolean | yes | False | Sort results by registrationTime in ascending order. Order is descending (newest first) by default. |
 | username | string | yes | | Filter by username. |
 | node | string | yes | | Filter by node. |
-| state | enum: registered, processing, succeeded, failed, cancelled | yes | | Filter by state. |
+| state | enum: registered, scheduled, processing, succeeded, failed, cancelled | yes | | Filter by state. |
 | experimentId | string | yes | | Filter by experimentId. |
 
 Request (Python):

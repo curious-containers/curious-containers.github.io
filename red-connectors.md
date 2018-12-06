@@ -207,7 +207,7 @@ pip3 install --user --upgrade red-connector-ssh==0.2
 
 
 ```yaml
-pyModule: "red_connectors_ssh.sftp"
+pyModule: "red_connector_ssh.sftp"
 pyClass: "Sftp"
 access:
   host: "example.com"
@@ -225,7 +225,7 @@ access:
 
 ## XNAT HTTP
 
-This is a special purpose connector to exchange files with the [XNAT](https://www.xnat.org/) data management system. The complicate REST API of XNAT requires multiple subsequent HTTP requests (e.g. for session management), which are handled by this connector. The given access information is combined to form actual HTTP URLs.
+This is a special purpose connector to exchange files with the [XNAT](https://www.xnat.org/) data management system. The complicated REST API of XNAT requires multiple subsequent HTTP requests (e.g. for session management), which are handled by this connector. The given access information is combined to form actual HTTP URLs.
 
 ```bash
 pip3 install --user --upgrade red-connector-xnat==0.5
@@ -252,7 +252,7 @@ pip3 install --user --upgrade red-connector-xnat==0.5
 
 
 ```yaml
-pyModule: "red_connectors_xnat.http"
+pyModule: "red_connector_xnat.http"
 pyClass: "Http"
 access:
   baseUrl: "https://example.com/xnat"
@@ -286,7 +286,7 @@ access:
 
 
 ```yaml
-pyModule: "red_connectors_xnat.http"
+pyModule: "red_connector_xnat.http"
 pyClass: "Http"
 access:
   baseUrl: "https://example.com/xnat"
@@ -314,7 +314,7 @@ access:
 | xsiType | string | yes | | Container xsiType, maybe required if container does not yet exist, raises exception if existing container does not match provided xsiType |
 | resource | string | no  | | Resource ID or label |
 | file | string | no | | File name |
-| overwriteExistingFile | boolean | no | False | Overwrite file if it already exists, otherwise raises exception if file exists |
+| overwriteExistingFile | boolean | yes | False | Overwrite file if it already exists, otherwise raises exception if file exists |
 | auth | dict | no | | Authentication information |
 | auth.username | string | no | | Username |
 | auth.password | string | no | | Password |
@@ -322,7 +322,7 @@ access:
 
 
 ```yaml
-pyModule: "red_connectors_xnat.http"
+pyModule: "red_connector_xnat.http"
 pyClass: "Http"
 access:
   baseUrl: "https://example.com/xnat"
