@@ -27,7 +27,7 @@ This will fetch some files or directories to the local filesystem to make this d
 
 Let's say you have a little program like `cat`, which simply prints the content of a file to `stdout` and
 you have a file, which is online available like [this file](https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt).
-You can now specify a connector which fetches this file via http to make it accessable for your cat program.
+You can now specify a connector which fetches this file via http to make it accessible for your cat program.
 
 ### Input Files
 The following red file specifies an experiment in which the `cat` program is used to print the content of a file:
