@@ -282,7 +282,7 @@ controller:
 
 #### GPU Nodes
 
-If GPUs are available on a node, they can be configured as follows.
+If Nvidia GPUs are available on a node, they can be configured as follows.
 
 ```yaml
 controller:
@@ -306,9 +306,11 @@ controller:
 
 This configuration means that two GPUs are present on a node "gpu\_node1".
 Each GPU has 1024 MB VRAM.
-Currently only Nvidia-GPUs are supported.
+Currently only Nvidia-GPUs are supported. To make the GPUs accessable for docker, [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) has to be installed on every GPU node.
+
 The IDs shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` for example
 (see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
+
 
 *As admin user.*
 
