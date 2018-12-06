@@ -62,7 +62,7 @@ As you can see we only specified a single input `myinputfile`, which is the file
 To match this input we specify a connector with the same input key. We specify that this should fetch a file and not a directory with `class: File`.
 After this we specify the connector to fetch the input file. The `pyModule: "cc_core.commons.connectors.http"` defines the python module from where to import the connector class `pyClass: Http`.
 Every connector needs to know how to fetch the file, but different connectors with different protocols need different information. For example a connector using the ssh protocol doens't need a
-method like the connector using HTTP.
+method like the connector using HTTP. A list of the required information for each connector can be found below.
 
 ### Input Directories
 The following experiment uses the `tree` command to print the directory structure.
