@@ -10,12 +10,110 @@ The following documentation refers to the official RED connectors.
 
 | Connector |
 | --- |
+| [Introduction](#introduction) |
 | [HTTP](#http) |
 | [HTTP JSON](#http-json) |
 | [HTTP Mock Send](#http-mock-send) |
 | [SSH SFTP](#ssh-sftp) |
 | [XNAT HTTP](#xnat-http) |
+| [Implementing own Connectors](#implement-own-connectors) |
 
+## Introduction
+
+If you want to use files or directories as input for an experiment in a red file, you have to use connectors.
+There are *input* connectors and *output* connectors.
+If an input connector is specified in a red file, this connector will be executed before the actual program of the red file.
+This will fetch some files or directories to the local filesystem to make this data available to the executed program.
+
+Let's say you have a little program like `cat`, which simply prints the content of a file to `stdout` and
+you have a file, which is online available like [this file](https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt).
+You can now specify a connector which fetches this file via http to make it accessable for your cat program.
+
+Output connectors are executed after the execution of the red program, to upload the result of the experiment.
+Lets say you have written a little bash script `create_file.sh`:
+```bash
+echo "my file content" > myfile.txt
+```
+You could now specify a output connector in a red file, which simply uploads `myfile.txt` to somewhere you specify.
+
+### Input Files
+The following red file specifies an experiment in which the `cat` program is used to print the content of a file:
+
+```yml
+redVersion: "5"
+cli:
+  cwlVersion: "v1.0"
+  class: "CommandLineTool"
+  baseCommand: "cat"
+  doc: "Prints the content of a given file."
+
+  inputs:
+    myinputfile:
+      type: File
+      inputBinding:
+        position: 1
+  outputs: {}
+
+inputs:
+  myinputfile:
+    class: File
+    connector:
+      pyModule: "cc_core.commons.connectors.http"
+      pyClass: "Http"
+      access:
+        url: "https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"
+        method: "GET"
+```
+
+As you can see we only specified a single input `myinputfile`, which is the file we are going to print.
+To match this input we specify a connector with the same input key. We specify that this should fetch a file and not a directory with `class: File`.
+After this we specify the connector to fetch the input file. The `pyModule: "cc_core.commons.connectors.http"` defines the python module from where to import the connector class `pyClass: Http`.
+Every connector needs to know how to fetch the file, but different connectors with different protocols need different information. For example a connector using the ssh protocol doens't need a
+method like the connector using HTTP.
+
+### Input Directories
+The following experiment uses the `tree` command to print the directory structure.
+
+```yml
+redVersion: "5"
+cli:
+  cwlVersion: "v1.0"
+  class: "CommandLineTool"
+  baseCommand: "tree"
+  doc: "Simple Test Script"
+
+  inputs:
+    myinputdirectory:
+      type: Directory
+      inputBinding:
+        position: 1
+  outputs: {}
+
+inputs:
+  myinputdirectory:
+    class: 'Directory'
+    connector:
+      pyModule: "cc_core.commons.connectors.http"
+      pyClass: "Http"
+      access:
+        url: "https://raw.githubusercontent.com/curious-containers/cc-core/master/cc_core/"
+        method: "GET"
+    listing:
+      - class: 'File'
+        basename: 'version.py'
+      - class: 'Directory'
+        basename: 'agent'
+        listing:
+          - class: 'File'
+            basename: '__main__.py'
+```
+
+The first part of the red file is similar to the red file above. Instead of `type: File` we now have directory with `type: Directory` as input. We again use the HTTP connector.
+Next to the `connector` field there is now a `listing` field. This listing defines the subfiles and subdirectories and is only allowed for directory connectors.
+
+In this listing we have a subfile with name `version.py`. We can define as many subfiles as we want.
+Also possible are subdirectories. These can have a listing field again, where again subfiles and subdirectories can be specified.
+If a listing field is present for a connector, the connector should only fetch the files, which are specified in this listing. If no listing is present the hole directory should be fetched.
 
 ## HTTP
 
