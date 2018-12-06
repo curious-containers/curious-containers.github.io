@@ -29,13 +29,6 @@ Let's say you have a little program like `cat`, which simply prints the content 
 you have a file, which is online available like [this file](https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt).
 You can now specify a connector which fetches this file via http to make it accessable for your cat program.
 
-Output connectors are executed after the execution of the red program, to upload the result of the experiment.
-Lets say you have written a little bash script `create_file.sh`:
-```bash
-echo "my file content" > myfile.txt
-```
-You could now specify a output connector in a red file, which simply uploads `myfile.txt` to somewhere you specify.
-
 ### Input Files
 The following red file specifies an experiment in which the `cat` program is used to print the content of a file:
 
