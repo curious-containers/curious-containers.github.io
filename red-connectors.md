@@ -101,12 +101,14 @@ inputs:
             basename: '__main__.py'
 ```
 
-The first part of the red file is similar to the red file above. Instead of `type: File` we now have directory with `type: Directory` as input. We again use the HTTP connector.
-Next to the `connector` field there is now a `listing` field. This listing defines the subfiles and subdirectories and is only allowed for directory connectors.
+The first part of the red file is similar to the red file above. Instead of `type: File` we now have a directory with `type: Directory` as input. We again use the HTTP connector,
+which can be used for files and folders.  Next to the `connector` field there is now a `listing` field. This listing defines the subfiles and subdirectories and is only allowed
+for directory connectors.
 
 In this listing we have a subfile with name `version.py`. We can define as many subfiles as we want.
-Also possible are subdirectories. These can have a listing field again, where again subfiles and subdirectories can be specified.
-If a listing field is present for a connector, the connector should only fetch the files, which are specified in this listing. If no listing is present the hole directory should be fetched.
+Subdirectories are also possible. These can again have a listing field, where again subfiles and subdirectories can be specified.
+If a listing field is present for a connector, the connector should only fetch the files, which are present in the listing. If no listing is present the hole directory should be fetched.
+Some connectors like the HTTP-Connector require a listing field.
 
 ## HTTP
 
