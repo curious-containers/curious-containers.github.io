@@ -9,4 +9,4 @@ Description:   | | |                                  |--> container (registry a
                | |---------------------------------------> outputs (data access) ---------|--> RED (yaml/json) ------|
                |                                                                                                     |
                |                                                                                                     |
-Environment:   ------------------------------------------------------------------------------> cc-faice/cc-agency ---|--> execution (experiment)
+Environment:   |-----------------------------------------------------------------------------> cc-faice/cc-agency ---|--> execution (experiment)
