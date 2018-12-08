@@ -1,12 +1,13 @@
-Artifacts:     cc-core (environment) ------------|
-               | cc-connectors (data src/dst) ---|
-               | | release (software) -----------|--> container image (appliance)
-               | | |                                  |
-               | | |                                  |
-Description:   | | |                                  |--> container (registry access) ---|
-               | | |-------------------------------------> cli (CWL) ---------------------|
-               | |---------------------------------------> inputs (data access) ----------|
-               | |---------------------------------------> outputs (data access) ---------|--> RED (yaml/json) ------|
-               |                                                                                                     |
-               |                                                                                                     |
-Environment:   |-----------------------------------------------------------------------------> cc-faice/cc-agency ---|--> execution (experiment)
+ARTIFACTS ░  cc-core ──────────╮
+░░░░░░░░░░░  │ cc-connectors ──┤
+░░░░░░░░░░░  │ │ application ──┴─> container image
+             │ │ │                 │
+             │ │ │                 │
+DESCRIPTION  │ │ │                 ╰─> container (registry access) ──╮
+░░░░░░░░░░░  │ │ ╰───────────────────> cli (cwl) ────────────────────┤
+░░░░░░░░░░░  │ │                   ╭─> inputs (data access) ─────────┤
+░░░░░░░░░░░  │ ╰───────────────────┴─> outputs (data access) ────────┴─> red.yml ────╮
+             │                                                                       │
+             │                                                                       │
+ENVIRONMENT  │                                                           cc-faice/   │
+░░░░░░░░░░░  ╰─────────────────────────────────────────────────────────> cc-agency ──┴─> exec experiment
