@@ -50,12 +50,13 @@ The [Tawian platform](https://somnonetz.github.io/tawian/) provides a register o
 
 ## Source Code Repositories
 
-* [curious-containers](https://github.com/curious-containers) Github Organization
-    * [cc-core](https://github.com/curious-containers/cc-core)
-    * [cc-faice](https://github.com/curious-containers/cc-faice)
-    * [cc-agency](https://github.com/curious-containers/cc-agency)
-    * [red-connector-ssh](https://github.com/curious-containers/red-connector-ssh)
-    * [red-connector-xnat](https://github.com/curious-containers/red-connector-xnat)
+Github Organization: [curious-containers](https://github.com/curious-containers)
+
+* [cc-core](https://github.com/curious-containers/cc-core)
+* [cc-faice](https://github.com/curious-containers/cc-faice)
+* [cc-agency](https://github.com/curious-containers/cc-agency)
+* [red-connector-ssh](https://github.com/curious-containers/red-connector-ssh)
+* [red-connector-xnat](https://github.com/curious-containers/red-connector-xnat)
 
 
 ## Acknowledgements
