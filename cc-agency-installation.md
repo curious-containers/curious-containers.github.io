@@ -1,32 +1,10 @@
-# CC-Agency
+# CC-Agency Installation
 
 CC-Agency is an advanced server software, which is able to connect to a distributed cluster of docker-engines and schedules experiments defined in RED format for parallel execution.
 
 It implements two major software components: CC-Agency Broker provides a restful web API, to register experiments and to query information. CC-Agency Controller is a background process, which connects to a Docker cluster and schedules the experiments for execution.
 
 CC-Agency persists the state of experiments in MongoDB and is very fault tolerant, when it comes to failing containers, docker-engines or network connections.
-
-## User Information
-
-If you are a **user** and would like to connect to an existing installation of CC-Agency, please refer to the [REST API](cc-agency-api.md) documentation.
-
-If you are new to RED and Curious Containers, please work through the [RED Beginner's Guide](#red-beginners-guide.md) first.
-
-It is advised to test and validate your RED files and containers locally with [CC-FAICE](cc-faice.md).
-
-In order to make your **resources** referenced in a RED file, like a Docker image and input/output file locations, available to a remote Docker cluster, they have to be **published** in an appropriate way. This means that Docker images have to be uploaded to a Docker registry, like the official [DockerHub](https://hub.docker.com/) or a private [registry](https://docs.docker.com/registry/), and that data exchange must be handled through a data management system (DMS) via the network. We provide [RED connector](#red-connectors.md) plugins for secure file exchange protocols and the [XNAT](https://www.xnat.org/) DMS. Of course, as demanded by the [FAIR princibles](https://www.force11.org/fairprinciples), common authentication mechanisms are supported for Docker registry and data connections.
-
-As a positive side-effect, your experiments do not rely on any local files, which allows you to share and store your RED files in a **reproducible** way.
-
-## Data Security
-
-As a technical necessity, you are required to send your Docker image and data access credentials defined in your RED file to CC-Agency. It is therefore strongly advised to only use CC-Agency if you **trust the operator** with this sensitive data.
-
-To improve data protection you should use **temporary credentials** whenever possible.
-
-CC-Agency will store credentials temporarily in its database. As soon as the processing of a batch or experiment finishes, the values of **protected keys** under the `access` data in the connector sections and under the `auth` data in the engine sections are **overwritten** in the database. By default, only `password` is considered a protected key. You can protect other keys if they refer to string values, by prepending `_` (e.g. `_username`) in the RED data (see [Protected Keys](red-format.md#protected-keys)), before posting it to CC-Agency.
-
-All data handling is done inside of Docker containers. The container file systems are deleted after processing, leaving no traces of your data on remote servers.
 
 ## Installation
 
@@ -280,37 +258,6 @@ controller:
         base_url: "unix://var/run/docker.sock"
 ```
 
-#### GPU Nodes
-
-If Nvidia GPUs are available on a node, they can be configured as follows.
-
-```yaml
-controller:
-  docker:
-    nodes:
-      gpu_node1:
-        base_url: "tcp://192.168.0.101:2376"
-        tls:
-          verify: "/home/cc/.docker/machine/machines/gpu_node1/ca.pem"
-          client_cert:
-            - "/home/cc/.docker/machine/machines/gpu_node1/cert.pem"
-            - "/home/cc/.docker/machine/machines/gpu_node1/key.pem"
-          assert_hostname: False
-        hardware:
-          gpus:
-            - id: 0
-              vram: 1024
-            - id: 1
-              vram: 1024
-```
-
-This configuration means that two GPUs are present on a node "gpu\_node1".
-Each GPU has 1024 MB VRAM.
-Currently only Nvidia-GPUs are supported. To make the GPUs accessible for docker, [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) has to be installed on each GPU node.
-
-The IDs shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` for example
-(see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
-
 
 *As admin user.*
 
@@ -345,7 +292,3 @@ sudo journalctl -u ccagency-controller
 sudo systemctl status ccagency-broker
 sudo journalctl -u ccagency-broker
 ```
-
-### Source
-
-[github.com/curious-containers/cc-agency](https://github.com/curious-containers/cc-agency)

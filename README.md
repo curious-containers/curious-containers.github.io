@@ -7,7 +7,7 @@ Curious Containers provides a reference implementation of RED in Python (`cc-cor
 Together, RED and Curious Containers support the [FAIR principles](https://www.force11.org/fairprinciples) for reproducible research. If you are new to the project, we advise you to work through the [RED Beginner's Guide](red-beginners-guide.md).
 
 
-## Documentation *[(edit)](https://github.com/curious-containers/curious-containers.github.io)*
+## Documentation [(edit)](https://github.com/curious-containers/curious-containers.github.io)
 
 * [FAQ](faq.md)
 * [Publications](publications.md)
@@ -17,7 +17,7 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 
 * [RED Beginner's Guide](red-beginners-guide.md)
 * [RED Format](red-format.md)
-* [CC Tools](cc-tools.md)
+* [Managing Experiments](managing-experiments.md)
 * [Versions](versions.md)
 
 
@@ -34,6 +34,7 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 ### For Administrators
 
 * [CC-Agency Installation](cc-agency-installation.md)
+* [CC-Agency Advanced Configuration](cc-agency-advanced-configuration)
 
 
 ### For Developers
@@ -42,9 +43,19 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 * [Develop Custom Connectors](develop-custom-connectors.md)
 
 
-## Examples
+## RED Examples
 
-The Tawian platform provides a [register](https://somnonetz.github.io/tawian/) of reproducible experiments.
+The [Tawian platform](https://somnonetz.github.io/tawian/) provides a register of reproducible experiments.
+
+
+## Source Code Repositories
+
+* [curious-containers](https://github.com/curious-containers) Github Organization
+    * [cc-core](https://github.com/curious-containers/cc-core)
+    * [cc-faice](https://github.com/curious-containers/cc-faice)
+    * [cc-agency](https://github.com/curious-containers/cc-agency)
+    * [red-connector-ssh](https://github.com/curious-containers/red-connector-ssh)
+    * [red-connector-xnat](https://github.com/curious-containers/red-connector-xnat)
 
 
 ## Acknowledgements
