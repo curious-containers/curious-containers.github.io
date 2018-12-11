@@ -1,8 +1,19 @@
-# Development
+# Get Source Code
 
 The following instructions have been tested on Fedora 28 with Python 3.6. Instructions for other Linux distributions should be similar.
 
 All software components have dependencies defined in pyproject.toml and pyproject.lock files (see [PEP 518](https://www.python.org/dev/peps/pep-0518/)). [Poetry](https://poetry.eustace.io/) is used to work with these files, to automatically create virtual environments and to build and deploy the resulting Python packages.
+
+
+| Table of Contents |
+| --- |
+| [System Dependencies](#system-dependencies) |
+| [Python Dependencies](#python-dependencies) |
+| [Git Repositories](#git-repositories) |
+| [CC-Core](#cc-core) |
+| [CC-FAICE](#cc-faice) |
+| [CC-Agency](#cc-agency) |
+
 
 ## System Dependencies
 
@@ -16,10 +27,10 @@ sudo dnf install git python3-pip python3-venv
 
 ## Python Dependencies
 
-Use pip3 to install `poetry`, which will handle all the Python dependencies of each package.
+Install [Poetry](https://github.com/sdispater/poetry), which will handle all the Python dependencies of each package.
 
 ```bash
-pip3 install --user --upgrade poetry
+curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
 ```
 
 ## Git Repositories
@@ -32,7 +43,7 @@ git clone https://github.com/curious-containers/cc-faice.git
 git clone https://github.com/curious-containers/cc-agency.git
 ```
 
-## CC Core
+## CC-Core
 
 Use `poetry` to install Python dependencies in a virtual environment.
 
@@ -44,16 +55,16 @@ poetry install
 Run CLI modules.
 
 ```bash
-poetry run python3 -m cc_core.agent --help
+poetry run ccagent --help
 ```
 
 Most CLI modules in the Curious Containers ecosystem provide subcommands, which have their own `--help` flags for detailed usage information.
 
 ```bash
-poetry run python3 -m cc_core.agent red --help
+poetry run ccagent red --help
 ```
 
-## CC FAICE
+## CC-FAICE
 
 Use `poetry` to install Python dependencies in a virtual environment.
 
@@ -65,10 +76,10 @@ poetry install
 Run CLI modules.
 
 ```bash
-PYTHONPATH=../cc-core poetry run python3 -m cc_faice --help
+PYTHONPATH=../cc-core poetry run faice --help
 ```
 
-## CC Agency
+## CC-Agency
 
 Install additional system packages.
 
@@ -102,7 +113,7 @@ A MongoDB admin user account is created automatically by a `mongo-seed` containe
 You can only run one instance of CC-Agency Controller at a time. It provides the central scheduling component, which connectes to a cluster of docker-engines.
 
 ```bash
-PYTHONPATH=../cc-core poetry run python3 -m cc_agency.controller -c dev/cc-agency.yml
+PYTHONPATH=../cc-core poetry run ccagency-controller -c dev/cc-agency.yml
 ```
 
 ### Terminal 3 - CC-Agency Broker
@@ -118,7 +129,7 @@ PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi.ini
 Create users to authenticate with the CC-Agency Broker REST API, with or without admin privileges. Admin privileges can change the behaviour of certain API endpoints.
 
 ```bash
-PYTHONPATH=../cc-core poetry run python3 -m cc_agency.tools create-broker-user -c dev/cc-agency.yml
+PYTHONPATH=../cc-core poetry run ccagency create-broker-user -c dev/cc-agency.yml
 ```
 
 ### Create CC-Core Image
@@ -141,5 +152,5 @@ If you need to reset the database during development, run the following command 
 
 ```bash
 COLLECTIONS="experiments batches users tokens block_entries callback_tokens"
-PYTHONPATH=../cc-core poetry run python3 -m cc_agency.tools drop-db-collections -c dev/cc-agency.yml ${COLLECTIONS}
+PYTHONPATH=../cc-core poetry run ccagency drop-db-collections -c dev/cc-agency.yml ${COLLECTIONS}
 ```

@@ -2,6 +2,18 @@
 
 This tutorial explains how to create a reproducible data-driven experiment and how to document it in a Reproducible Experiment Description (RED).
 
+| Table of Contents |
+| --- |
+| [Prerequisites](#prerequisites) |
+| [Sample Application](#sample-application) |
+| [Install CC-Faice and CC-Core](#install-cc-faice-and-cc-core) |
+| [CWL (ccagent)](#cwl-ccagent) |
+| [RED (ccagent)](#red-ccagent) |
+| [Container Image](#container-image) |
+| [CWL (faice agent)](#cwl-faice-agent) |
+| [RED (faice agent)](#red-faice-agent) |
+| [CWL Compatible Export](#cwl-compatible-export) |
+
 
 ## Prerequisites
 
@@ -12,7 +24,9 @@ If a Linux distribution is not already installed on your computer, use [Vagrant]
 
 ### Vagrant VM Setup (Optional)
 
-First install Git, Vagrant and Virtualbox.
+If you don't have access to a Linux system or just don't want to install Docker by hand, you can setup a provisioned vagrant VM to follow the tutorial. This is entirely optional.
+
+First install Git, Vagrant and Virtualbox, then follow the instructions below.
 
 ```bash
 git clone https://github.com/curious-containers/red-guide-vagrant.git

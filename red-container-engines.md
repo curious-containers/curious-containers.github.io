@@ -8,12 +8,12 @@ To use docker or nvidia-docker you first have to build a docker image with `dock
 (For more information see the [RED Beginners Guide](https://www.curious-containers.cc/red-beginners-guide.html#container-image) or
 the [Docker build Documentation](https://docs.docker.com/engine/reference/commandline/build/)).
 
-## Table of Contents
 
-| Engine |
+| Table of Contents |
 | --- |
 | [Docker](#docker) |
 | [Nvidia-Docker](#nvidia-docker) |
+
 
 ## Docker
 
@@ -31,6 +31,7 @@ Information about how to build such an image can be found in the [RED Beginners 
 
 Additional you can specify hardware limitations which are applied to the container.
 
+
 ### Example Configuration
 
 ```yaml
@@ -46,6 +47,7 @@ container:
     ram: 256
 ```
 
+
 ### Settings
 
 | Access | Type | Optional | Default | Description |
@@ -58,10 +60,11 @@ container:
 | image.auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
 | ram | int | yes | | The RAM limitation for the container in MB |
 
+
 ## Nvidia-Docker
 
-To enable support for nvidia GPUs you can use the nvidia-docker engine. The configuration for nvidia-docker is similar to the docker configuration.
-Additional there are hardware requirements for GPUs. If the executing computer can't fulfill the GPU requirements the execution will not be successful.
+To enable support for nvidia GPUs you can use the nvidia-docker engine. The configuration for nvidia-docker is similar to the docker configuration. Additional there are hardware requirements for GPUs. If the executing computer can't fulfill the GPU requirements the execution will not be successful.
+
 
 ### Example Configuration
 
@@ -95,6 +98,7 @@ container:
     gpus:
       count: 1
 ```
+
 
 ### Settings
 

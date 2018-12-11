@@ -7,29 +7,39 @@ Curious Containers provides a reference implementation of RED in Python (`cc-cor
 Together, RED and Curious Containers support the [FAIR principles](https://www.force11.org/fairprinciples) for reproducible research. If you are new to the project, we advise you to work through the [RED Beginner's Guide](red-beginners-guide.md).
 
 
-## Documentation
+## Documentation *[(edit)](https://github.com/curious-containers/curious-containers.github.io)*
 
-
-* [RED Beginner's Guide](red-beginners-guide.md)
-* [RED Format](red-format.md)
-* [RED Connectors](red-connectors.md)
-* [RED Container Engines](red-container-engines.md)
-* [RED Execution Engines](red-execution-engines.md)
-* [CC-Core](cc-core.md)
-* [CC-FAICE](cc-faice.md)
-* [CC-Agency](cc-agency.md)
-* [CC-Agency API](cc-agency-api.md)
-* [Versions](versions.md)
-* [Development](development.md)
+* [FAQ](faq.md)
 * [Publications](publications.md)
 
 
-Edit this documentation [here](https://github.com/curious-containers/curious-containers.github.io).
+### Introduction
+
+* [RED Beginner's Guide](red-beginners-guide.md)
+* [RED Format](red-format.md)
+* [CC Tools](cc-tools.md)
+* [Versions](versions.md)
 
 
-## Questions?
+### For Users
 
-Feel free to post questions in the [issues area](https://github.com/curious-containers/curious-containers.github.io/issues) of Curious Containers on Github.
+* [RED Connectors for Input Files](red-connectors-input-files.md)
+* [RED Connectors for Input Directories](red-connectors-input-directories.md)
+* [RED Connectors for Output Files](red-connectors-output-files.md)
+* [RED Container Engines](red-container-engines.md)
+* [RED Execution Engines](red-execution-engines.md)
+* [CC-Agency API](cc-agency-api.md)
+
+
+### For Administrators
+
+* [CC-Agency Installation](cc-agency-installation.md)
+
+
+### For Developers
+
+* [Get Source Code](get-source-code.md)
+* [Develop Custom Connectors](develop-custom-connectors.md)
 
 
 ## Examples
