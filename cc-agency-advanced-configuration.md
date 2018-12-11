@@ -1,4 +1,4 @@
-# CC-Agency Advanced Configuration
+# CC-Agency: Advanced Configuration
 
 | Table of Contents |
 | --- |

@@ -1,3 +1,3 @@
-# RED Connectors for Input Directories
+# RED Connectors: Input Directories
 
 TODO

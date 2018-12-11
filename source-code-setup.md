@@ -1,4 +1,4 @@
-# Get Source Code
+# Source Code Setup
 
 The following instructions have been tested on Fedora 28 with Python 3.6. Instructions for other Linux distributions should be similar.
 

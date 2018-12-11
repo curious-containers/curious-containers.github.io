@@ -17,30 +17,31 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 
 * [RED Beginner's Guide](red-beginners-guide.md)
 * [RED Format](red-format.md)
+* [RED Format: Protecting Credentials](red-format-protecting-credentials.md)
 * [Managing Experiments](managing-experiments.md)
 * [Versions](versions.md)
 
 
 ### For Users
 
-* [RED Connectors for Input Files](red-connectors-input-files.md)
-* [RED Connectors for Input Directories](red-connectors-input-directories.md)
-* [RED Connectors for Output Files](red-connectors-output-files.md)
+* [RED Connectors: Input Files](red-connectors-input-files.md)
+* [RED Connectors: Input Directories](red-connectors-input-directories.md)
+* [RED Connectors: Output Files](red-connectors-output-files.md)
 * [RED Container Engines](red-container-engines.md)
 * [RED Execution Engines](red-execution-engines.md)
-* [CC-Agency API](cc-agency-api.md)
+* [CC-Agency: API](cc-agency-api.md)
 
 
 ### For Administrators
 
-* [CC-Agency Installation](cc-agency-installation.md)
-* [CC-Agency Advanced Configuration](cc-agency-advanced-configuration)
+* [CC-Agency: Installation](cc-agency-installation.md)
+* [CC-Agency: Advanced Configuration](cc-agency-advanced-configuration)
 
 
 ### For Developers
 
-* [Get Source Code](get-source-code.md)
-* [Develop Custom Connectors](develop-custom-connectors.md)
+* [Source Code Setup](source-code-setup.md)
+* [Developing Custom Connectors](developing-custom-connectors.md)
 
 
 ## RED Examples

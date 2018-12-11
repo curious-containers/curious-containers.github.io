@@ -1,3 +1,3 @@
-# RED Connectors for Output Files
+# RED Connectors: Output Files
 
 TODO

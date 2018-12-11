@@ -1,4 +1,4 @@
-# RED Connectors for Input Files
+# RED Connectors: Input Files
 
 RED connectors are Python modules, which implement download and upload functions to transfer data. You can install and use existing connectors or implement your own custom connectors for any protocol or connection type you need.
 

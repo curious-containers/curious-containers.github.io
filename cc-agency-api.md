@@ -1,4 +1,4 @@
-# CC-Agency API
+# CC-Agency: API
 
 This is a documentation of the available REST API endpoints of CC-Agency. 
 
