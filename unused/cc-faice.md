@@ -42,7 +42,3 @@ Use the following CLI tools.
 faice agent cwl --help
 faice agent red --help
 ```
-
-### Source
-
-[github.com/curious-containers/cc-faice](https://github.com/curious-containers/cc-faice)

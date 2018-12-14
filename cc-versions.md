@@ -1,6 +1,6 @@
-# Versions
+# CC: Versions
 
-All Curious Containers Python package versions consist of three distict numbers separated by `.` (e.g. `"3.2.1"`) with a `"${RED}.${CC}.${PACKAGE}"` scheme.
+All CC Python package versions consist of three distict numbers separated by `.` (e.g. `"3.2.1"`) with a `"${RED}.${CC}.${PACKAGE}"` scheme.
 
 | Table of Contents |
 | --- |

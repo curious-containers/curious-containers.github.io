@@ -66,7 +66,6 @@ The `baseCommand` is an executable program, which is located in a `PATH` (enviro
 
 ```yaml
 cli:
-  ...
   baseCommand: "command"
   ...
 ```
@@ -75,31 +74,34 @@ If you want to call a subcommand of a program, like `command subcommand`, you ca
 
 ```yaml
 cli:
-  ...
   baseCommand:
     - "command"
     - "subcommand"
-  ...
 ```
 
 Possible commandline arguments are defined under `cli.inputs`.
 
 The arguments can be of type `string`, `int`, `long`, `float`, `double`, `boolean`, `File` or `Directory`, although for technical reasons CC does not distinguish between `int` and `long` or `float` and `double`. `File` and `Directory` must be valid paths, either absolute or relative. If an argument is optional, it is marked with `?`, like `File?`. If an argument can be repeated an arbitrary number of times, this can be indicated by list symbol, like `File[]`.
 
-For example `command --optional-bool-flag --optional-int-number=32 /path/to/file /path/to/dir` can be expressed as follows.
+ Take the following program call as an example:
+ 
+ ```bash
+ command --optional-flag --optional-number=42 /required/file /required/dir
+ ```
+
+In this case the call uses two optional arguments, one is a boolean flag, the other takes an integer number. Both `/required/file` and `/required/dir` are mandatory positional arguments, at positions `0` and `1` respectively. The CWL syntax allows us to describe the CLI capabilities of the program without specifying concrete inputs. As can be seen in the listing below, the specific values like `42` or `/required/file` are not included in the CWL description. Please note, that we need to choose an arbitrary identifier, like `some_file`, for each of the arguments.
 
 ```yaml
 cli:
-  ...
   inputs:
-    bool_flag:
+    some_flag:
       type: "boolean?"
       inputBinding:
-        prefix: "--optional-bool-flag"
-    int_number:
+        prefix: "--optional-flag"
+    some_number:
       type: "int?"
       inputBinding:
-        prefix: "--optional-int-number="
+        prefix: "--optional-number="
         separate: False
     some_file:
       type: "File"
@@ -109,36 +111,94 @@ cli:
       type: "Directory"
       inputBinding:
         position: 1
-  ...
 ```
 
-Running a command should result in one or more files being written to the filesystem. The corresponding file paths are defined under `cli.outputs`.
+Running a command should result in one or more files being written to the filesystem. The corresponding file paths are defined under `cli.outputs`. Only outputs of type `File` are allowed.
 
 We assume that the command produces a CSV table and a PDF plot file. The table file is called `table.csv` and is optional. The plot file is not optional, but its full name is not known beforehand, so we can use the glob pattern
-`*.pdf`. The glob pattern must match exactly one file.
-
+`*.pdf`. **In the context of CC, any glob pattern must match exactly one file in the output directory.**
 
 ```yaml
 cli:
-  ...
   outputs:
-    table:
+    some_table:
       type: "File?"
       outputBinding:
         glob: "table.csv"
-    plot:
+    some_plot:
       type: "File"
       outputBinding:
         glob: "*.pdf"
-  ...
 ```
 
 
 ## inputs
 
+To run an experiment, concrete inputs for the CLI program have to be provided. This is done under the `inputs` keyword. Inputs can be primitive types like `int` or `boolean` or remote Files and Directories. Primitive types are just included in the RED file. As can be seen in the listing below, the indentifiers in `inputs` refer to the arbitrary identifiers in `cli.inputs` (e.g. `inputs.some_flag` refers to `cli.inputs.some_flag`).
+
+```yml
+cli:
+  inputs:
+    some_flag: ...
+    some_number: ...
+    some_file: ...
+    some_dir: ...
+
+inputs:
+  some_flag: True
+  some_number: 42
+  some_file: ...
+  some_dir: ...
+```
+
+If you want to use files or directories as input for an experiment in a RED file, you have to use so-called RED connectors. RED connectors for [input-files](red-connectors-input-files.md) and [input-directories](red-connectors-input-directories.md) exist, supporting a variety of protocols. If the available connectors do not suit you, you can implement your own in Python and easily integrate them with the [CC plugin API for connectors](developing-custom-connectors.md).
+
+Input-connectors are executed before the actual program to download files and directories to the container file-system. The download paths are provided to the programm command as CLI arguments (see section [cli](#cli)).
+
+A connector is implemented as Python class included in a Python module. The location of the module must be included in the `PYTHONPATH` evironment variable. The can be achieved by installing the module via `pip` or by adding the path manually. Module and class must be specified under the `pyModule` and `pyClass` keywords respectively. The information provided under `access` depends on the connector.
+
+You can now specify a connector which fetches this file via HTTP to make it accessible for your program. Details about the specific connectors can be found in the [documentation](#red-connectors-input-files.md).
+
+```yml
+inputs:
+  some_file:
+    class: File
+    connector:
+      pyModule: "cc_core.commons.connectors.http"
+      pyClass: "Http"
+      access:
+        url: "https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/in.txt"
+        method: "GET"
+```
+
+In order to download an entire directory, some connectors like the HTTP connector require a directory `listing`. This listing defines the subfiles and subdirectories and is only allowed for directory connectors. Even for connectors which do not strictly require a listing it is recommended to include one, because it can be used to check the directory contents for missing files and subdirectories.
+
+```yml
+inputs:
+  some_dir:
+    class: 'Directory'
+    connector:
+      pyModule: "cc_core.commons.connectors.http"
+      pyClass: "Http"
+      access:
+        url: "https://raw.githubusercontent.com/curious-containers/cc-core/master/cc_core/"
+        method: "GET"
+    listing:
+      - class: 'File'
+        basename: 'version.py'
+      - class: 'Directory'
+        basename: 'agent'
+        listing:
+          - class: 'File'
+            basename: '__main__.py'
+```
+
+Please note, that not every connector provides functionality for files and directories, but the HTTP connector can be used in both cases.
 
 
 ## outputs
+
+TODO
 
 
 ## batches
@@ -155,12 +215,16 @@ batches:
     outputs: ...
   - inputs: ...
     outputs: ...
-  ...
 containers: ...
 execution: ...
 ```
 
 ## containers
 
+TODO
+
 
 ## execution
+
+TODO
+

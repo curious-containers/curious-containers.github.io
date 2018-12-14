@@ -8,6 +8,8 @@ If you have another **question** please open an [issue on Github](https://github
 | [What is unique about CC?](#what-is-unique-about-cc) |
 | [What exactly is RED?](#what-exactly-is-red) |
 | [You mentioned CWL: Is CC a workflow engine?](#you-mentioned-cwl-is-cc-a-workflow-engine) |
+| [How does CC compare to Kubernetes?](#how-does-cc-compare-to-kubernets) |
+| [Is CC fault-tolerant?](#is-cc-fault-tolerant)|
 
 
 ## What is the purpose of the Curious Containers project?
@@ -32,3 +34,13 @@ RED (Reproducible Experiment Description), is a YAML or JSON based file format, 
 ## You mentioned CWL: Is CC a workflow engine?
 
 No, CC is not a workflow engine. The RED format only uses the CLI specification of the Common Workflow Language, but does not support any workflow specifications. Experiments supported by RED/CC must be self-contained, atomic entities and cannot reference other experiments.
+
+
+## How does CC compare to Kubernetes?
+
+Kubernetes is an container orchestration tool, CC is not. An orchestration tool is useful for server deployments, where each container runs a service (webserver, database, etc.) for an indefinite time and the orchestrator provides service discovery, scaling and fault-tolerance. CC on the other hand is specifically designed for short-lived data processing applications, handling file inputs and outputs.
+
+
+## Is CC fault-tolerant?
+
+Yes, especially CC-Agency implements multiple failure recovery mechanisms. It is programmed to catch any error, either caused by data connectors and data-processing applications or by the underlying cluster infrastructure with faulty networks, docker-engines and configurations. The error history of applications and compute nodes is documented in a database to be inspected by the user. CC-Agency performs health checks to exclude problematic compute nodes from the processing pool or to automatically rejoin them. It can be configured to retry failed experiments a certain number of times.
