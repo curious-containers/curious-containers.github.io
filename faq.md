@@ -33,7 +33,7 @@ RED (Reproducible Experiment Description), is a YAML or JSON based file format, 
 
 ## You mentioned CWL: Is CC a workflow engine?
 
-No, CC is not a workflow engine. The RED format only uses the CLI specification of the Common Workflow Language, but does not support any workflow specifications. Experiments supported by RED/CC must be self-contained, atomic entities and cannot reference other experiments.
+No, CC is not a workflow engine. The RED format only uses the CLI specification of the Common Workflow Language, but does not support any workflow specifications. Experiments supported by RED/CC must be self-contained, atomic entities and cannot reference other experiments. Multiple experiments based on the same application can be defined in a single RED file under the [batches](red-format.md#batches) keyword.
 
 
 ## How does CC compare to Kubernetes?

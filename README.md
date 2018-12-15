@@ -18,8 +18,9 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 * [RED Beginner's Guide](red-beginners-guide.md)
 * [RED Format](red-format.md)
 * [RED Format: Protecting Credentials](red-format-protecting-credentials.md)
-* [CC: Managing Experiments](cc-managing-experiments.md)
-* [CC: Versions](cc-versions.md)
+* [Container Images](container-images.md)
+* [Running Experiments](running-experiments.md)
+* [CC Versions](cc-versions.md)
 
 
 ### For Users

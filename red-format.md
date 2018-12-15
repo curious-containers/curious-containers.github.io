@@ -198,7 +198,38 @@ Please note, that not every connector provides functionality for files and direc
 
 ## outputs
 
-TODO
+Outputs of a data-processing application must be written to files. These files can then be uploaded to remote servers using various connectors. CC-Core includes a HTTP connector, but setting up an appropriate HTTP server, which can receive the file can be complicated. Since most Servers have SSH already configured, using the SSH SFTP connector is more convenient. For more information on how to install and use a different connector take a look at the Red Connectors for [output-files](red-connectors-output-files.md) documentation.
+
+Again, the output identifiers in the `outputs` section refer to the identifiers defnined under `cli.outputs`.
+
+```yaml
+cli:
+  outputs:
+    some_table: ...
+    some_plot: ...
+
+outputs:
+  some_table: ...
+  some_plot: ...
+```
+
+If you are not interested in some of the outputs, you are not required to specify a connector for them. In this case, we are only interested in `some_table` and we specify a SSH SFTP connector.
+
+```yaml
+outputs:
+  some_table:
+    class: File
+    connector:
+      pyModule: "red_connector_ssh.sftp"
+      pyClass: "Sftp"
+      access:
+        host: "example.com"
+        port: 22
+        username: "username"
+        password: "password"
+        fileDir: "/home/username/files"
+        fileName: "table.csv"
+```
 
 
 ## batches
