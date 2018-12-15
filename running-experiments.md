@@ -1,6 +1,6 @@
 # Running Experiments
 
-Working with data-driven experiments requires you to work on various levels, namely *artifacts*, *description* and *environment*.
+Working with data-driven experiments requires you to work on three levels, namely *artifacts*, *description* and *environment*.
 
 First of all you have software *artifacts*, most importantly your own CLI application. In addition, `cc-core` and required RED connectors are artifacts you need to provide. To easily distribute all artifacts, we install them in a RED compatible [container image](container-image.md). The container image is considered a derived artifact, which we can easily distribute across computers using a container image registry.
 
