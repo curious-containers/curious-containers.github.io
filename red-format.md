@@ -23,9 +23,9 @@ Option 1:
 redVersion: ...
 cli: ...
 inputs: ...
-outputs: ...     # optional for ccagent, faice
+outputs: ...    # optional for ccagent, faice
 container: ...  # optional for ccagent
-execution: ...   # optional for ccagent, faice, ccagency
+execution: ...  # optional for ccagent, faice, ccagency
 ```
 
 Option 2:
@@ -35,7 +35,7 @@ redVersion: ...
 cli: ...
 batches: ...
 container: ...  # optional for ccagent
-execution: ...   # optional for ccagent, faice, ccagency
+execution: ...  # optional for ccagent, faice, ccagency
 ```
 
 If you want to know the exact jsonschema for RED supported by Curious Containers, you can install CC-FAICE and use its `faice schema` subcommands as follows.
