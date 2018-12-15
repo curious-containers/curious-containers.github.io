@@ -30,7 +30,7 @@ outputs:
         fileName: "file_two.txt"
 ```
 
-RED supports two complementary concepts, *variables* and *protected key* to ensure the safety of credentials.
+RED supports two complementary concepts, *variables* and *protected key* to ensure the safety of credentials. This allows RED files to be easily **stored**, **published** or **shared**, without compromising any functionality.
 
 | Table of contents |
 | --- |

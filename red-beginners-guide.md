@@ -395,14 +395,15 @@ Use the Docker client to build the image and name it `grepwrap-image`.
 docker build --tag grepwrap-image .
 ```
 
-To check if CC-Core is configured correctly, try running `ccagent --version` in a container based on the new image.
+Use `docker image list` to check if the new image exists.
+
+To check if the container image is configured correctly, try running `ccagent --version` and `grepwrap --help` in a container based on the new image.
 
 ```bash
+docker run --rm -u 1000:1000 grepwrap-image whoami  # should print cc
 docker run --rm -u 1000:1000 grepwrap-image ccagent --version
+docker run --rm -u 1000:1000 grepwrap-image grepwrap --help
 ```
-
-
-Use `docker image list` to check if the new image exists.
 
 You should consider pushing the image to a registry like [DockerHub](https://hub.docker.com/) and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name `grepwrap-image`.
 
