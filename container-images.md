@@ -18,7 +18,7 @@ Since `ccagent` is implemented in the Python package `cc-core`, a Python3 interp
 
 Another requirement is, that `ccagent` and the application are executed as user with uid:gid set to `1000:1000`. The debian base image does not yet include another user besides `root`. We can therefore create the first user called `cc`, wich will by default be assigned the uid:gid pair `1000:1000`.
 
-The Dockerfile below demonstrate the correct `cc-core` setup. Please note, that this Dockerfile does not include an application to be executed by `ccagent`. For a more complete example we advise you to work through the [RED Beginner's Guide](red-beginners-guide.md).
+The Dockerfile below demonstrate the correct `cc-core` setup with two additional connector packages. Please note, that this Dockerfile does not include an application to be executed by `ccagent`. For a more complete example we advise you to work through the [RED Beginner's Guide](red-beginners-guide.md).
 
 ```Dockerfile
 FROM docker.io/debian:9.5-slim
@@ -34,6 +34,9 @@ RUN pip3 install --no-input --user cc-core==5.4.0
 
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
+
+# install additional connectors if you need them
+RUN pip3 install --no-input --user red-connector-ssh red-connector-xnat
 
 # add commands here to install your application
 ```
@@ -58,7 +61,7 @@ In your RED file you can now reference your image under `container.settings.imag
 
 ## Nvidia-Docker
 
-In order to use Cuda applications on Nvidia GPUs, you have to switch from `container.engine: "docker"` to `container.engine: "nvidia-docker` in your RED file. For more details take a look at the [nvidia-docker container engine](red-container-engines.md#nvidia-docker) documentation.
+In order to use Cuda applications on Nvidia GPUs, you have to switch from `container.engine: "docker"` to `container.engine: "nvidia-docker"` in your RED file. For more details take a look at the [nvidia-docker container engine](red-container-engines.md#nvidia-docker) documentation.
 
 The easiest way to make Cuda available to your containerized application is to start your Dockerfile with `FROM nvidia/cuda:9.0-base`. Of course the underlying host's driver and hardware must support the desired cuda version (e.g. 9.0).
 
