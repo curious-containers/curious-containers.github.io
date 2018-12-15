@@ -38,6 +38,15 @@ container: ...  # optional for ccagent
 execution: ...   # optional for ccagent, faice, ccagency
 ```
 
+If you want to know the exact jsonschema for RED supported by Curious Containers, you can install CC-FAICE and use its `faice schema` subcommands as follows.
+
+```
+pip3 install --user cc-faice
+faice --version
+faice schema list
+faice schema show red
+```
+
 Read through the following tutorial sections to learn more about each part of a RED file.
 
 
