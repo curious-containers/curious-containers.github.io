@@ -1,4 +1,4 @@
-# Running Experiments
+# Managing Experiments
 
 Working with data-driven experiments requires you to work on three levels, namely *artifacts*, *description* and *environment*.
 
@@ -25,3 +25,20 @@ DESCRIPTION  │ │                 ╰─> container (registry access) ──�
 ENVIRONMENT                                                            cc-faice/   │
 ░░░░░░░░░░░                                                            cc-agency ──┴─> exec experiment
 ```
+
+The following sections introduce CC-FAICE and CC-Agency as tools for running and managing experiments.
+
+| Table of Contents |
+| --- |
+| [CC-FAICE](#cc-faice) |
+| [CC-Agency](#cc-agency) |
+
+
+## CC-FAICE
+
+TODO
+
+
+## CC-Agency
+
+TODO
