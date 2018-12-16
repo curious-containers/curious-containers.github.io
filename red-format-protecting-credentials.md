@@ -42,6 +42,7 @@ RED supports two complementary concepts, *variables* and *protected key* to ensu
 
 In the example above, two files are sent to the same SSH server using the same user credentials. Using *variables*, this information can be replaced as follows.
 
+{% raw %}
 ```yaml
 outputs:
   file_one:
@@ -69,12 +70,15 @@ outputs:
         fileDir: "/home/username/files"
         fileName: "file_two.txt"
 ```
+{% raw %}
 
 In this case we replaced both occurrences of `myusername` with the variable `ssh_username` and both occurrences of `mypassword` with `ssh_password`. Of course the variable names can be chosen arbitrarily.
 
 If you are now using CC-FAICE CLI tools like `faice agent red` or `faice exec` it will interactively ask you once for `ssh_username` and once for `ssh_password` to insert the values.
 
+{% raw %}
 Variables can only be used with string values, which must be located somewhere under an `access` or `settings` key. The string must start with `{{` and end with `}}`, everything in between is the variable's name.
+{% raw %}
 
 
 ## Protected Keys
@@ -115,4 +119,6 @@ Here both occurences of `username` have been changed to `_username`, such that b
 
 The key `password` is a special case and therefore **always** considered to be a **protected** key. You could write `_password`, but it would be redundant.
 
-Of course protected keys can and should be used in combination with variables (e.g. `_username: "\{{ssh_username}}"`).
+{% raw %}
+Of course protected keys can and should be used in combination with variables (e.g. `_username: "{{ssh_username}}"`).
+{% raw %}
