@@ -115,4 +115,4 @@ Here both occurences of `username` have been changed to `_username`, such that b
 
 The key `password` is a special case and therefore **always** considered to be a **protected** key. You could write `_password`, but it would be redundant.
 
-Of course protected keys can and should be used in combination with variables (e.g. `_username: "{{ssh_username}}"`).
+Of course protected keys can and should be used in combination with variables (e.g. `_username: "\{\{ssh_username\}\}"`).
