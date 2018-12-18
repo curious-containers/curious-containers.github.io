@@ -1,4 +1,7 @@
-# Publications
+---
+title: Publications
+toc: true
+---
 
 ## Employing Docker Swarm on OpenStack for Biomedical Analysis (2016)
 

@@ -1,0 +1,467 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.14.1 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>CC-Agency: Installation | Curious Containers</title>
+<meta name="description" content="Curious Containers Documentation.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Curious Containers">
+<meta property="og:title" content="CC-Agency: Installation">
+<meta property="og:url" content="http://localhost:4000/docs/cc-agency-installation/">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/docs/cc-agency-installation/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Christoph Jansen and Bruno Schilling",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Curious Containers Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+
+  </head>
+
+  <body class="layout--default">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Curious Containers</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/faq/" >FAQ</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/" >Publications</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <p>CC-Agency is an advanced server software, which is able to connect to a distributed cluster of docker-engines and schedules experiments defined in RED format for parallel execution.</p>
+
+<p>It implements two major software components: CC-Agency Broker provides a restful web API, to register experiments and to query information. CC-Agency Controller is a background process, which connects to a Docker cluster and schedules the experiments for execution.</p>
+
+<p>CC-Agency persists the state of experiments in MongoDB and is very fault tolerant, when it comes to failing containers, docker-engines or network connections.</p>
+
+<h2 id="installation">Installation</h2>
+
+<p>The following instructions have been tested on Ubuntu 18.04 with Python 3.6. Instructions for other Linux distributions should be similar.</p>
+
+<h3 id="system-packages">System Packages</h3>
+
+<p><em>As admin user.</em></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt-get update
+<span class="nb">sudo </span>apt-get install python3-pip python3-venv uwsgi uwsgi-plugin-python3
+<span class="nb">sudo </span>apt-get install apache2 libapache2-mod-proxy-uwsgi
+</code></pre></div></div>
+
+<h3 id="mongodb">MongoDB</h3>
+
+<p><em>As admin user.</em></p>
+
+<p>Install MongoDB 4.0. Instructions can be found in the
+<a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/">MongoDB documentation</a>.</p>
+
+<p>After the installation of the required system packages, enable and start the service.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable </span>mongod
+<span class="nb">sudo </span>systemctl start mongod
+</code></pre></div></div>
+
+<h3 id="system-user">System User</h3>
+
+<p><em>As admin user.</em></p>
+
+<p>Create a new system user called <code class="highlighter-rouge">cc</code>. CC-Agency will run under the privileges of this user.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>useradd <span class="nt">-ms</span> /bin/bash cc
+</code></pre></div></div>
+
+<p>If this tool cannot be found, you should modify <code class="highlighter-rouge">PATH</code> (e.g. append <code class="highlighter-rouge">${HOME}/.local/bin</code>).</p>
+
+<h3 id="uwsgi-configuration">UWSGI Configuration</h3>
+
+<p><em>As admin user.</em></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>mkdir <span class="nt">-p</span> /opt/ccagency/privileged /opt/ccagency/unprivileged
+<span class="nb">sudo </span>chown www-data:www-data /opt/ccagency/unprivileged
+</code></pre></div></div>
+
+<p>Create <code class="highlighter-rouge">/opt/ccagency/privileged/ccagency-broker.ini</code> for uwsgi. The <code class="highlighter-rouge">wsgi-file</code> path may vary for your version of Python 3.</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[uwsgi]</span>
+<span class="py">plugins</span> <span class="p">=</span> <span class="s">python3</span>
+<span class="py">chown-socket</span> <span class="p">=</span> <span class="s">www-data:www-data</span>
+<span class="py">socket</span> <span class="p">=</span> <span class="s">/opt/ccagency/unprivileged/ccagency-broker.sock</span>
+<span class="py">wsgi-file</span> <span class="p">=</span> <span class="s">/home/cc/ccagency-venv/lib/python3.5/site-packages/cc_agency/broker/app.py</span>
+<span class="py">uid</span> <span class="p">=</span> <span class="s">cc</span>
+<span class="py">gid</span> <span class="p">=</span> <span class="s">cc</span>
+<span class="py">processes</span> <span class="p">=</span> <span class="s">4</span>
+<span class="py">lazy-apps</span> <span class="p">=</span> <span class="s">True</span>
+
+<span class="py">if-env</span> <span class="p">=</span> <span class="s">VIRTUAL_ENV</span>
+<span class="py">virtualenv</span> <span class="p">=</span> <span class="s">%(_)</span>
+<span class="py">endif</span> <span class="p">=</span>
+</code></pre></div></div>
+
+<h3 id="python-packages">Python Packages</h3>
+
+<p><em>As cc user.</em></p>
+
+<p>Install Python packages for user <code class="highlighter-rouge">cc</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> venv ~/ccagency-venv
+<span class="nb">source</span> ~/ccagency-venv/bin/activate
+pip install wheel
+pip install cc-agency
+</code></pre></div></div>
+
+<p>Run CLI tool.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagency <span class="nt">--help</span>
+</code></pre></div></div>
+
+<h3 id="cc-agency-configuration">CC-Agency Configuration</h3>
+
+<p><em>As cc user.</em></p>
+
+<p>Create configuration file <code class="highlighter-rouge">~/.config/cc-agency.yml</code>. Copy the following content, but choose a new strong <code class="highlighter-rouge">mongo.password</code> and save it in the file. The parameter <code class="highlighter-rouge">broker.external_url</code> should match the domain name of your server, as we will later define in the Apache2 site configuration.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">broker</span><span class="pi">:</span>
+  <span class="na">external_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://example.com/cc"</span>
+  <span class="na">auth</span><span class="pi">:</span>
+    <span class="na">num_login_attempts</span><span class="pi">:</span> <span class="s">3</span>
+    <span class="na">block_for_seconds</span><span class="pi">:</span> <span class="s">30</span>
+    <span class="na">tokens_valid_for_seconds</span><span class="pi">:</span> <span class="s">86400</span>  <span class="c1"># 24 h</span>
+
+<span class="na">controller</span><span class="pi">:</span>
+  <span class="na">external_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">tcp://127.0.0.1:6001"</span>
+  <span class="na">bind_host</span><span class="pi">:</span> <span class="s2">"</span><span class="s">127.0.0.1"</span>
+  <span class="na">bind_port</span><span class="pi">:</span> <span class="s">6001</span>
+  <span class="na">docker</span><span class="pi">:</span>
+    <span class="na">core_image</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">docker.io/curiouscontainers/cc-core:5.4.0"</span>
+      <span class="na">disable_pull</span><span class="pi">:</span> <span class="s">False</span>
+    <span class="na">nodes</span><span class="pi">:</span> <span class="pi">{}</span>
+  <span class="na">scheduling</span><span class="pi">:</span>
+    <span class="na">strategy</span><span class="pi">:</span> <span class="s1">'</span><span class="s">spread'</span>
+    <span class="na">attempts_to_fail</span><span class="pi">:</span> <span class="s">3</span>
+
+<span class="na">mongo</span><span class="pi">:</span>
+  <span class="na">db</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ccagency"</span>
+  <span class="na">username</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ccadmin"</span>
+  <span class="na">password</span><span class="pi">:</span> <span class="s2">"</span><span class="s">SECRET"</span>
+</code></pre></div></div>
+
+<h3 id="mongodb-user">MongoDB User</h3>
+
+<p><em>As cc user.</em></p>
+
+<p>Use the <code class="highlighter-rouge">ccagency</code> CLI tool, to create a new MongoDB user as specified in the <code class="highlighter-rouge">cc-agency.yml</code> configuration file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagency create-db-user
+</code></pre></div></div>
+
+<h3 id="broker-user">Broker User</h3>
+
+<p><em>As cc user.</em></p>
+
+<p>Run the interactive <code class="highlighter-rouge">ccagency</code> CLI tool, to create at least one CC-Agency Broker user. Users created with this script can authenticate with the Broker REST API.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagency create-broker-user
+</code></pre></div></div>
+
+<p>Additional users can be added at all times.</p>
+
+<h3 id="systemd-units">Systemd Units</h3>
+
+<p><em>As admin user.</em></p>
+
+<p>Create Systemd unit file <code class="highlighter-rouge">/etc/systemd/system/ccagency-controller.service</code> for CC-Agency Controller.</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[Unit]</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">CC-Agency Controller</span>
+<span class="py">Documentation</span><span class="p">=</span><span class="s">https://www.curious-containers.cc/</span>
+<span class="py">Requires</span><span class="p">=</span><span class="s">mongod.service</span>
+<span class="py">After</span><span class="p">=</span><span class="s">mongod.service</span>
+
+<span class="nn">[Service]</span>
+<span class="py">Type</span><span class="p">=</span><span class="s">simple</span>
+<span class="py">User</span><span class="p">=</span><span class="s">cc</span>
+<span class="py">Group</span><span class="p">=</span><span class="s">cc</span>
+<span class="py">ExecStart</span><span class="p">=</span><span class="s">/home/cc/ccagency-venv/bin/ccagency-controller</span>
+<span class="py">Restart</span><span class="p">=</span><span class="s">no</span>
+<span class="py">Environment</span><span class="p">=</span><span class="s">PYTHONUNBUFFERED=1</span>
+
+<span class="nn">[Install]</span>
+<span class="py">WantedBy</span><span class="p">=</span><span class="s">multi-user.target</span>
+</code></pre></div></div>
+
+<p>Enable and start <code class="highlighter-rouge">ccagency-controller</code> service.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable </span>ccagency-controller
+<span class="nb">sudo </span>systemctl start ccagency-controller
+</code></pre></div></div>
+
+<p>Create Systemd unit file <code class="highlighter-rouge">/etc/systemd/system/ccagency-broker.service</code> for CC-Agency Broker.</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nn">[Unit]</span>
+<span class="py">Description</span><span class="p">=</span><span class="s">CC-Agency Broker</span>
+<span class="py">Documentation</span><span class="p">=</span><span class="s">https://www.curious-containers.cc/</span>
+<span class="py">Requires</span><span class="p">=</span><span class="s">ccagency-controller.service mongod.service apache2.service</span>
+<span class="py">After</span><span class="p">=</span><span class="s">ccagency-controller.service mongod.service apache2.service</span>
+
+<span class="nn">[Service]</span>
+<span class="py">Type</span><span class="p">=</span><span class="s">simple</span>
+<span class="py">ExecStart</span><span class="p">=</span><span class="s">/usr/bin/uwsgi /opt/ccagency/privileged/ccagency-broker.ini</span>
+<span class="py">Restart</span><span class="p">=</span><span class="s">no</span>
+<span class="py">Environment</span><span class="p">=</span><span class="s">VIRTUAL_ENV=/home/cc/ccagency-venv</span>
+
+<span class="nn">[Install]</span>
+<span class="py">WantedBy</span><span class="p">=</span><span class="s">multi-user.target</span>
+</code></pre></div></div>
+
+<p>Enable and start <code class="highlighter-rouge">ccagency-broker</code> service.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable </span>ccagency-broker
+<span class="nb">sudo </span>systemctl start ccagency-broker
+</code></pre></div></div>
+
+<p>Create apache2 site <code class="highlighter-rouge">/etc/apache2/sites-available/ccagency-broker.conf</code>. Change <code class="highlighter-rouge">SSLCertificateFile</code> and <code class="highlighter-rouge">SSLCertificateKeyFile</code> paths or switch to an unencrypted configuration, which is not recommended. The server name should match the domain of your server. The Broker will listen on <code class="highlighter-rouge">https://example.com/cc</code>, as also defined under <code class="highlighter-rouge">broker.external_url</code> in the <code class="highlighter-rouge">cc-agency.yml</code> file.</p>
+
+<div class="language-apache highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nc">Listen</span> 443
+
+<span class="p">&lt;</span><span class="nl">VirtualHost</span><span class="sr"> *:443</span><span class="p">&gt;
+</span>    <span class="nc">ServerName</span> example.com
+
+    <span class="nc">SSLEngine</span> <span class="ss">on</span>
+    <span class="nc">SSLCertificateFile</span> /opt/ssl/cert.pem
+    <span class="nc">SSLCertificateKeyFile</span> /opt/ssl.key.pem
+
+    <span class="nc">ProxyRequests</span> Off
+    <span class="nc">ProxyPass</span> /cc unix:/opt/ccagency/unprivileged/ccagency-broker.sock|uwsgi://ccagency-broker/
+<span class="p">&lt;/</span><span class="nl">VirtualHost</span><span class="p">&gt;
+</span></code></pre></div></div>
+
+<p>Enable Apache2 mods and site.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>a2enmod ssl
+<span class="nb">sudo </span>a2enmod proxy_uwsgi
+
+<span class="nb">sudo </span>a2ensite ccagency-broker
+
+<span class="nb">sudo </span>systemctl restart apache2
+</code></pre></div></div>
+
+<h3 id="docker-cluster">Docker Cluster</h3>
+
+<p><em>As cc user.</em></p>
+
+<p>Edit <code class="highlighter-rouge">~/.config/cc-agency.yml</code> and add the individual docker-machines in the <code class="highlighter-rouge">controller.docker.nodes</code> dictionary. If you are connecting to remote machines, the docker-engines must listen on a TCP port (see <a href="https://docs.docker.com/edge/engine/reference/commandline/dockerd/#daemon-socket-option">Docker documentation</a>). Using TLS is optional, but recommended. If you are not using TLS, remove the corresponding <code class="highlighter-rouge">tls</code> sections from the config.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">controller</span><span class="pi">:</span>
+  <span class="na">docker</span><span class="pi">:</span>
+    <span class="na">nodes</span><span class="pi">:</span>
+      <span class="na">node1</span><span class="pi">:</span>
+        <span class="na">base_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">tcp://192.168.0.100:2376"</span>
+        <span class="na">tls</span><span class="pi">:</span>
+          <span class="na">verify</span><span class="pi">:</span> <span class="s2">"</span><span class="s">/home/cc/.docker/machine/machines/node1/ca.pem"</span>
+          <span class="na">client_cert</span><span class="pi">:</span>
+            <span class="pi">-</span> <span class="s2">"</span><span class="s">/home/cc/.docker/machine/machines/node1/cert.pem"</span>
+            <span class="pi">-</span> <span class="s2">"</span><span class="s">/home/cc/.docker/machine/machines/node1/key.pem"</span>
+          <span class="na">assert_hostname</span><span class="pi">:</span> <span class="s">False</span>
+      <span class="na">node2</span><span class="pi">:</span>
+        <span class="na">base_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">tcp://192.168.0.101:2375"</span>
+      <span class="na">node3</span><span class="pi">:</span>
+        <span class="na">base_url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">unix://var/run/docker.sock"</span>
+</code></pre></div></div>
+
+<p><em>As admin user.</em></p>
+
+<p>Restart CC-Agency Controller:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl restart ccagency-controller
+</code></pre></div></div>
+
+<h3 id="status-and-logging">Status and Logging</h3>
+
+<p><em>As admin user.</em></p>
+
+<p>Use the following commands to inspect the status and log files of the configured software components.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># MongoDB</span>
+<span class="nb">sudo </span>systemctl status mongod
+<span class="nb">sudo </span>journalctl <span class="nt">-u</span> mongod
+
+<span class="c"># Apache2</span>
+<span class="nb">sudo </span>systemctl status apache2
+<span class="nb">sudo </span>journalctl <span class="nt">-u</span> apache2
+<span class="nb">sudo </span>less /var/log/apache2/error.log
+<span class="nb">sudo </span>less /var/log/apache2/access.log
+
+<span class="c"># CC-Agency Controller</span>
+<span class="nb">sudo </span>systemctl status ccagency-controller
+<span class="nb">sudo </span>journalctl <span class="nt">-u</span> ccagency-controller
+
+<span class="c"># CC-Agency Broker</span>
+<span class="nb">sudo </span>systemctl status ccagency-broker
+<span class="nb">sudo </span>journalctl <span class="nt">-u</span> ccagency-broker
+</code></pre></div></div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/curious-containers" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Christoph Jansen and Bruno Schilling. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

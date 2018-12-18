@@ -1,0 +1,440 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.14.1 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>RED Format | Curious Containers</title>
+<meta name="description" content="Curious Containers Documentation.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Curious Containers">
+<meta property="og:title" content="RED Format">
+<meta property="og:url" content="http://localhost:4000/docs/red-format/">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/docs/red-format/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Christoph Jansen and Bruno Schilling",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Curious Containers Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+
+  </head>
+
+  <body class="layout--default">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Curious Containers</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/faq/" >FAQ</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/" >Publications</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <p>A Reproducible Experiment Description (RED) contains all details about a data-driven experiment in YAML or JSON format. To process RED files or execute experiments use the <a href="cc-faice.md">CC-FAICE</a> commandline tools.</p>
+
+<p>The following listings show two possible YAML structures.</p>
+
+<p>Option 1:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">redVersion</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">cli</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">inputs</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">outputs</span><span class="pi">:</span> <span class="s">...</span>    <span class="c1"># optional for ccagent, faice</span>
+<span class="na">container</span><span class="pi">:</span> <span class="s">...</span>  <span class="c1"># optional for ccagent</span>
+<span class="na">execution</span><span class="pi">:</span> <span class="s">...</span>  <span class="c1"># optional for ccagent, faice, ccagency</span>
+</code></pre></div></div>
+
+<p>Option 2:</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">redVersion</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">cli</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">batches</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">container</span><span class="pi">:</span> <span class="s">...</span>  <span class="c1"># optional for ccagent</span>
+<span class="na">execution</span><span class="pi">:</span> <span class="s">...</span>  <span class="c1"># optional for ccagent, faice, ccagency</span>
+</code></pre></div></div>
+
+<p>If you want to know the exact jsonschema for RED supported by Curious Containers, you can install CC-FAICE and use its <code class="highlighter-rouge">faice schema</code> subcommands as follows.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install --user cc-faice
+faice --version
+faice schema list
+faice schema show red
+</code></pre></div></div>
+
+<p>Read through the following tutorial sections to learn more about each part of a RED file.</p>
+
+<h2 id="redversion">redVersion</h2>
+
+<p>The <code class="highlighter-rouge">redVersion</code> increases everytime the RED format changes, even if the new version is backwards compatible. This means that a RED file in version <code class="highlighter-rouge">"3"</code> should be used with Curious Containers software packages in version <code class="highlighter-rouge">3.x.x</code>, higher software versions are not guaranteed to work. See <a href="versions.md">Versions</a> for more details.</p>
+
+<h2 id="cli">cli</h2>
+
+<p>Curious Containers only works with applications providing a proper commandline interface (CLI). This CLI, with its positional and optional arguments, must be described in the Command Workflow Language (CWL) <a href="https://www.commonwl.org/v1.0/CommandLineTool.html">commandline specification</a> syntax. Other CWL compatible tools require separate <code class="highlighter-rouge">.cwl</code> files, but a RED file has the CWL description embedded under the <code class="highlighter-rouge">cli</code> keyword.</p>
+
+<p>The following listing shows the main keywords of an embedded CWL description.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cli</span><span class="pi">:</span>
+  <span class="na">cwlVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1.0"</span>        <span class="c1"># fixed</span>
+  <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CommandLineTool"</span>  <span class="c1"># fixed</span>
+  <span class="na">baseCommand</span><span class="pi">:</span> <span class="s">...</span>
+  <span class="na">doc</span><span class="pi">:</span> <span class="s">...</span>                  <span class="c1"># optional</span>
+  <span class="na">inputs</span><span class="pi">:</span> <span class="s">...</span>
+  <span class="na">outputs</span><span class="pi">:</span> <span class="s">...</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">baseCommand</code> is an executable program, which is located in a <code class="highlighter-rouge">PATH</code> (environment variable) directory. Usually its a string like <code class="highlighter-rouge">"command"</code>, where <code class="highlighter-rouge">command</code> is the name of the program.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cli</span><span class="pi">:</span>
+  <span class="na">baseCommand</span><span class="pi">:</span> <span class="s2">"</span><span class="s">command"</span>
+  <span class="s">...</span>
+</code></pre></div></div>
+
+<p>If you want to call a subcommand of a program, like <code class="highlighter-rouge">command subcommand</code>, you can specify a list.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cli</span><span class="pi">:</span>
+  <span class="na">baseCommand</span><span class="pi">:</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">command"</span>
+    <span class="pi">-</span> <span class="s2">"</span><span class="s">subcommand"</span>
+</code></pre></div></div>
+
+<p>Possible commandline arguments are defined under <code class="highlighter-rouge">cli.inputs</code>.</p>
+
+<p>The arguments can be of type <code class="highlighter-rouge">string</code>, <code class="highlighter-rouge">int</code>, <code class="highlighter-rouge">long</code>, <code class="highlighter-rouge">float</code>, <code class="highlighter-rouge">double</code>, <code class="highlighter-rouge">boolean</code>, <code class="highlighter-rouge">File</code> or <code class="highlighter-rouge">Directory</code>, although for technical reasons CC does not distinguish between <code class="highlighter-rouge">int</code> and <code class="highlighter-rouge">long</code> or <code class="highlighter-rouge">float</code> and <code class="highlighter-rouge">double</code>. <code class="highlighter-rouge">File</code> and <code class="highlighter-rouge">Directory</code> must be valid paths, either absolute or relative. If an argument is optional, it is marked with <code class="highlighter-rouge">?</code>, like <code class="highlighter-rouge">File?</code>. If an argument can be repeated an arbitrary number of times, this can be indicated by list symbol, like <code class="highlighter-rouge">File[]</code>.</p>
+
+<p>Take the following program call as an example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="nb">command</span> <span class="nt">--optional-flag</span> <span class="nt">--optional-number</span><span class="o">=</span>42 /required/file /required/dir
+</code></pre></div></div>
+
+<p>In this case the call uses two optional arguments, one is a boolean flag, the other takes an integer number. Both <code class="highlighter-rouge">/required/file</code> and <code class="highlighter-rouge">/required/dir</code> are mandatory positional arguments, at positions <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">1</code> respectively. The CWL syntax allows us to describe the CLI capabilities of the program without specifying concrete inputs. As can be seen in the listing below, the specific values like <code class="highlighter-rouge">42</code> or <code class="highlighter-rouge">/required/file</code> are not included in the CWL description. Please note, that we need to choose an arbitrary identifier, like <code class="highlighter-rouge">some_file</code>, for each of the arguments.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cli</span><span class="pi">:</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="na">some_flag</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">boolean?"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">--optional-flag"</span>
+    <span class="na">some_number</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">--optional-number="</span>
+        <span class="na">separate</span><span class="pi">:</span> <span class="s">False</span>
+    <span class="na">some_file</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">position</span><span class="pi">:</span> <span class="s">0</span>
+    <span class="na">some_dir</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Directory"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">position</span><span class="pi">:</span> <span class="s">1</span>
+</code></pre></div></div>
+
+<p>Running a command should result in one or more files being written to the filesystem. The corresponding file paths are defined under <code class="highlighter-rouge">cli.outputs</code>. Only outputs of type <code class="highlighter-rouge">File</code> are allowed.</p>
+
+<p>We assume that the command produces a CSV table and a PDF plot file. The table file is called <code class="highlighter-rouge">table.csv</code> and is optional. The plot file is not optional, but its full name is not known beforehand, so we can use the glob pattern
+<code class="highlighter-rouge">*.pdf</code>. <strong>In the context of CC, any glob pattern must match exactly one file in the output directory.</strong></p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cli</span><span class="pi">:</span>
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="na">some_table</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File?"</span>
+      <span class="na">outputBinding</span><span class="pi">:</span>
+        <span class="na">glob</span><span class="pi">:</span> <span class="s2">"</span><span class="s">table.csv"</span>
+    <span class="na">some_plot</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+      <span class="na">outputBinding</span><span class="pi">:</span>
+        <span class="na">glob</span><span class="pi">:</span> <span class="s2">"</span><span class="s">*.pdf"</span>
+</code></pre></div></div>
+
+<h2 id="inputs">inputs</h2>
+
+<p>To run an experiment, concrete inputs for the CLI program have to be provided. This is done under the <code class="highlighter-rouge">inputs</code> keyword. Inputs can be primitive types like <code class="highlighter-rouge">int</code> or <code class="highlighter-rouge">boolean</code> or remote Files and Directories. Primitive types are just included in the RED file. As can be seen in the listing below, the indentifiers in <code class="highlighter-rouge">inputs</code> refer to the arbitrary identifiers in <code class="highlighter-rouge">cli.inputs</code> (e.g. <code class="highlighter-rouge">inputs.some_flag</code> refers to <code class="highlighter-rouge">cli.inputs.some_flag</code>).</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cli</span><span class="pi">:</span>
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="na">some_flag</span><span class="pi">:</span> <span class="s">...</span>
+    <span class="na">some_number</span><span class="pi">:</span> <span class="s">...</span>
+    <span class="na">some_file</span><span class="pi">:</span> <span class="s">...</span>
+    <span class="na">some_dir</span><span class="pi">:</span> <span class="s">...</span>
+
+<span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">some_flag</span><span class="pi">:</span> <span class="s">True</span>
+  <span class="na">some_number</span><span class="pi">:</span> <span class="s">42</span>
+  <span class="na">some_file</span><span class="pi">:</span> <span class="s">...</span>
+  <span class="na">some_dir</span><span class="pi">:</span> <span class="s">...</span>
+</code></pre></div></div>
+
+<p>If you want to use files or directories as input for an experiment in a RED file, you have to use so-called RED connectors. RED connectors for <a href="/docs/red-connectors-input-files/">input-files</a> and <a href="/docs/red-connectors-input-directories/">input-directories</a> exist, supporting a variety of protocols. If the available connectors do not suit you, you can implement your own in Python and easily integrate them with the <a href="/docs/developing-custom-connectors/">CC plugin API for connectors</a>.</p>
+
+<p>Input-connectors are executed before the actual program to download files and directories to the container file-system. The download paths are provided to the programm command TODOas CLI arguments (see section <a href="#cli">cli</a>).</p>
+
+<p>A connector is implemented as Python class included in a Python module. The location of the module must be included in the <code class="highlighter-rouge">PYTHONPATH</code> evironment variable. The can be achieved by installing the module via <code class="highlighter-rouge">pip</code> or by adding the path manually. Module and class must be specified under the <code class="highlighter-rouge">pyModule</code> and <code class="highlighter-rouge">pyClass</code> keywords respectively. The information provided under <code class="highlighter-rouge">access</code> depends on the connector.</p>
+
+<p>You can now specify a connector which fetches this file via HTTP to make it accessible for your program. Details about the specific connectors can be found in the <a href="#red-connectors-input-files.md">RED Connectors: Input Files</a> documentation.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">some_file</span><span class="pi">:</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s">File</span>
+    <span class="na">connector</span><span class="pi">:</span>
+      <span class="na">pyModule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cc_core.commons.connectors.http"</span>
+      <span class="na">pyClass</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Http"</span>
+      <span class="na">access</span><span class="pi">:</span>
+        <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/in.txt"</span>
+        <span class="na">method</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GET"</span>
+</code></pre></div></div>
+
+<p>In order to download an entire directory, some connectors like the HTTP connector require a directory <code class="highlighter-rouge">listing</code>. This listing defines the subfiles and subdirectories and is only allowed for directory connectors. Even for connectors which do not strictly require a listing it is recommended to include one, because it can be used to check the directory contents for missing files and subdirectories.</p>
+
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">some_dir</span><span class="pi">:</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Directory'</span>
+    <span class="na">connector</span><span class="pi">:</span>
+      <span class="na">pyModule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cc_core.commons.connectors.http"</span>
+      <span class="na">pyClass</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Http"</span>
+      <span class="na">access</span><span class="pi">:</span>
+        <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://raw.githubusercontent.com/curious-containers/cc-core/master/cc_core/"</span>
+        <span class="na">method</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GET"</span>
+    <span class="na">listing</span><span class="pi">:</span>
+      <span class="pi">-</span> <span class="na">class</span><span class="pi">:</span> <span class="s1">'</span><span class="s">File'</span>
+        <span class="na">basename</span><span class="pi">:</span> <span class="s1">'</span><span class="s">version.py'</span>
+      <span class="pi">-</span> <span class="na">class</span><span class="pi">:</span> <span class="s1">'</span><span class="s">Directory'</span>
+        <span class="na">basename</span><span class="pi">:</span> <span class="s1">'</span><span class="s">agent'</span>
+        <span class="na">listing</span><span class="pi">:</span>
+          <span class="pi">-</span> <span class="na">class</span><span class="pi">:</span> <span class="s1">'</span><span class="s">File'</span>
+            <span class="na">basename</span><span class="pi">:</span> <span class="s1">'</span><span class="s">__main__.py'</span>
+</code></pre></div></div>
+
+<p>Please note, that not every connector provides functionality for files and directories, but the HTTP connector can be used in both cases. For information about these connectors take a look at the <a href="/docs/red-connectors-input-directories/">RED Connectors: Input Directories</a> documentation.</p>
+
+<h2 id="outputs">outputs</h2>
+
+<p>Outputs of a data-processing application must be written to files. These files can then be uploaded to remote servers using various connectors. CC-Core includes a HTTP connector, but setting up an appropriate HTTP server, which can receive the file can be complicated. Since most Servers have SSH already configured, using the SSH SFTP connector is more convenient. For more information on how to install and use a different connector take a look at the Red Connectors for <a href="/docs/red-connectors-output-files/">Output Files</a> documentation.</p>
+
+<p>Again, the output identifiers in the <code class="highlighter-rouge">outputs</code> section refer to the identifiers defnined under <code class="highlighter-rouge">cli.outputs</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cli</span><span class="pi">:</span>
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="na">some_table</span><span class="pi">:</span> <span class="s">...</span>
+    <span class="na">some_plot</span><span class="pi">:</span> <span class="s">...</span>
+
+<span class="na">outputs</span><span class="pi">:</span>
+  <span class="na">some_table</span><span class="pi">:</span> <span class="s">...</span>
+  <span class="na">some_plot</span><span class="pi">:</span> <span class="s">...</span>
+</code></pre></div></div>
+
+<p>If you are not interested in some of the outputs, you are not required to specify a connector for them. In this case, we are only interested in <code class="highlighter-rouge">some_table</code> and we specify a SSH SFTP connector.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">outputs</span><span class="pi">:</span>
+  <span class="na">some_table</span><span class="pi">:</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s">File</span>
+    <span class="na">connector</span><span class="pi">:</span>
+      <span class="na">pyModule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">red_connector_ssh.sftp"</span>
+      <span class="na">pyClass</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Sftp"</span>
+      <span class="na">access</span><span class="pi">:</span> <span class="s">...</span>
+</code></pre></div></div>
+
+<h2 id="batches">batches</h2>
+
+<p>With the <code class="highlighter-rouge">batches</code> keyword multiple <code class="highlighter-rouge">inputs</code> and <code class="highlighter-rouge">outputs</code> can be specified as a list. Each batch is processed independently in its own Docker container.</p>
+
+<p>When the <code class="highlighter-rouge">batches</code> keyword is used, the <code class="highlighter-rouge">inputs</code> and <code class="highlighter-rouge">outputs</code> keywords cannot appear in the top level section of the RED file, as shown below.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">redVersion</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">cli</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">batches</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="na">inputs</span><span class="pi">:</span> <span class="s">...</span>
+    <span class="na">outputs</span><span class="pi">:</span> <span class="s">...</span>
+  <span class="pi">-</span> <span class="na">inputs</span><span class="pi">:</span> <span class="s">...</span>
+    <span class="na">outputs</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">container</span><span class="pi">:</span> <span class="s">...</span>
+<span class="na">execution</span><span class="pi">:</span> <span class="s">...</span>
+</code></pre></div></div>
+
+<h2 id="container">container</h2>
+
+<p>RED provides are generic way to include settings for container engines, such that CC or other tools can implement different engines. Curious Containers is built around Docker and its supported implementations can be found in the <a href="/docs/red-container-engines/">RED Container Engines</a> documenation.</p>
+
+<p>Under the <code class="highlighter-rouge">container</code> keyword, you have to provide the <code class="highlighter-rouge">engine</code> name and the <code class="highlighter-rouge">settings</code> for the chosen engine.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">container</span><span class="pi">:</span>
+  <span class="na">engine</span><span class="pi">:</span> <span class="s2">"</span><span class="s">docker"</span>
+  <span class="na">settings</span><span class="pi">:</span> <span class="s">...</span>
+</code></pre></div></div>
+
+<p>When using the <code class="highlighter-rouge">faice agent red</code> CLI tool or when sending an experiment to CC-Agency, a container engine must be specified.</p>
+
+<h2 id="execution">execution</h2>
+
+<p>Under the <code class="highlighter-rouge">execution</code> keyword you can specify an execution engine, which is capable of processing the given RED file. For example the URL and access information to a CC-Agency server can be given here. For supported execution engines take a look at the <a href="/docs/red-execution-engines/">RED Execution Engines</a> documentation.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">execution</span><span class="pi">:</span>
+  <span class="na">engine</span><span class="pi">:</span> <span class="s2">"</span><span class="s">ccagency"</span>
+  <span class="na">settings</span><span class="pi">:</span> <span class="s">...</span>
+</code></pre></div></div>
+
+<p>If you have specified an execution engine you can use the <code class="highlighter-rouge">faice exec</code> CLI tool to execute the experiment using the given engine.</p>
+
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/curious-containers" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Christoph Jansen and Bruno Schilling. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

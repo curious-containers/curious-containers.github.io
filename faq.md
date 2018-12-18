@@ -1,15 +1,9 @@
-# FAQ
+---
+title: FAQ
+toc: true
+---
 
 If you have another **question** please open an [issue on Github](https://github.com/curious-containers/curious-containers.github.io/issues).
-
-| Table of Contents |
-| --- |
-| [What is the purpose of the Curious Containers project?](#what-is-the-purpose-of-the-curious-containers-project) |
-| [What is unique about CC?](#what-is-unique-about-cc) |
-| [What exactly is RED?](#what-exactly-is-red) |
-| [You mentioned CWL: Is CC a workflow engine?](#you-mentioned-cwl-is-cc-a-workflow-engine) |
-| [How does CC compare to Kubernetes?](#how-does-cc-compare-to-kubernets) |
-| [Is CC fault-tolerant?](#is-cc-fault-tolerant)|
 
 
 ## What is the purpose of the Curious Containers project?

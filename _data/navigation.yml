@@ -1,0 +1,45 @@
+main:
+  - title: "FAQ"
+    url: "/faq/"
+  - title: "Publications"
+    url: "/publications/"
+
+docs:
+  - title: "Introduction"
+    children:
+      - title: "RED Beginner's Guide"
+        url: /docs/red-beginners-guide/
+      - title: "RED Format"
+        url: /docs/red-format/
+      - title: "RED Format: Protecting Credentials"
+        url: /docs/red-format-protecting-credentials/
+      - title: "Container Images"
+        url: /docs/container-images/
+      - title: "CC Versions"
+        url: /docs/cc-versions/
+  - title: "User Docs"
+    children:
+      - title: "RED Connectors: Input Files"
+        url: /docs/red-connectors-input-files/
+      - title: "RED Connectors: Input Directories"
+        url: /docs/red-connectors-input-directories/
+      - title: "RED Connectors: Output Files"
+        url: /docs/red-connectors-output-files/
+      - title: "RED Container Engines"
+        url: /docs/red-container-engines/
+      - title: "RED Execution Engines"
+        url: /docs/red-execution-engines/
+      - title: "CC-Agency: API"
+        url: /docs/cc-agency-api/
+  - title: "Admin Docs"
+    children:
+      - title: "CC-Agency: Installation"
+        url: /docs/cc-agency-installation/
+      - title: "CC-Agency: Advanced Configuration"
+        url: /docs/cc-agency-advanced-configuration/
+  - title: "Developer Docs"
+    children:
+      - title: "Source Code Setup"
+        url: /docs/source-code-setup/
+      - title: "Developing Custom Connectors"
+        url: /docs/developing-custom-connectors/

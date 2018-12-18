@@ -1,0 +1,709 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.14.1 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE
+-->
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>RED Beginner’s Guide | Curious Containers</title>
+<meta name="description" content="Curious Containers Documentation.">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
+<meta property="og:site_name" content="Curious Containers">
+<meta property="og:title" content="RED Beginner’s Guide">
+<meta property="og:url" content="http://localhost:4000/docs/red-beginners-guide/">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="http://localhost:4000/docs/red-beginners-guide/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "Christoph Jansen and Bruno Schilling",
+      "url": "http://localhost:4000",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/feed.xml" type="application/atom+xml" rel="alternate" title="Curious Containers Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+
+    <link rel="icon" type="image/png" href="/assets/icon.png">
+
+  </head>
+
+  <body class="layout--default">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/">Curious Containers</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/faq/" >FAQ</a>
+            </li><li class="masthead__menu-item">
+              <a href="/publications/" >Publications</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">Toggle Menu</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      <p>This tutorial explains how to create a reproducible data-driven experiment and how to document it in a Reproducible Experiment Description (RED).</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<p>This tutorial requires a <strong>Linux</strong> distribution, where nano (or another text editor), python3-pip, git and <a href="https://www.docker.com/">Docker</a> are installed.</p>
+
+<p>If a Linux distribution is not already installed on your computer, use <a href="https://www.vagrantup.com/">Vagrant</a> to create a Virtual Machine (VM) with your preferred operating system (see <a href="#vagrant-vm-setup-optional">Vagrant VM Setup</a>)</p>
+
+<h3 id="vagrant-vm-setup-optional">Vagrant VM Setup (Optional)</h3>
+
+<p>If you don’t have access to a Linux system or just don’t want to install Docker by hand, you can setup a provisioned vagrant VM to follow the tutorial. This is entirely optional.</p>
+
+<p>First install Git, Vagrant and Virtualbox, then follow the instructions below.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git clone https://github.com/curious-containers/red-guide-vagrant.git
+<span class="nb">cd </span>red-guide-vagrant
+vagrant up
+vagrant ssh
+</code></pre></div></div>
+
+<h2 id="sample-application">Sample Application</h2>
+
+<p>Lets first create our own small CLI application with Python3. It’s called <code class="highlighter-rouge">grepwrap</code>.</p>
+
+<p>Create a new file and insert the Python3 code below with <code class="highlighter-rouge">nano grepwrap</code>. Then save and close the file.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/usr/bin/env python3</span>
+
+<span class="kn">from</span> <span class="nn">argparse</span> <span class="kn">import</span> <span class="n">ArgumentParser</span>
+<span class="kn">from</span> <span class="nn">subprocess</span> <span class="kn">import</span> <span class="n">call</span>
+
+<span class="n">OUTPUT_FILE</span> <span class="o">=</span> <span class="s">'out.txt'</span>
+
+<span class="n">parser</span> <span class="o">=</span> <span class="n">ArgumentParser</span><span class="p">(</span><span class="n">description</span><span class="o">=</span><span class="s">'Search for query terms in text files.'</span><span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+   <span class="s">'query_term'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'store'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s">'QUERY_TERM'</span><span class="p">,</span>
+   <span class="n">help</span><span class="o">=</span><span class="s">'Search for QUERY_TERM in TEXT_FILE.'</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+   <span class="s">'text_file'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'store'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s">'TEXT_FILE'</span><span class="p">,</span>
+   <span class="n">help</span><span class="o">=</span><span class="s">'TEXT_FILE containing plain text.'</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+   <span class="s">'-A'</span><span class="p">,</span> <span class="s">'--after-context'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'store'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s">'NUM'</span><span class="p">,</span>
+   <span class="n">help</span><span class="o">=</span><span class="s">'Print NUM lines of trailing context after matching lines.'</span>
+<span class="p">)</span>
+<span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span>
+   <span class="s">'-B'</span><span class="p">,</span> <span class="s">'--before-context'</span><span class="p">,</span> <span class="n">action</span><span class="o">=</span><span class="s">'store'</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">int</span><span class="p">,</span> <span class="n">metavar</span><span class="o">=</span><span class="s">'NUM'</span><span class="p">,</span>
+   <span class="n">help</span><span class="o">=</span><span class="s">'Print NUM lines of leading context before matching lines.'</span>
+<span class="p">)</span>
+<span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+<span class="n">command</span> <span class="o">=</span> <span class="s">'grep {} {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">args</span><span class="o">.</span><span class="n">query_term</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">text_file</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">after_context</span><span class="p">:</span>
+   <span class="n">command</span> <span class="o">=</span> <span class="s">'{} -A {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">after_context</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">args</span><span class="o">.</span><span class="n">before_context</span><span class="p">:</span>
+   <span class="n">command</span> <span class="o">=</span> <span class="s">'{} -B {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">before_context</span><span class="p">)</span>
+
+<span class="n">command</span> <span class="o">=</span> <span class="s">'{} &gt; {}'</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">OUTPUT_FILE</span><span class="p">)</span>
+
+<span class="nb">exit</span><span class="p">(</span><span class="n">call</span><span class="p">(</span><span class="n">command</span><span class="p">,</span> <span class="n">shell</span><span class="o">=</span><span class="bp">True</span><span class="p">))</span>
+</code></pre></div></div>
+
+<p>Set the executable flag for <code class="highlighter-rouge">grepwrap</code> and add the current directory to the <code class="highlighter-rouge">PATH</code> environment variable.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>chmod u+x grepwrap
+<span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="k">$(</span><span class="nb">pwd</span><span class="k">)</span>:<span class="k">${</span><span class="nv">PATH</span><span class="k">}</span>
+</code></pre></div></div>
+
+<p>The program is a wrapper for <code class="highlighter-rouge">grep</code>. It stores results to <code class="highlighter-rouge">out.txt</code> and has a simplified interface. Use <code class="highlighter-rouge">grepwrap --help</code> to show all CLI arguments.</p>
+
+<p>Create a new file with sample data by inserting the text below with <code class="highlighter-rouge">nano in.txt</code>. Then save and close the file.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>FOO
+BAR
+BAZ
+QUX
+QUUX
+</code></pre></div></div>
+
+<p>Then execute <code class="highlighter-rouge">grepwrap</code> as follows.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>grepwrap <span class="nt">-B</span> 1 QU <span class="k">in</span>.txt
+</code></pre></div></div>
+
+<p>Use <code class="highlighter-rouge">cat out.txt</code> to check the programs output.</p>
+
+<p>In this case the command <code class="highlighter-rouge">grepwrap -B 1 QU in.txt</code> is an <strong>experiment</strong> based on the program <code class="highlighter-rouge">grepwrap</code>, which has a defined <strong>CLI</strong> and has <code class="highlighter-rouge">python3</code> and <code class="highlighter-rouge">grep</code> as <strong>dependencies</strong>. It is executed with <code class="highlighter-rouge">in.txt</code> as <strong>input</strong> file, as well as <code class="highlighter-rouge">-B 1</code> and <code class="highlighter-rouge">QU</code> as <strong>input</strong> arguments. It produces a single file <code class="highlighter-rouge">out.txt</code> as <strong>output</strong>.</p>
+
+<p>The next steps of this guide, will demonstrate the formalization of the experiment, which allows for persistent storage, enables distribution and improves reproducibility. In order to do so, we need to describe the <strong>CLI</strong>, <strong>dependencies</strong>, <strong>inputs</strong> and <strong>outputs</strong>.</p>
+
+<h2 id="install-cc-faice-and-cc-core">Install CC-Faice and CC-Core</h2>
+
+<p>Install the current version of <code class="highlighter-rouge">cc-faice</code>, which will also install a compatible version of <code class="highlighter-rouge">cc-core</code> as a dependency.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 install <span class="nt">--user</span> cc-faice<span class="o">==</span>5.4.0
+</code></pre></div></div>
+
+<ul>
+  <li><code class="highlighter-rouge">cc-core</code> provides the <code class="highlighter-rouge">ccagent</code> commandline tool</li>
+  <li><code class="highlighter-rouge">cc-faice</code> provides the <code class="highlighter-rouge">faice</code> commandline tool</li>
+</ul>
+
+<p>Both tools are located in Python’s script directory, which should be included in the <code class="highlighter-rouge">PATH</code> environment variable. The following code prints their version numbers.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagent <span class="nt">--version</span>
+faice <span class="nt">--version</span>
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">--help</code> argument shows available subtools and CLIs.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagent <span class="nt">--help</span>
+faice <span class="nt">--help</span>
+</code></pre></div></div>
+
+<p>If these tools cannot be found, you should modify <code class="highlighter-rouge">PATH</code> (e.g. append <code class="highlighter-rouge">${HOME}/.local/bin</code>) or fall back to executing the tools as Python modules.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 <span class="nt">-m</span> cc_core.agent <span class="nt">--version</span>
+python3 <span class="nt">-m</span> cc_faice <span class="nt">--version</span>
+</code></pre></div></div>
+
+<p>Please note that <code class="highlighter-rouge">cc-core</code> and <code class="highlighter-rouge">cc-faice</code> are compatible if the first two numbers of their versions match, as described in the <a href="red-versions.md">versions documentation</a>.</p>
+
+<h2 id="cwl-ccagent">CWL (ccagent)</h2>
+
+<p>The Common Workflow Language (CWL) provides a <a href="http://www.commonwl.org/v1.0/CommandLineTool.html">syntax</a> for describing a commandline tool’s interface (CLI). Curious Containers and the RED format build upon this CLI description syntax, but only support a subset of the CWL specification. In other words, every CWL description compatible with RED is also compatible with the CWL standard (e.g. with <a href="https://github.com/common-workflow-language/cwltool">cwltool</a>, a CWL reference implementation) but not the other way round.</p>
+
+<p>The supported CWL subset is specified as a jsonschema description in the <code class="highlighter-rouge">cc-core</code> Python package. Use the following <code class="highlighter-rouge">faice</code> command to show the jsonschema.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>faice schema show cwl
+</code></pre></div></div>
+
+<p>You can use <code class="highlighter-rouge">faice schema --help</code> and <code class="highlighter-rouge">faice schema show --help</code> to learn more about these subcommands. The <code class="highlighter-rouge">faice schema list</code> command prints all available schemas.</p>
+
+<p>Create a new file and insert the following CWL description with <code class="highlighter-rouge">nano grepwrap-cli.cwl</code>. Then save and close the file.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cwlVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1.0"</span>
+<span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CommandLineTool"</span>
+<span class="na">baseCommand</span><span class="pi">:</span> <span class="s2">"</span><span class="s">grepwrap"</span>
+<span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">query</span><span class="nv"> </span><span class="s">terms</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">files."</span>
+
+<span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">query_term</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">string"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">position</span><span class="pi">:</span> <span class="s">0</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">QUERY_TERM</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">TEXT_FILE."</span>
+  <span class="na">text_file</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">position</span><span class="pi">:</span> <span class="s">1</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">TEXT_FILE</span><span class="nv"> </span><span class="s">containing</span><span class="nv"> </span><span class="s">plain</span><span class="nv"> </span><span class="s">text."</span>
+  <span class="na">after_context</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-A"</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">trailing</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+  <span class="na">before_context</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-B"</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">leading</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">before</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+
+<span class="na">outputs</span><span class="pi">:</span>
+  <span class="na">out_file</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">outputBinding</span><span class="pi">:</span>
+      <span class="na">glob</span><span class="pi">:</span> <span class="s2">"</span><span class="s">out.txt"</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Query</span><span class="nv"> </span><span class="s">results."</span>
+</code></pre></div></div>
+
+<p>CWL uses job files to describe inputs. Create a new file and insert the following job with <code class="highlighter-rouge">nano job.yml</code>. Then save and close the file.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">query_term</span><span class="pi">:</span> <span class="s2">"</span><span class="s">QU"</span>
+<span class="na">text_file</span><span class="pi">:</span>
+  <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+  <span class="na">path</span><span class="pi">:</span> <span class="s2">"</span><span class="s">in.txt"</span>
+<span class="na">before_context</span><span class="pi">:</span> <span class="s">1</span>
+</code></pre></div></div>
+
+<p>Use the <code class="highlighter-rouge">ccagent cwl</code> commandline tool to execute the experiment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagent cwl ./grepwrap-cli.cwl ./job.yml
+</code></pre></div></div>
+
+<p>This is equivalent to <code class="highlighter-rouge">cwltool ./grepwrap-cli.cwl ./job.yml</code>.</p>
+
+<h2 id="red-ccagent">RED (ccagent)</h2>
+
+<p>The CWL <code class="highlighter-rouge">job.yml</code> has been used to reference input files in the local file system. To achieve reproducibility accross different computers, which is the goal of RED and FAICE, all input files should be downloadable from remote hosts and all output files should be uploadable to remote hosts.</p>
+
+<p>Although the CWL specification also supports remote input files via the <code class="highlighter-rouge">location</code> keyword in a job file, it lacks the possibility to send output files to remote hosts. In addition the <code class="highlighter-rouge">location</code> value can only be a single string containing a URI (e.g. <code class="highlighter-rouge">http://example.com</code>), which is a limiting factor when connecting to a non-standard API is required (e.g. the REST API of <a href="https://www.xnat.org/">XNAT</a> 1.6.5 is not stateless and requires explicit session deletion).</p>
+
+<p>For the given reasons, RED extends CWL in an incompatible way, to support arbitrary <strong>connector plugins</strong> written in Python. Fortunately it is possible to regain full compatibility with existing CWL implementations by exporting a given RED experiment via FAICE (see <a href="#cwl-compatible-export">CWL Compatible Export</a>).</p>
+
+<p>Create a new file and insert the following RED data with <code class="highlighter-rouge">nano red.yml</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">redVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">5"</span>
+<span class="na">cli</span><span class="pi">:</span>
+  <span class="na">cwlVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1.0"</span>
+  <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CommandLineTool"</span>
+  <span class="na">baseCommand</span><span class="pi">:</span> <span class="s2">"</span><span class="s">grepwrap"</span>
+  <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">query</span><span class="nv"> </span><span class="s">terms</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">files."</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="na">query_term</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">string"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">position</span><span class="pi">:</span> <span class="s">0</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">QUERY_TERM</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">TEXT_FILE."</span>
+    <span class="na">text_file</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">position</span><span class="pi">:</span> <span class="s">1</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">TEXT_FILE</span><span class="nv"> </span><span class="s">containing</span><span class="nv"> </span><span class="s">plain</span><span class="nv"> </span><span class="s">text."</span>
+    <span class="na">after_context</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-A"</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">trailing</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+    <span class="na">before_context</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-B"</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">leading</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">before</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="na">out_file</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+      <span class="na">outputBinding</span><span class="pi">:</span>
+        <span class="na">glob</span><span class="pi">:</span> <span class="s2">"</span><span class="s">out.txt"</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Query</span><span class="nv"> </span><span class="s">results."</span>
+
+<span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">query_term</span><span class="pi">:</span> <span class="s2">"</span><span class="s">QU"</span>
+  <span class="na">text_file</span><span class="pi">:</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">connector</span><span class="pi">:</span>
+      <span class="na">pyModule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cc_core.commons.connectors.http"</span>
+      <span class="na">pyClass</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Http"</span>
+      <span class="na">access</span><span class="pi">:</span>
+        <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"</span>
+        <span class="na">method</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GET"</span>
+  <span class="na">before_context</span><span class="pi">:</span> <span class="s">1</span>
+</code></pre></div></div>
+
+<p>This minimal RED file contains three sections:</p>
+
+<ul>
+  <li><code class="highlighter-rouge">redVersion</code>: specifies the RED format version</li>
+  <li><code class="highlighter-rouge">cli</code>: contains the application’s CLI description in CWL format</li>
+  <li><code class="highlighter-rouge">inputs</code>: is similar to a CWL job description, but references RED connectors</li>
+</ul>
+
+<p>The RED inputs format is very similar to a CWL job. Note that connectors only work with files, and that the <code class="highlighter-rouge">connector</code> keyword replaces <code class="highlighter-rouge">path</code> and <code class="highlighter-rouge">location</code>. Each connector requires the <code class="highlighter-rouge">pyModule</code> and <code class="highlighter-rouge">pyClass</code> keywords to reference an importable Python class and <code class="highlighter-rouge">access</code> for the connector’s settings. The information contained in <code class="highlighter-rouge">access</code> is validated by the connector itself and therefore varies for different connector implementations.</p>
+
+<p>The given HTTP connector is a reference implementation and the only connector included with <code class="highlighter-rouge">cc-core</code> (see <a href="red-connectors.md">RED Connectors</a> for different options).</p>
+
+<p>Use <code class="highlighter-rouge">faice schema show red-connector-http</code> to show the corresponding jsonschema and all connector options, including BASIC or DIGEST auth.</p>
+
+<p>Use the <code class="highlighter-rouge">ccagent red</code> commandline tool to execute the experiment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagent red ./red.yml
+</code></pre></div></div>
+
+<p>The RED format also allows for connector descriptions for output files. Open the existing RED file and append the following <code class="highlighter-rouge">outputs</code> section with <code class="highlighter-rouge">nano red.yml</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">outputs</span><span class="pi">:</span>
+  <span class="na">out_file</span><span class="pi">:</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">connector</span><span class="pi">:</span>
+      <span class="na">pyModule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cc_core.commons.connectors.http"</span>
+      <span class="na">pyClass</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Http"</span>
+      <span class="na">access</span><span class="pi">:</span>
+        <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://localhost:5000/server-out.txt"</span>
+        <span class="na">method</span><span class="pi">:</span> <span class="s2">"</span><span class="s">POST"</span>
+</code></pre></div></div>
+
+<p>Usually an external host with a static IP / domain name and a proper Authorization configuration should be chosen for this. This improves reproducibility, because all destinations of the original experiment results are well documented.</p>
+
+<p>For the purpose of this guide, we temporarily start a local HTTP server on TCP PORT 5000 to receive the output file.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># start server as background job</span>
+faice file-server &amp;
+</code></pre></div></div>
+
+<p>Use the <code class="highlighter-rouge">ccagent red</code> commandline tool to execute the experiment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ccagent red ./red.yml
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">faice file-server</code> is programmed to use the file name specified in the URL. Use <code class="highlighter-rouge">cat server-out.txt</code>
+to check the programs output.</p>
+
+<p>You can stop the file-server as follows.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># terminate the last background job</span>
+<span class="nb">kill</span> %%
+</code></pre></div></div>
+
+<h2 id="container-image">Container Image</h2>
+
+<p>The next step is to explicitely document the runtime environment with all required dependencies of <code class="highlighter-rouge">grepwrap</code>. Container technologies are useful to create this kind reproducible and distributable environment. For the time being, the only container engine supported by Curious Containers is <a href="https://www.docker.com/">Docker</a>.</p>
+
+<p>Create a new file and insert the following Dockerfile description with <code class="highlighter-rouge">nano Dockerfile</code>.</p>
+
+<pre><code class="language-Dockerfile">FROM docker.io/debian:9.5-slim
+
+RUN apt-get update \
+&amp;&amp; apt-get install -y python3-pip \
+&amp;&amp; useradd -ms /bin/bash cc
+
+# install cc-core
+USER cc
+
+RUN pip3 install --no-input --user cc-core==5.4.0
+
+ENV PATH="/home/cc/.local/bin:${PATH}"
+ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
+
+# install app
+ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
+</code></pre>
+
+<p>As can be seen in the Dockerfile, we extend a slim Debian image from the official <a href="https://hub.docker.com/">DockerHub</a> registry. To improve reproducibility, you should always add a very specific tag like <code class="highlighter-rouge">9.5-slim</code> or an <a href="https://docs.docker.com/engine/reference/commandline/images/#list-image-digests">image digest</a>.</p>
+
+<p>As a first step, <code class="highlighter-rouge">python3-pip</code> is installed from Debian repositories, then a new user <code class="highlighter-rouge">cc</code> is created. This is important, because <code class="highlighter-rouge">faice</code> will always start a container with <code class="highlighter-rouge">uid:gid</code> set to <code class="highlighter-rouge">1000:1000</code>. This behavior is equivalent to <code class="highlighter-rouge">cwltool</code>. As a next step the Dockerfile switches to the <code class="highlighter-rouge">cc</code> user, installs <code class="highlighter-rouge">cc-core==5.4.0</code> and explicitely sets required environment variables. Again, to ensure reproducible builds, it is advised to specify a certain version of <code class="highlighter-rouge">cc-core</code>. The last step is to install the application itself. In this case the <code class="highlighter-rouge">grepwrap</code> script is added to the image.</p>
+
+<p>Please note, that installing <code class="highlighter-rouge">cc-core</code> is necessary for compatibility with Curious Containers. This package provides the <code class="highlighter-rouge">ccagent</code> script with all the functionality demonstrated in this guide.</p>
+
+<p>Use the Docker client to build the image and name it <code class="highlighter-rouge">grepwrap-image</code>.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker build <span class="nt">--tag</span> grepwrap-image <span class="nb">.</span>
+</code></pre></div></div>
+
+<p>Use <code class="highlighter-rouge">docker image list</code> to check if the new image exists.</p>
+
+<p>To check if the container image is configured correctly, try running <code class="highlighter-rouge">ccagent --version</code> and <code class="highlighter-rouge">grepwrap --help</code> in a container based on the new image.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">--rm</span> <span class="nt">-u</span> 1000:1000 grepwrap-image whoami  <span class="c"># should print cc</span>
+docker run <span class="nt">--rm</span> <span class="nt">-u</span> 1000:1000 grepwrap-image ccagent <span class="nt">--version</span>
+docker run <span class="nt">--rm</span> <span class="nt">-u</span> 1000:1000 grepwrap-image grepwrap <span class="nt">--help</span>
+</code></pre></div></div>
+
+<p>You should consider pushing the image to a registry like <a href="https://hub.docker.com/">DockerHub</a> and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name <code class="highlighter-rouge">grepwrap-image</code>.</p>
+
+<h2 id="cwl-faice-agent">CWL (faice agent)</h2>
+
+<p>The <code class="highlighter-rouge">faice agent</code> commandline tool implements two agents similar to <code class="highlighter-rouge">ccagent</code> with the major difference that <code class="highlighter-rouge">faice agent</code> only works with containers.</p>
+
+<p>The first agent <code class="highlighter-rouge">faice agent cwl</code> implements a syntax equivalent to <code class="highlighter-rouge">ccagent cwl</code> and <code class="highlighter-rouge">cwltool</code>. Compared with the CWL reference implementation <code class="highlighter-rouge">cwltool</code>, it does not run an application (e.g. <code class="highlighter-rouge">grepwrap</code>) directly, but instead invokes <code class="highlighter-rouge">ccagent cwl</code>, which then handles the application execution in the container.</p>
+
+<p>In order to execute the application with local input files, we can use the <code class="highlighter-rouge">job.yml</code> file created earlier. Only the CWL file needs an additional <code class="highlighter-rouge">dockerPull</code> entry.</p>
+
+<p>Create a new file and insert the following CWL description with <code class="highlighter-rouge">nano grepwrap-cli-docker.cwl</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">cwlVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1.0"</span>
+<span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CommandLineTool"</span>
+<span class="na">baseCommand</span><span class="pi">:</span> <span class="s2">"</span><span class="s">grepwrap"</span>
+<span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">query</span><span class="nv"> </span><span class="s">terms</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">files."</span>
+
+<span class="na">requirements</span><span class="pi">:</span>
+  <span class="na">DockerRequirement</span><span class="pi">:</span>
+    <span class="na">dockerPull</span><span class="pi">:</span> <span class="s2">"</span><span class="s">grepwrap-image"</span>
+
+<span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">query_term</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">string"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">position</span><span class="pi">:</span> <span class="s">0</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">QUERY_TERM</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">TEXT_FILE."</span>
+  <span class="na">text_file</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">position</span><span class="pi">:</span> <span class="s">1</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">TEXT_FILE</span><span class="nv"> </span><span class="s">containing</span><span class="nv"> </span><span class="s">plain</span><span class="nv"> </span><span class="s">text."</span>
+  <span class="na">after_context</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-A"</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">trailing</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+  <span class="na">before_context</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+    <span class="na">inputBinding</span><span class="pi">:</span>
+      <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-B"</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">leading</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">before</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+
+<span class="na">outputs</span><span class="pi">:</span>
+  <span class="na">out_file</span><span class="pi">:</span>
+    <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">outputBinding</span><span class="pi">:</span>
+      <span class="na">glob</span><span class="pi">:</span> <span class="s2">"</span><span class="s">out.txt"</span>
+    <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Query</span><span class="nv"> </span><span class="s">results."</span>
+</code></pre></div></div>
+
+<p>Please note, that only the <code class="highlighter-rouge">requirements</code> section is different here. These CWL and job files are fully compatible with the CWL specification.</p>
+
+<p>Use the <code class="highlighter-rouge">faice agent cwl</code> commandline tool to execute the experiment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>faice agent cwl <span class="nt">--disable-pull</span> ./grepwrap-cli-docker.cwl ./job.yml
+</code></pre></div></div>
+
+<p>The <code class="highlighter-rouge">--disable-pull</code> flag is required, because we are referencing a local container image and not a URI pointing to a registry.</p>
+
+<h2 id="red-faice-agent">RED (faice agent)</h2>
+
+<p>The second agent implementation <code class="highlighter-rouge">faice agent red</code> works with RED files to execute experiments in containers. Its syntax is equivalent to <code class="highlighter-rouge">ccagent red</code> and it utilizes the <code class="highlighter-rouge">ccagent red</code> installation in the container image.</p>
+
+<p>A compatible RED file is very similar to the RED file used <code class="highlighter-rouge">ccagent red</code>, but requires an additional <code class="highlighter-rouge">container</code> section.</p>
+
+<p>Create a new file and insert the following RED data with <code class="highlighter-rouge">nano red-docker.yml</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">redVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">5"</span>
+<span class="na">cli</span><span class="pi">:</span>
+  <span class="na">cwlVersion</span><span class="pi">:</span> <span class="s2">"</span><span class="s">v1.0"</span>
+  <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">CommandLineTool"</span>
+  <span class="na">baseCommand</span><span class="pi">:</span> <span class="s2">"</span><span class="s">grepwrap"</span>
+  <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">query</span><span class="nv"> </span><span class="s">terms</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">text</span><span class="nv"> </span><span class="s">files."</span>
+
+  <span class="na">inputs</span><span class="pi">:</span>
+    <span class="na">query_term</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">string"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">position</span><span class="pi">:</span> <span class="s">0</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Search</span><span class="nv"> </span><span class="s">for</span><span class="nv"> </span><span class="s">QUERY_TERM</span><span class="nv"> </span><span class="s">in</span><span class="nv"> </span><span class="s">TEXT_FILE."</span>
+    <span class="na">text_file</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">position</span><span class="pi">:</span> <span class="s">1</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">TEXT_FILE</span><span class="nv"> </span><span class="s">containing</span><span class="nv"> </span><span class="s">plain</span><span class="nv"> </span><span class="s">text."</span>
+    <span class="na">after_context</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-A"</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">trailing</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">after</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+    <span class="na">before_context</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">int?"</span>
+      <span class="na">inputBinding</span><span class="pi">:</span>
+        <span class="na">prefix</span><span class="pi">:</span> <span class="s2">"</span><span class="s">-B"</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Print</span><span class="nv"> </span><span class="s">NUM</span><span class="nv"> </span><span class="s">lines</span><span class="nv"> </span><span class="s">of</span><span class="nv"> </span><span class="s">leading</span><span class="nv"> </span><span class="s">context</span><span class="nv"> </span><span class="s">before</span><span class="nv"> </span><span class="s">matching</span><span class="nv"> </span><span class="s">lines."</span>
+
+  <span class="na">outputs</span><span class="pi">:</span>
+    <span class="na">out_file</span><span class="pi">:</span>
+      <span class="na">type</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+      <span class="na">outputBinding</span><span class="pi">:</span>
+        <span class="na">glob</span><span class="pi">:</span> <span class="s2">"</span><span class="s">out.txt"</span>
+      <span class="na">doc</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Query</span><span class="nv"> </span><span class="s">results."</span>
+
+<span class="na">container</span><span class="pi">:</span>
+  <span class="na">engine</span><span class="pi">:</span> <span class="s2">"</span><span class="s">docker"</span>
+  <span class="na">settings</span><span class="pi">:</span>
+    <span class="na">image</span><span class="pi">:</span>
+      <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">grepwrap-image"</span>
+
+<span class="na">inputs</span><span class="pi">:</span>
+  <span class="na">query_term</span><span class="pi">:</span> <span class="s2">"</span><span class="s">QU"</span>
+  <span class="na">text_file</span><span class="pi">:</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">connector</span><span class="pi">:</span>
+      <span class="na">pyModule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cc_core.commons.connectors.http"</span>
+      <span class="na">pyClass</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Http"</span>
+      <span class="na">access</span><span class="pi">:</span>
+        <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"</span>
+        <span class="na">method</span><span class="pi">:</span> <span class="s2">"</span><span class="s">GET"</span>
+  <span class="na">before_context</span><span class="pi">:</span> <span class="s">1</span>
+</code></pre></div></div>
+
+<p>Use the <code class="highlighter-rouge">faice agent red</code> commandline tool to execute the experiment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>faice agent red <span class="nt">--disable-pull</span> ./red-docker.yml
+</code></pre></div></div>
+
+<p>Learn more about the container engine description by showing the corresponding jsonschema with <code class="highlighter-rouge">faice schema show red-engine-container-docker</code> (also see <a href="red-engines.md">RED Engines</a>).</p>
+
+<p>Again connector descriptions for output files can be included in the RED file. Open the existing file and append the following <code class="highlighter-rouge">outputs</code> section with <code class="highlighter-rouge">nano red-docker.yml</code>.</p>
+
+<div class="language-yaml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">outputs</span><span class="pi">:</span>
+  <span class="na">out_file</span><span class="pi">:</span>
+    <span class="na">class</span><span class="pi">:</span> <span class="s2">"</span><span class="s">File"</span>
+    <span class="na">connector</span><span class="pi">:</span>
+      <span class="na">pyModule</span><span class="pi">:</span> <span class="s2">"</span><span class="s">cc_core.commons.connectors.http"</span>
+      <span class="na">pyClass</span><span class="pi">:</span> <span class="s2">"</span><span class="s">Http"</span>
+      <span class="na">access</span><span class="pi">:</span>
+        <span class="na">url</span><span class="pi">:</span> <span class="s2">"</span><span class="s">http://172.17.0.1:5000/server-out.txt"</span>
+        <span class="na">method</span><span class="pi">:</span> <span class="s2">"</span><span class="s">POST"</span>
+</code></pre></div></div>
+
+<p>Please note, that in this case we are running the experiment in a container. In order to send output files from a container to the <code class="highlighter-rouge">faice file-server</code> running on the host, we use the standard Docker bridge IP <code class="highlighter-rouge">172.17.0.1</code>. Use <code class="highlighter-rouge">ifconfig</code> to check if another IP has been assigned to the Docker bridge on your system.</p>
+
+<p>Before the experiment can be executed, the file server needs to be started.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># start server as background job</span>
+faice file-server &amp;
+</code></pre></div></div>
+
+<p>Use the <code class="highlighter-rouge">faice agent red</code> commandline tool to execute the experiment.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>faice agent red ./red-docker.yml
+</code></pre></div></div>
+
+<p>Use <code class="highlighter-rouge">cat server-out.txt</code> to check the programs output.</p>
+
+<p>You can stop the file-server as follows.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># terminate the last background job</span>
+<span class="nb">kill</span> %%
+</code></pre></div></div>
+
+<h2 id="cwl-compatible-export">CWL Compatible Export</h2>
+
+<p>If you have an experiment in RED format and want to execute it in another CWL compatible system, you can use <code class="highlighter-rouge">faice export ./red-docker.yml</code>. Follow the instructions shown by the export tool.</p>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><input type="text" id="search" class="search-input" tabindex="-1" placeholder="Enter your search term..." />
+    <div id="results" class="results"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+
+    
+      
+        
+      
+        
+      
+        
+          <li><a href="https://github.com/curious-containers" rel="nofollow noopener noreferrer"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> Feed</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 Christoph Jansen and Bruno Schilling. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/assets/js/main.min.js"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.5.0/js/all.js" integrity="sha384-GqVMZRt5Gn7tB9D9q7ONtcp4gtHIUEW/yG7h98J7IpE3kpi+srfFyyB/04OV6pG0" crossorigin="anonymous"></script>
+
+
+
+
+<script src="/assets/js/lunr/lunr.min.js"></script>
+<script src="/assets/js/lunr/lunr-store.js"></script>
+<script src="/assets/js/lunr/lunr-en.js"></script>
+
+
+
+
+
+  </body>
+</html>

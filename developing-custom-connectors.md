@@ -1,3 +1,0 @@
-# Developing Custom Connectors
-
-TODO
