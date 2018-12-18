@@ -1,5 +1,6 @@
 ---
 title: "RED Beginner's Guide"
+layout: single
 toc: true
 sidebar:
   nav: "docs"

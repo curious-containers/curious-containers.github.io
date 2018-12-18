@@ -1,5 +1,6 @@
 ---
 title: "RED Format"
+layout: single
 toc: true
 sidebar:
   nav: "docs"

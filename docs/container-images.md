@@ -1,5 +1,6 @@
 ---
 title: "Container Images"
+layout: single
 toc: true
 sidebar:
   nav: "docs"

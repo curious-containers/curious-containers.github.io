@@ -1,5 +1,6 @@
 ---
 title: "RED Format: Protecting Credentials"
+layout: single
 toc: true
 sidebar:
   nav: "docs"

@@ -1,5 +1,6 @@
 ---
 title: "CC-Agency API"
+layout: single
 sidebar:
   nav: "docs"
 ---

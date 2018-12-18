@@ -1,5 +1,6 @@
 ---
 title: "RED Connectors: Input Files"
+layout: single
 toc: true
 sidebar:
   nav: "docs"

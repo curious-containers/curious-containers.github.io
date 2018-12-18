@@ -1,5 +1,6 @@
 ---
 title: "Source Code Repositories"
+layout: single
 sidebar:
   nav: "docs"
 ---

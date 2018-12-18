@@ -1,5 +1,6 @@
 ---
 title: Publications
+layout: single
 toc: true
 ---
 

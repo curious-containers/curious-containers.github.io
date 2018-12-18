@@ -1,5 +1,6 @@
 ---
 title: "Source Code Setup"
+layout: single
 toc: true
 sidebar:
   nav: "docs"
