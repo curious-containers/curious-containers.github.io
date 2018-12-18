@@ -149,7 +149,7 @@ python3 -m cc_faice --version
 ```
 
 
-Please note that `cc-core` and `cc-faice` are compatible if the first two numbers of their versions match, as described in the [versions documentation](red-versions.md).
+Please note that `cc-core` and `cc-faice` are compatible if the first two numbers of their versions match, as described in the [Versioning](versioning.md) documentation.
 
 
 ## CWL (ccagent)

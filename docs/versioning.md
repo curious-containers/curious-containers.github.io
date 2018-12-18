@@ -1,5 +1,5 @@
 ---
-title: "CC Versions"
+title: "Versioning"
 layout: single
 toc: true
 sidebar:

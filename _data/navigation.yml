@@ -17,8 +17,8 @@ docs:
         url: /docs/container-images/
       - title: "CC-Core, CC-FAICE, CC-Agency"
         url: /docs/cc-core-cc-faice-cc-agency/
-      - title: "CC Versions"
-        url: /docs/cc-versions/
+      - title: "Versioning"
+        url: /docs/versioning/
   - title: "User Docs"
     children:
       - title: "RED Connectors: Input Files"
