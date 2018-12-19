@@ -3,6 +3,11 @@
 The documentation on [www.curious-containers.cc](https://www.curious-containers.cc) is built from this repository using Jekyll and the [Minimal Mistakes](https://mmistakes.github.io/minimal-mistakes/) theme.
 
 
+## Content
+
+Markdown content is located in the [_pages](_pages) and [_docs](_docs) directories.
+
+
 ## Local Installation
 
 ```bash
