@@ -49,6 +49,14 @@
       background: #1e6388 !important;
     }
 
+    nav a:focus {
+      outline-color: #1e6388 !important;
+    }
+
+    nav button:focus {
+      outline-color: #1e6388 !important;
+    }
+
     a {
       text-decoration: none;
     }
