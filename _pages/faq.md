@@ -1,5 +1,6 @@
 ---
 title: FAQ
+permalink: /faq
 layout: single
 toc: true
 ---

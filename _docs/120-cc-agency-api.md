@@ -1,13 +1,12 @@
 ---
 title: "CC-Agency API"
-layout: single
-sidebar:
-  nav: "docs"
+permalink: /docs/cc-agency-api
+toc: false
 ---
 
 This is a documentation of the available REST API endpoints of CC-Agency. 
 
-**Before using** the CC-Agency API, you should read the [user information](cc-agency.md#user-information) and [data security](cc-agency.md#data-security) sections in the CC-Agency documentation.
+**Before using** the CC-Agency API, you should read the [Introduction to CC-Agency](/docs/cc-core-cc-faice-cc-agency#cc-agency), especially the section about [data security](/docs/cc-core-cc-faice-cc-agency#data-security).
 
 Usage examples are provided as Python code. Install and import the following Python modules to prepare for the examples.
 

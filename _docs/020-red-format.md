@@ -1,12 +1,9 @@
 ---
 title: "RED Format"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/red-format
 ---
 
-A Reproducible Experiment Description (RED) contains all details about a data-driven experiment in YAML or JSON format. To process RED files or execute experiments use the [CC-FAICE](cc-faice.md) commandline tools.
+A Reproducible Experiment Description (RED) contains all details about a data-driven experiment in YAML or JSON format. To process RED files or execute experiments use the [CC-FAICE](/docs/cc-core-cc-faice-cc-agency#cc-faice) commandline tools.
 
 
 The following listings show two possible YAML structures.
@@ -46,7 +43,7 @@ Read through the following tutorial sections to learn more about each part of a 
 
 ## redVersion
 
-The `redVersion` increases everytime the RED format changes, even if the new version is backwards compatible. This means that a RED file in version `"3"` should be used with Curious Containers software packages in version `3.x.x`, higher software versions are not guaranteed to work. See [Versioning](versioning.md) for more details.
+The `redVersion` increases everytime the RED format changes, even if the new version is backwards compatible. This means that a RED file in version `"3"` should be used with Curious Containers software packages in version `3.x.x`, higher software versions are not guaranteed to work. See [Versioning](/docs/versioning) for more details.
 
 
 ## cli
@@ -154,13 +151,13 @@ inputs:
   some_dir: ...
 ```
 
-If you want to use files or directories as input for an experiment in a RED file, you have to use so-called RED connectors. RED connectors for [input-files](red-connectors-input-files.md) and [input-directories](red-connectors-input-directories.md) exist, supporting a variety of protocols. If the available connectors do not suit you, you can implement your own in Python and easily integrate them with the [CC plugin API for connectors](developing-custom-connectors.md).
+If you want to use files or directories as input for an experiment in a RED file, you have to use so-called RED connectors. RED connectors for [input-files](/docs/red-connectors-input-files) and [input-directories](/docs/red-connectors-input-directories) exist, supporting a variety of protocols. If the available connectors do not suit you, you can implement your own in Python and easily integrate them with the [CC plugin API for connectors](/docs/developing-custom-connectors).
 
 Input-connectors are executed before the actual program to download files and directories to the container file-system. The download paths are provided to the programm command TODOas CLI arguments (see section [cli](#cli)).
 
 A connector is implemented as Python class included in a Python module. The location of the module must be included in the `PYTHONPATH` evironment variable. The can be achieved by installing the module via `pip` or by adding the path manually. Module and class must be specified under the `pyModule` and `pyClass` keywords respectively. The information provided under `access` depends on the connector.
 
-You can now specify a connector which fetches this file via HTTP to make it accessible for your program. Details about the specific connectors can be found in the [RED Connectors: Input Files](#red-connectors-input-files.md) documentation.
+You can now specify a connector which fetches this file via HTTP to make it accessible for your program. Details about the specific connectors can be found in the [RED Connectors: Input Files](/docs/red-connectors-input-files) documentation.
 
 ```yml
 inputs:
@@ -196,12 +193,12 @@ inputs:
             basename: '__main__.py'
 ```
 
-Please note, that not every connector provides functionality for files and directories, but the HTTP connector can be used in both cases. For information about these connectors take a look at the [RED Connectors: Input Directories](red-connectors-input-directories.md) documentation.
+Please note, that not every connector provides functionality for files and directories, but the HTTP connector can be used in both cases. For information about these connectors take a look at the [RED Connectors: Input Directories](/docs/red-connectors-input-directories) documentation.
 
 
 ## outputs
 
-Outputs of a data-processing application must be written to files. These files can then be uploaded to remote servers using various connectors. CC-Core includes a HTTP connector, but setting up an appropriate HTTP server, which can receive the file can be complicated. Since most Servers have SSH already configured, using the SSH SFTP connector is more convenient. For more information on how to install and use a different connector take a look at the Red Connectors for [Output Files](red-connectors-output-files.md) documentation.
+Outputs of a data-processing application must be written to files. These files can then be uploaded to remote servers using various connectors. CC-Core includes a HTTP connector, but setting up an appropriate HTTP server, which can receive the file can be complicated. Since most Servers have SSH already configured, using the SSH SFTP connector is more convenient. For more information on how to install and use a different connector take a look at the Red Connectors for [Output Files](/docs/red-connectors-output-files) documentation.
 
 Again, the output identifiers in the `outputs` section refer to the identifiers defnined under `cli.outputs`.
 
@@ -250,7 +247,7 @@ execution: ...
 
 ## container
 
-RED provides are generic way to include settings for container engines, such that CC or other tools can implement different engines. Curious Containers is built around Docker and its supported implementations can be found in the [RED Container Engines](red-container-engines.md) documenation.
+RED provides are generic way to include settings for container engines, such that CC or other tools can implement different engines. Curious Containers is built around Docker and its supported implementations can be found in the [RED Container Engines](/docs/red-container-engines) documenation.
 
 Under the `container` keyword, you have to provide the `engine` name and the `settings` for the chosen engine.
 
@@ -265,7 +262,7 @@ When using the `faice agent red` CLI tool or when sending an experiment to CC-Ag
 
 ## execution
 
-Under the `execution` keyword you can specify an execution engine, which is capable of processing the given RED file. For example the URL and access information to a CC-Agency server can be given here. For supported execution engines take a look at the [RED Execution Engines](red-execution-engines.md) documentation.
+Under the `execution` keyword you can specify an execution engine, which is capable of processing the given RED file. For example the URL and access information to a CC-Agency server can be given here. For supported execution engines take a look at the [RED Execution Engines](/red/red-execution-engines) documentation.
 
 ```yaml
 execution:

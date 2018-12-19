@@ -1,9 +1,6 @@
 ---
 title: "RED Beginner's Guide"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/red-beginners-guide
 ---
 
 This tutorial explains how to create a reproducible data-driven experiment and how to document it in a Reproducible Experiment Description (RED).
@@ -149,7 +146,7 @@ python3 -m cc_faice --version
 ```
 
 
-Please note that `cc-core` and `cc-faice` are compatible if the first two numbers of their versions match, as described in the [Versioning](versioning.md) documentation.
+Please note that `cc-core` and `cc-faice` are compatible if the first two numbers of their versions match, as described in the [Versioning](/docs/versioning) documentation.
 
 
 ## CWL (ccagent)
@@ -296,7 +293,7 @@ This minimal RED file contains three sections:
 
 The RED inputs format is very similar to a CWL job. Note that connectors only work with files, and that the `connector` keyword replaces `path` and `location`. Each connector requires the `pyModule` and `pyClass` keywords to reference an importable Python class and `access` for the connector's settings. The information contained in `access` is validated by the connector itself and therefore varies for different connector implementations.
 
-The given HTTP connector is a reference implementation and the only connector included with `cc-core` (see [RED Connectors](red-connectors.md) for different options).
+The given HTTP connector is a reference implementation and the only connector included with `cc-core` (different connector plugins can be found in the documentation).
 
 Use `faice schema show red-connector-http` to show the corresponding jsonschema and all connector options, including BASIC or DIGEST auth.
 
@@ -537,7 +534,7 @@ faice agent red --disable-pull ./red-docker.yml
 ```
 
 
-Learn more about the container engine description by showing the corresponding jsonschema with `faice schema show red-engine-container-docker` (also see [RED Engines](red-engines.md)).
+Learn more about the container engine description by showing the corresponding jsonschema with `faice schema show red-engine-container-docker` (also see [RED Container Engines](/docs/red-container-engines)).
 
 Again connector descriptions for output files can be included in the RED file. Open the existing file and append the following `outputs` section with `nano red-docker.yml`.
 

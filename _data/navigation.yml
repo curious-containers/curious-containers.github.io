@@ -41,6 +41,8 @@ docs:
         url: /docs/cc-agency-advanced-configuration/
   - title: "Developer Docs"
     children:
+      - title: "Source Code Repositories"
+        url: /docs/source-code-repositories
       - title: "Source Code Setup"
         url: /docs/source-code-setup/
       - title: "Developing Custom Connectors"

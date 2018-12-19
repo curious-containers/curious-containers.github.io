@@ -1,9 +1,6 @@
 ---
 title: "Source Code Setup"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/source-code-setup
 ---
 
 The following instructions have been tested on Fedora 28 with Python 3.6. Instructions for other Linux distributions should be similar.

@@ -1,9 +1,6 @@
 ---
 title: "RED Container Engines"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/red-container-engines
 ---
 
 RED Container Engines are used to execute programs in a virtual environment like a docker container.

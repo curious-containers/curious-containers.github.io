@@ -1,9 +1,6 @@
 ---
 title: "Developing Custom Connectors"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/developing-custom-connectors
 ---
 
 TODO

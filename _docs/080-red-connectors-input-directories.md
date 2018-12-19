@@ -1,9 +1,6 @@
 ---
 title: "RED Connectors: Input Directories"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/red-connectors-input-directories
 ---
 
 TODO

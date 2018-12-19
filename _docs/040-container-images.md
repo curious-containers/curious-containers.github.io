@@ -1,9 +1,6 @@
 ---
 title: "Container Images"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/container-images
 ---
 
 Its part of Curious Containers' concept, that data is is only handled inside of a running container and never touches a file-system of the underlying infrastructures. Therefore agent implementations, like `ccagent cwl`, `ccagent red` or `ccagent connected`, must be installed in the container image. These agents are invoked by a compatible execution engine, like `faice agent cwl`, `faice agent red` or CC-Agency. The `ccagent` implementations are provided by the `cc-core` python package, which can be installed via `pip`.
@@ -19,7 +16,7 @@ Since `ccagent` is implemented in the Python package `cc-core`, a Python3 interp
 
 Another requirement is, that `ccagent` and the application are executed as user with uid:gid set to `1000:1000`. The debian base image does not yet include another user besides `root`. We can therefore create the first user called `cc`, wich will by default be assigned the uid:gid pair `1000:1000`.
 
-The Dockerfile below demonstrate the correct `cc-core` setup with two additional connector packages. Please note, that this Dockerfile does not include an application to be executed by `ccagent`. For a more complete example we advise you to work through the [RED Beginner's Guide](red-beginners-guide.md).
+The Dockerfile below demonstrate the correct `cc-core` setup with two additional connector packages. Please note, that this Dockerfile does not include an application to be executed by `ccagent`. For a more complete example we advise you to work through the [RED Beginner's Guide](/docs/red-beginners-guide).
 
 ```Dockerfile
 FROM docker.io/debian:9.5-slim
@@ -57,12 +54,12 @@ docker login docker.io
 docker push docker.io/myorganization/myimage
 ```
 
-In your RED file you can now reference your image under `container.settings.image.url`. If read access to your image is restricted via user credentials you can provide them as `container.settings.image.auth.username` and `container.settings.image.auth.password` respectively. See the [RED Container Engines](red-container-engines.md) documentation for more information.
+In your RED file you can now reference your image under `container.settings.image.url`. If read access to your image is restricted via user credentials you can provide them as `container.settings.image.auth.username` and `container.settings.image.auth.password` respectively. See the [RED Container Engines](/docs/red-container-engines) documentation for more information.
 
 
 ## Nvidia-Docker
 
-In order to use Cuda applications on Nvidia GPUs, you have to switch from `container.engine: "docker"` to `container.engine: "nvidia-docker"` in your RED file. For more details take a look at the [nvidia-docker container engine](red-container-engines.md#nvidia-docker) documentation.
+In order to use Cuda applications on Nvidia GPUs, you have to switch from `container.engine: "docker"` to `container.engine: "nvidia-docker"` in your RED file. For more details take a look at the [nvidia-docker container engine](/docs/red-container-engines#nvidia-docker) documentation.
 
 The easiest way to make Cuda available to your containerized application is to start your Dockerfile with `FROM nvidia/cuda:9.0-base`. Of course the underlying host's driver and hardware must support the desired cuda version (e.g. 9.0).
 

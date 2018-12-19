@@ -1,9 +1,6 @@
 ---
 title: "CC-Agency: Advanced Configuration"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/cc-agency-advanced-configuration
 ---
 
 

@@ -1,18 +1,7 @@
 ---
 title: "CC-Agency: Installation"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/cc-agency-installation
 ---
-
-CC-Agency is an advanced server software, which is able to connect to a distributed cluster of docker-engines and schedules experiments defined in RED format for parallel execution.
-
-It implements two major software components: CC-Agency Broker provides a restful web API, to register experiments and to query information. CC-Agency Controller is a background process, which connects to a Docker cluster and schedules the experiments for execution.
-
-CC-Agency persists the state of experiments in MongoDB and is very fault tolerant, when it comes to failing containers, docker-engines or network connections.
-
-## Installation
 
 The following instructions have been tested on Ubuntu 18.04 with Python 3.6. Instructions for other Linux distributions should be similar.
 

@@ -1,8 +1,6 @@
 ---
 title: "Source Code Repositories"
-layout: single
-sidebar:
-  nav: "docs"
+permalink: /docs/source-code-repositories
 ---
 
 Github Organization: [curious-containers](https://github.com/curious-containers)

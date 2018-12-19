@@ -1,9 +1,6 @@
 ---
 title: "RED Connectors: Input Files"
-layout: single
-toc: true
-sidebar:
-  nav: "docs"
+permalink: /docs/red-connectors-input-files
 ---
 
 RED connectors are Python modules, which implement download and upload functions to transfer data. You can install and use existing connectors or implement your own custom connectors for any protocol or connection type you need.
@@ -20,7 +17,7 @@ This connector can be used for HTTP and HTTPS connections.
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](cc-core.md).
+Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
 
 
 ### Download and Upload
@@ -57,7 +54,7 @@ This connector can be used to send and receive JSON via HTTP and HTTPS connectio
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](cc-core.md).
+Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
 
 
 ### Download and Upload
@@ -76,7 +73,7 @@ This connector can be used for HTTP and HTTPS connections. This connector is der
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](cc-core.md).
+Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
 
 
 ### Download and Upload

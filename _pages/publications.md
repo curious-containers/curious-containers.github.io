@@ -1,5 +1,6 @@
 ---
 title: Publications
+permalink: /publications
 layout: single
 toc: true
 ---
