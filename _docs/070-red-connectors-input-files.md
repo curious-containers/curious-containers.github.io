@@ -45,7 +45,7 @@ Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-f
 
 ## HTTP JSON
 
-This connector can be used to send and receive JSON via HTTP and HTTPS connections. Only works with valid JSON files and sets the correct JSON content type, but is otherwise equivalent to the standard [HTTP](#http) connector.
+This connector can be used to receive JSON via HTTP and HTTPS connections. Only works with valid JSON files and sets the correct JSON content type, but is otherwise equivalent to the standard [HTTP](#http) connector.
 
 
 ### Usage
