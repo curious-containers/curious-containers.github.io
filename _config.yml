@@ -171,5 +171,6 @@ defaults:
     values:
       layout: single
       toc: true
+      toc_label: "Table of Contents"
       sidebar:
         nav: "docs"
