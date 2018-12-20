@@ -1,0 +1,72 @@
+#license-icon {
+    padding-top: 7px;
+    padding-right: 20px;
+    float: left;
+}
+
+#license-text {
+    float: left;
+}
+
+.search__toggle {
+    color: #1e6388 !important;
+
+    &:hover {
+        color: #1e6388 !important;
+    }
+}
+
+.masthead {
+    background-color: #9ec3d7 !important;
+  
+    &__inner-wrap {
+        padding: 0em 1em;
+  
+        nav {
+            background-color: #9ec3d7 !important;
+            color: #1e6388 !important;
+        }
+    
+        nav li a {
+            color: #1e6388 !important;
+            font-weight: bold !important;
+        }
+    
+        nav li a:hover {
+            color: #1e6388 !important;
+        }
+    
+        nav li a::before {
+            background-color: #1e6388 !important;
+        }
+    
+        nav a:focus {
+            outline-color: #1e6388 !important;
+        }
+    
+        nav button:focus {
+            outline-color: #1e6388 !important;
+        }
+    }
+}
+  
+.navicon {
+    background-color: #1e6388 !important;
+}
+  
+.navicon::before {
+    background-color: #1e6388 !important;
+}
+  
+.navicon::after {
+    background-color: #1e6388 !important;
+}
+  
+.site-title img{
+    float: left;
+    height: 100px;
+}
+
+.toc .nav__title {
+    background-color: #9ec3d7 !important;
+}
