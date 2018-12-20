@@ -19,6 +19,8 @@ docs:
         url: /docs/cc-core-cc-faice-cc-agency
       - title: "Versioning"
         url: /docs/versioning
+      - title: "Examples"
+        url: /docs/examples
   - title: "User Docs"
     children:
       - title: "RED Connectors: Input Files"
