@@ -81,7 +81,7 @@ Variables can only be used with string values, which must be located somewhere u
 
 ### Fill File
 
-You can store values to be filled into your variables in a separate *fill-file*. A fill-file can be JSON or YAML and should only contain key-value pairs, where the key is the variable name. The following YAML content could be stored in as `secrets.yml`.
+You can store values to be filled into your variables in a separate *fill-file*. A fill-file can be in JSON or YAML format and should only contain key-value pairs, where the key is the variable name. The following YAML content could be stored as `secrets.yml`.
 
 ```yaml
 ssh_username: "myusername"
