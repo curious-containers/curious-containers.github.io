@@ -354,7 +354,7 @@ The next step is to explicitely document the runtime environment with all requir
 
 Create a new file and insert the following Dockerfile description with `nano Dockerfile`.
 
-```Dockerfile
+```docker
 FROM docker.io/debian:9.5-slim
 
 RUN apt-get update \

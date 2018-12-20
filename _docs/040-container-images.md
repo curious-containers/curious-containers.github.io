@@ -18,7 +18,7 @@ Another requirement is, that `ccagent` and the application are executed as user 
 
 The Dockerfile below demonstrate the correct `cc-core` setup with two additional connector packages. Please note, that this Dockerfile does not include an application to be executed by `ccagent`. For a more complete example we advise you to work through the [RED Beginner's Guide](/docs/red-beginners-guide).
 
-```Dockerfile
+```docker
 FROM docker.io/debian:9.5-slim
 
 RUN apt-get update \
