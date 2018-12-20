@@ -3,6 +3,7 @@ title: FAQ
 permalink: /faq
 layout: single
 toc: true
+toc_label: "Table of Contents"
 ---
 
 If you have another **question** please open an [issue on Github](https://github.com/curious-containers/curious-containers.github.io/issues).

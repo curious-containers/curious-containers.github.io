@@ -3,6 +3,7 @@ title: Publications
 permalink: /publications
 layout: single
 toc: true
+toc_label: "Table of Contents"
 ---
 
 ## Employing Docker Swarm on OpenStack for Biomedical Analysis (2016)
