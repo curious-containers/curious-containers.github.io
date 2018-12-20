@@ -75,15 +75,33 @@ In this case we replaced both occurrences of `myusername` with the variable `ssh
 If you are now using CC-FAICE CLI tools like `faice agent red` or `faice exec` it will interactively ask you once for `ssh_username` and once for `ssh_password` to insert the values.
 
 {% raw %}
-Variables can only be used with string values, which must be located somewhere under an `access` or `settings` key. The string must start with `{{` and end with `}}`, everything in between is the variable's name.
+Variables can only be used with string values, which must be located somewhere under an `access` or `auth` key. The string must start with `{{` and end with `}}`, everything in between is the variable's name.
 {% endraw %}
+
+
+### Fill File
+
+You can store values to be filled into your variables in a separate *fill-file*. A fill-file can be JSON or YAML and should only contain key-value pairs, where the key is the variable name. The following YAML content could be stored in as `secrets.yml`.
+
+```yaml
+ssh_username: "myusername"
+ssh_password: "mypassword"
+```
+
+You can then use `faice agent red` or `faice exec` commands with the `--file-file` option.
+
+```
+faice agent red red.yml --file-file=secrets.yml
+faice exec red.yml --file-file=secrets.yml
+```
+
 
 
 ## Protected Keys
 
 Protected keys are an additional concept and can be used in RED files. A protected key is a hint for CC-FAICE and CC-Agency, that the corresponding value must be handled with care. This means that these values should not appear in log files and that CC-Agency must delete this information from its database after the processing is done.
 
-Protected keys can only be used with string values, which must be located somewhere under an `access` or `settings` key. Write an underscore in front of the key to mark it as protected.
+Protected keys can only be used with string values, which must be located somewhere under an `access` or `auth` key. Write an underscore in front of the key to mark it as protected.
 
 ```yaml
 outputs:
