@@ -71,3 +71,36 @@
     background-color: #9ec3d7 !important;
     color: #1e6388 !important;
 }
+
+/*
+.page__content .highlighter-rouge {
+    transition: margin-right .2s ease;
+}
+
+.page__content .highlighter-rouge:hover {
+    margin-right: -300px;
+}
+*/
+
+.greedy-nav .hidden-links a:hover {
+    color: #1e6388 !important;
+    background: #9ec3d7 !important;
+}
+
+.page__content{
+    font-size: 0.8em;
+}
+
+.page__content .toc {
+    font-size: 1.2em;
+}
+
+/*
+.page__content .highlight {
+    font-size: 0.9em !important;
+}
+
+.page__content p {
+    font-size: 0.8em !important;
+}
+*/
