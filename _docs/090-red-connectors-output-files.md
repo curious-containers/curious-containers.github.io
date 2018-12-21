@@ -16,7 +16,7 @@ This connector can be used for HTTP and HTTPS connections.
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
 | url | string | no | | URL starting with http:// or https:// |
-| method | enum: GET, PUT, POST | no | | HTTP method  |
+| method | enum: GET, PUT, POST | yes | POST | HTTP method  |
 | auth | dict | yes | | Authentication information |
 | auth.username | string | no | | Username |
 | auth.password | string | no | | Password |
