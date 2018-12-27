@@ -115,7 +115,7 @@ The next steps of this guide, will demonstrate the formalization of the experime
 Install the current version of `cc-faice`, which will also install a compatible version of `cc-core` as a dependency.
 
 ```bash
-pip3 install --user cc-faice==5.4.0
+pip3 install --user cc-faice==6.0.0
 ```
 
 
@@ -212,14 +212,20 @@ before_context: 1
 ```
 
 
-Use the `ccagent cwl` commandline tool to execute the experiment.
+Use the `ccagent cwl` commandline tool to execute the experiment. This is equivalent to `cwltool ./grepwrap-cli.cwl ./job.yml`.
 
 ```bash
 ccagent cwl ./grepwrap-cli.cwl ./job.yml
 ```
 
+To get debug information with detailed exceptions use `--debug`.
 
-This is equivalent to `cwltool ./grepwrap-cli.cwl ./job.yml`.
+```bash
+ccagent cwl --debug ./grepwrap-cli.cwl ./job.yml > debug.yml
+```
+
+The resulting files will be moved to the current working directory.
+
 
 
 ## RED (ccagent)
@@ -298,12 +304,13 @@ The given HTTP connector is a reference implementation and the only connector in
 Use `faice schema show red-connector-http` to show the corresponding jsonschema and all connector options, including BASIC or DIGEST auth.
 
 
-Use the `ccagent red` commandline tool to execute the experiment.
+Use the `ccagent red` commandline tool to execute the experiment. The 
 
 ```bash
 ccagent red ./red.yml
 ```
 
+The resulting files will be moved to the current working directory.
 
 The RED format also allows for connector descriptions for output files. Open the existing RED file and append the following `outputs` section with `nano red.yml`.
 
@@ -329,13 +336,11 @@ For the purpose of this guide, we temporarily start a local HTTP server on TCP P
 faice file-server &
 ```
 
-
-Use the `ccagent red` commandline tool to execute the experiment.
+Use the `ccagent red` commandline tool with the `--outputs` flag to execute the experiment. Use `--outputs` to enable the specified connectors. Otherwise the `outputs` section of your RED file will be ignored and resulting files will be moved to the current working directory.
 
 ```bash
-ccagent red ./red.yml
+ccagent red --outputs ./red.yml
 ```
-
 
 The `faice file-server` is programmed to use the file name specified in the URL. Use `cat server-out.txt`
 to check the programs output.
@@ -364,7 +369,7 @@ RUN apt-get update \
 # install cc-core
 USER cc
 
-RUN pip3 install --no-input --user cc-core==5.4.0
+RUN pip3 install --no-input --user cc-core==6.0.0
 
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
@@ -376,7 +381,7 @@ ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
 
 As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
-As a first step, `python3-pip` is installed from Debian repositories, then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user, installs `cc-core==5.4.0` and explicitely sets required environment variables. Again, to ensure reproducible builds, it is advised to specify a certain version of `cc-core`. The last step is to install the application itself. In this case the `grepwrap` script is added to the image.
+As a first step, `python3-pip` is installed from Debian repositories, then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user, installs `cc-core==6.0.0` and explicitely sets required environment variables. Again, to ensure reproducible builds, it is advised to specify a certain version of `cc-core`. The last step is to install the application itself. In this case the `grepwrap` script is added to the image.
 
 Please note, that installing `cc-core` is necessary for compatibility with Curious Containers. This package provides the `ccagent` script with all the functionality demonstrated in this guide.
 
@@ -458,8 +463,9 @@ Use the `faice agent cwl` commandline tool to execute the experiment.
 faice agent cwl --disable-pull ./grepwrap-cli-docker.cwl ./job.yml
 ```
 
-
 The `--disable-pull` flag is required, because we are referencing a local container image and not a URI pointing to a registry.
+
+A directory called `outputs` was created, which is temporarily mounted as Docker volume to exchange files between the container and the host. It contains the result files.
 
 
 ## RED (faice agent)
@@ -526,6 +532,7 @@ inputs:
   before_context: 1
 ```
 
+Learn more about the container engine description by showing the corresponding jsonschema with `faice schema show red-engine-container-docker` (also see [RED Container Engines](/docs/red-container-engines)).
 
 Use the `faice agent red` commandline tool to execute the experiment.
 
@@ -533,8 +540,7 @@ Use the `faice agent red` commandline tool to execute the experiment.
 faice agent red --disable-pull ./red-docker.yml
 ```
 
-
-Learn more about the container engine description by showing the corresponding jsonschema with `faice schema show red-engine-container-docker` (also see [RED Container Engines](/docs/red-container-engines)).
+A directory called `outputs` was created, which is temporarily mounted as Docker volume to exchange files between the container and the host. It contains the result files.
 
 Again connector descriptions for output files can be included in the RED file. Open the existing file and append the following `outputs` section with `nano red-docker.yml`.
 
@@ -561,14 +567,13 @@ faice file-server &
 ```
 
 
-Use the `faice agent red` commandline tool to execute the experiment.
+Use the `faice agent red` commandline tool to execute the experiment. Again, use `--outputs` to enable the RED output connectors.
 
 ```bash
-faice agent red ./red-docker.yml
+faice agent red --disable-pull --outputs ./red-docker.yml
 ```
 
-
-Use `cat server-out.txt` to check the programs output.
+Use `cat server-out.txt` to check the programs output. Since we used the `--outputs` flag, no `outputs` directory was created for data exchange between the container and the host.
 
 You can stop the file-server as follows.
 

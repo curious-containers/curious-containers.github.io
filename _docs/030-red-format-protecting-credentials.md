@@ -79,20 +79,20 @@ Variables can only be used with string values, which must be located somewhere u
 {% endraw %}
 
 
-### Fill File
+### Variables File
 
-You can store values to be filled into your variables in a separate *fill-file*. A fill-file can be in JSON or YAML format and should only contain key-value pairs, where the key is the variable name. The following YAML content could be stored as `secrets.yml`.
+You can store values to be filled into your variables in a separate file. This file can be in JSON or YAML format and should only contain key-value pairs, where the key is the variable name. The following YAML content could be stored as `secrets.yml`.
 
 ```yaml
 ssh_username: "myusername"
 ssh_password: "mypassword"
 ```
 
-You can then use `faice agent red` or `faice exec` commands with the `--file-file` option.
+You can then use `faice agent red` or `faice exec` commands with the `--variables` option.
 
 ```
-faice agent red red.yml --file-file=secrets.yml
-faice exec red.yml --file-file=secrets.yml
+faice agent red red.yml --variables=secrets.yml
+faice exec red.yml --variables=secrets.yml
 ```
 
 

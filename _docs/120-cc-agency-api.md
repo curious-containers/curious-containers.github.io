@@ -105,8 +105,8 @@ Response (JSON):
 
 ```json
 {
-    "agencyVersion": "5.4.0",
-    "coreVersion": "5.4.0"
+    "agencyVersion": "6.0.0",
+    "coreVersion": "6.0.0"
 }
 ```
 
@@ -164,7 +164,7 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "docker.io/copla/grepwrap:5.4.0"
+      url: "docker.io/copla/grepwrap:6.0.0"
     ram: 256
 
 inputs:
