@@ -7,8 +7,10 @@ main:
     url: /examples
 
 docs:
-  - title: "Version 6.0.X"
-    url: /docs/version
+  - title: "Release"
+    children:
+      - title: "Version 6.0.X"
+        url: /docs/release
   - title: "Introduction"
     children:
       - title: "RED Beginner's Guide"
