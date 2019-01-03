@@ -153,7 +153,7 @@ inputs:
 
 If you want to use files or directories as input for an experiment in a RED file, you have to use so-called RED connectors. RED connectors for [input-files](/docs/red-connectors-input-files) and [input-directories](/docs/red-connectors-input-directories) exist, supporting a variety of protocols. If the available connectors do not suit you, you can implement your own in Python and easily integrate them with the [CC plugin API for connectors](/docs/developing-custom-connectors).
 
-Input-connectors are executed before the actual program to download files and directories to the container file-system. The download paths are provided to the programm command TODOas CLI arguments (see section [cli](#cli)).
+Input-connectors are executed before the actual program to download files and directories to the container file-system. The download paths are provided to the programm command as CLI arguments (see section [cli](#cli)).
 
 A connector is implemented as Python class included in a Python module. The location of the module must be included in the `PYTHONPATH` evironment variable. The can be achieved by installing the module via `pip` or by adding the path manually. Module and class must be specified under the `pyModule` and `pyClass` keywords respectively. The information provided under `access` depends on the connector.
 
