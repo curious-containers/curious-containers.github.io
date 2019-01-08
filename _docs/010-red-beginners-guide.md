@@ -234,9 +234,6 @@ The CWL `job.yml` has been used to reference input files in the local file syste
 
 Although the CWL specification also supports remote input files via the `location` keyword in a job file, it lacks the possibility to send output files to remote hosts. In addition the `location` value can only be a single string containing a URI (e.g. `http://example.com`), which is a limiting factor when connecting to a non-standard API is required (e.g. the REST API of [XNAT](https://www.xnat.org/) 1.6.5 is not stateless and requires explicit session deletion).
 
-For the given reasons, RED extends CWL in an incompatible way, to support arbitrary **connector plugins** written in Python. Fortunately it is possible to regain full compatibility with existing CWL implementations by exporting a given RED experiment via FAICE (see [CWL Compatible Export](#cwl-compatible-export)).
-
-
 Create a new file and insert the following RED data with `nano red.yml`.
 
 ```yaml
@@ -581,8 +578,3 @@ You can stop the file-server as follows.
 # terminate the last background job
 kill %%
 ```
-
-
-## CWL Compatible Export
-
-If you have an experiment in RED format and want to execute it in another CWL compatible system, you can use `faice export ./red-docker.yml`. Follow the instructions shown by the export tool.
