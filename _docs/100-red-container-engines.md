@@ -40,7 +40,6 @@ container:
       auth:
         username: "username"
         password: "password"
-        method: "BASIC"
     ram: 256
 ```
 
@@ -54,7 +53,6 @@ container:
 | image.auth | dict | yes | | Authentication information |
 | image.auth.username | string | no | | Username |
 | image.auth.password | string | no | | Password |
-| image.auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
 | ram | int | yes | | The RAM limitation for the container in MB |
 
 
@@ -74,11 +72,10 @@ container:
       auth:
         username: "username"
         password: "password"
-        method: "BASIC"
     ram: 256
     gpus:
-      - min_vram: 256
-      - min_vram: 256
+      - minVram: 256
+      - minVram: 256
 ```
 
 
@@ -106,7 +103,6 @@ container:
 | image.auth | dict | yes | | Authentication information |
 | image.auth.username | string | no | | Username |
 | image.auth.password | string | no | | Password |
-| image.auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
 | ram | int | yes | | The RAM limitation for the container in MB |
-| gpus.min\_vram | int | yes | | The minimal VRAM that must be present in MB |
+| gpus.minVram | int | yes | | The minimal VRAM that must be present in MB |
 | gpus.count | int | yes | | The number of GPUs to allocate |
