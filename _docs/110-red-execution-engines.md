@@ -51,7 +51,7 @@ execution:
   engine: "ccagency"
   settings:
     access:
-      url: "agency.example.com"
+      url: "https://example.com/cc"
       auth:
         username: "username"
         password: "password"
