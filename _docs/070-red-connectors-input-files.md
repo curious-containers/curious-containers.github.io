@@ -86,6 +86,14 @@ Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-f
 This connector can be used with the SFTP protocol via SSH.
 
 
+#### Important Security Information
+In order to access the requested data, this connector creates a ssh connection to the host.
+To make this work the connector requires a password or a valid private key to connect to the host.
+
+Be aware that anyone who has access to this login information could potentially connect to the host.
+Make sure you trust the executor of your red file.
+
+
 ### Usage
 
 | Access | Type | Optional | Default | Description |
@@ -93,9 +101,15 @@ This connector can be used with the SFTP protocol via SSH.
 | host | string | no | | Remote host domain name or IP address |
 | port | integer | yes | 22 | TCP port of SSH service on remote host |
 | username | string | no | | Username |
-| password | string | no | | Password |
+| password | string | yes | | Password |
+| privateKey | string | yes | | SSH Private Key |
+| passphrase | string | yes | | Passphrase for SSH Private Key |
 | fileDir | string | no | | File directory on remote host |
 | fileName | string | no | | File name on remote host |
+
+
+If the private key is encrypted, the passphrase must be given.
+If the private key is given, please make sure to copy all lines of the private key, seperated by "\n".
 
 
 ```yaml
