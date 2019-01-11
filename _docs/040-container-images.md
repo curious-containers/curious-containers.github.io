@@ -45,6 +45,12 @@ After adding your own application to the Dockerfile, create the image using the 
 docker build -t docker.io/myorganization/myimage .
 ```
 
+To check your image, you can run a container based on the image with uid:gid `1000:1000`.
+
+```bash
+docker run --rm -u 1000:1000 docker.io/myorganization/myimage "ccagent --version"
+```
+
 As you can see, we tagged the image with a URL, pointing to a location in the `docker.io` registry, also known as [DockerHub](https://hub.docker.com/). If you want to share your experiment with others or to execute it in a compute cluster via CC-Agency, you have to push your locally created image to a Docker registry. You can either use a public or paid organization on DockerHub or setup a private Docker registry on your own server.
 
 Login to your registry and push the image.
@@ -68,7 +74,7 @@ See the following Dockerfile listing for an example.
 ```Dockerfile
 FROM nvidia/cuda:9.0-base
 
-TODO
+# [...]
 ```
 
 For a complete list of available Cuda base images take a look at the their [DockerHub site](https://hub.docker.com/r/nvidia/cuda).

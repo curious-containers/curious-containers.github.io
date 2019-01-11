@@ -11,7 +11,7 @@ All CC Python package versions consist of three distict numbers separated by `.`
 If you are working with a RED file in a specific version (e.g. `"3"`), you must install CC-Core with a matching RED version (`"3.X.X"`) in your container image.
 
 ```
-pip3 install --user cc-core>=3,< 4
+pip3 install --user cc-core>=3,<4
 ```
 
 

@@ -4,27 +4,17 @@ permalink: /docs/red-container-engines
 ---
 
 RED Container Engines are used to execute programs in a virtual environment like a docker container.
-There are currently two engines available in RED. The first one is "docker".
-To support nvidia GPUs there is a second engine called "nvidia-docker". If you want your application to use GPUs you have to use nvidia-docker.
 
-To use docker or nvidia-docker you first have to build a docker image with `docker build`
-(For more information see the [RED Beginners Guide](https://www.curious-containers.cc/red-beginners-guide.html#container-image) or
-the [Docker build Documentation](https://docs.docker.com/engine/reference/commandline/build/)).
+There are currently two engines available in Curious Containers, `docker` and `nvidia-docker`.
+
+If you want your application to use Nvidia GPUs for CUDA support you have to use `nvidia-docker`.
 
 
 ## Docker
 
 Docker makes it possible to run the applications specified in the RED file in an isolated and secure environment.
-To run your application inside a docker container you have to specify which docker image to use.
 
-This docker image should meet the following conditions:
-- The image must contain a Linux user with `uid:gid == 1000:1000` (usually the first user created after `root`)
-- `ccagent --version` must be executable in the container as uid:gid 1000:1000
-- Your application must be executable in the container as uid:gid 1000:1000
-- For portability the image should be downloadable from a docker registry via its URL.  
-  (For example via `docker pull <image-url>`)
-
-Information about how to build such an image can be found in the [RED Beginners Guide](https://www.curious-containers.cc/red-beginners-guide.html#container-image).
+To run your application inside a docker container you have to specify which docker image to use. Information about how to build such an image can be found in the [Container Images](/docs/container-images) documentation.
 
 Additional you can specify hardware limitations which are applied to the container.
 
@@ -58,7 +48,9 @@ container:
 
 ## Nvidia-Docker
 
-To enable support for nvidia GPUs you can use the nvidia-docker engine. The configuration for nvidia-docker is similar to the docker configuration. Additional there are hardware requirements for GPUs. If the executing computer can't fulfill the GPU requirements the execution will not be successful.
+To enable support for nvidia GPUs you can use the `nvidia-docker` engine. The configuration for `nvidia-docker` is similar to the `docker` configuration. Additional there are hardware requirements for GPUs. If the executing computer can't fulfill the GPU requirements the execution will not be successful.
+
+This engine requires CUDA to be installed in the container images. See the [Nvidia Docker](/docs/container-images#nvidia-docker) section in the container images documentation for more information on building compatible images.
 
 
 ### Example Configuration
@@ -79,14 +71,13 @@ container:
 ```
 
 
-This configuration will try to pull the image "example-image", with the supplied authentication. The executing container will only use 256 MB RAM and two GPUs with at least 256 MB VRAM.
+This configuration will try to pull the image `example-image`, with the supplied authentication. The executing container will only use 256 MB RAM and two GPUs with at least 256 MB VRAM.
 
 Also possible to allocate one ore more GPUs is the following configuration.
 
 ```yaml
 container:
-  image:
-    # [...]
+  engine: "nvidia-docker"
   settings:
     # [...]
     gpus:
