@@ -18,7 +18,7 @@ Set `execution.engine` as `ccfaice`in your RED file, then use `faice exec red.ym
 command.
 
 ```bash
-faice agent red --debug --outputs --non-interactive red.yml
+faice agent red --debug --outputs red.yml
 ```
 
 If you want more control over `faice agent red` you should invoke it directly.
