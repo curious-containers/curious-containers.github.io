@@ -6,7 +6,7 @@ toc: true
 toc_label: "Table of Contents"
 ---
 
-If you have another **question** please open an [issue on Github](https://github.com/curious-containers/curious-containers.github.io/issues).
+If you have another **question** please open an [issue on Github](https://github.com/curious-containers/curious-containers/issues). Please not that we only accept issues in the [meta project](https://github.com/curious-containers/curious-containers).
 
 
 ## What is the purpose of the Curious Containers project?
@@ -41,3 +41,9 @@ Kubernetes is an container orchestration tool, CC is not. An orchestration tool 
 ## Is CC fault-tolerant?
 
 Yes, especially CC-Agency implements multiple failure recovery mechanisms. It is programmed to catch any error, either caused by data connectors and data-processing applications or by the underlying cluster infrastructure with faulty networks, docker-engines and configurations. The error history of applications and compute nodes is documented in a database to be inspected by the user. CC-Agency performs health checks to exclude problematic compute nodes from the processing pool or to automatically rejoin them. It can be configured to retry failed experiments a certain number of times.
+
+## How to support the project?
+
+If you are a user of Curious Container please get in touch and let us know. Since we do **not** track our users this is the only way for us to know that you exist and what kind of use cases you have.
+
+If you are a developer and want to contribute code, please create an [issue](https://github.com/curious-containers/curious-containers/issues) for discussion before requesting a pull.
