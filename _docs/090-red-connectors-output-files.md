@@ -25,8 +25,7 @@ This connector can be used for HTTP and HTTPS connections.
 
 
 ```yaml
-pyModule: "cc_core.commons.connectors.http"
-pyClass: "Http"
+command: "red-connector-http"
 access:
   url: "http://example.com/files/data.csv"
   method: "GET"
@@ -40,7 +39,9 @@ access:
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.1
+```
 
 
 ## HTTP JSON
@@ -51,15 +52,16 @@ This connector can be used to send JSON via HTTP and HTTPS connections. Only wor
 ### Usage
 
 ```yaml
-pyModule: "cc_core.commons.connectors.http"
-pyClass: "HttpJson"
+command: "red-connector-http-json"
 # refer to HTTP connector for more details
 ```
 
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.1
+```
 
 
 ## HTTP Mock Send
@@ -70,15 +72,16 @@ This connector can be used for HTTP and HTTPS connections. This connector is der
 ### Usage
 
 ```yaml
-pyModule: "cc_core.commons.connectors.http"
-pyClass: "HttpMockSend"
+command: "red-connector-http-mock-send"
 # refer to HTTP connector for more details
 ```
 
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.1
+```
 
 
 ## SSH SFTP
@@ -99,8 +102,7 @@ This connector can be used with the SFTP protocol via SSH.
 
 
 ```yaml
-pyModule: "red_connector_ssh.sftp"
-pyClass: "Sftp"
+command: "red-connector-ssh-sftp"
 access:
   host: "example.com"
   port: 22
@@ -114,7 +116,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.2
+pip3 install --user --upgrade red-connector-ssh==0.3
 ```
 
 
@@ -144,8 +146,7 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 
 
 ```yaml
-pyModule: "red_connector_xnat.http"
-pyClass: "Http"
+command: "red-connector-xnat-http"
 access:
   baseUrl: "https://example.com/xnat"
   project: "project"
@@ -167,5 +168,5 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.5
+pip3 install --user --upgrade red-connector-xnat==0.6
 ```

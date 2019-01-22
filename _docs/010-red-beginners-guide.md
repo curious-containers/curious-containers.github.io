@@ -301,7 +301,7 @@ The given HTTP connector is a reference implementation and the only connector in
 Use `faice schema show red-connector-http` to show the corresponding jsonschema and all connector options, including BASIC or DIGEST auth.
 
 
-Use the `ccagent red` commandline tool to execute the experiment. The 
+Use the `ccagent red` commandline tool to execute the experiment.
 
 ```bash
 ccagent red ./red.yml
