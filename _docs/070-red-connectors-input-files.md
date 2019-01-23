@@ -146,7 +146,7 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 | containerType | enum: scans, reconstructions, assessors | no | | Container Type |
 | container | string | no | | Container ID or label |
 | resource | string | no  | | Resource ID or label |
-| file | string | no | | File name |
+| file | string | no | | File path |
 | auth | dict | no | | Authentication information |
 | auth.username | string | no | | Username |
 | auth.password | string | no | | Password |
@@ -180,7 +180,7 @@ access:
 | subject | string | no | | Subject ID or label |
 | session | string | no | | Session / Experiment ID or label |
 | resource | string | no  | | Resource ID or label |
-| file | string | no | | File name |
+| file | string | no | | File path |
 | auth | dict | no | | Authentication information |
 | auth.username | string | no | | Username |
 | auth.password | string | no | | Password |

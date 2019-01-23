@@ -136,8 +136,8 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 | containerType | enum: scans, reconstructions, assessors | no | | Container Type |
 | container | string | no | | Container ID or label |
 | xsiType | string | yes | | Container xsiType, maybe required if container does not yet exist, raises exception if existing container does not match provided xsiType |
-| resource | string | no  | | Resource ID or label |
-| file | string | no | | File name |
+| resource | string | yes | OTHER | Resource ID or label |
+| file | string | no | | File path |
 | overwriteExistingFile | boolean | yes | False | Overwrite file if it already exists, otherwise raises exception if file exists |
 | auth | dict | no | | Authentication information |
 | auth.username | string | no | | Username |
