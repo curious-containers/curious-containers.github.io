@@ -113,7 +113,6 @@ controller:
     nodes: {}
   scheduling:
     strategy: 'spread'
-    attempts_to_fail: 3
 
 mongo:
   db: "ccagency"

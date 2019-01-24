@@ -55,6 +55,8 @@ execution:
       auth:
         username: "username"
         password: "password"
+    retryIfFailed: True,
+    batchConcurrencyLimit: 8
 ```
 
 
@@ -67,3 +69,5 @@ execution:
 | access.auth | dict | yes | | Authentication information |
 | access.auth.username | string | no | | Username |
 | access.auth.password | string | no | | Password |
+| retryIfFailed | boolean | yes | False | Retry each batch once if the execution failed |
+| batchConcurrencyLimit | integer | yes | 64 | Limit concurrently executed batches of given experiment |
