@@ -80,9 +80,9 @@ command: "red-connector-http-mock-send"
 Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
 
 
-## SSH SFTP
+## SSH
 
-This connector can be used with the SFTP protocol via SSH.
+This connector uses SSH SFTP and SSH SCP for file transfers.
 
 
 #### Important Security Information
@@ -112,7 +112,7 @@ If the private key is given, please make sure to copy all lines of the private k
 
 
 ```yaml
-command: "red-connector-ssh-sftp"
+command: "red-connector-ssh"
 access:
   host: "example.com"
   port: 22

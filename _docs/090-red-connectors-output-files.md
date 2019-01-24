@@ -84,9 +84,9 @@ pip3 install --user --upgrade red-connector-http==0.1
 ```
 
 
-## SSH SFTP
+## SSH
 
-This connector can be used with the SFTP protocol via SSH.
+This connector uses SSH SFTP and SSH SCP for file transfers.
 
 
 ### Usage
@@ -102,7 +102,7 @@ This connector can be used with the SFTP protocol via SSH.
 
 
 ```yaml
-command: "red-connector-ssh-sftp"
+command: "red-connector-ssh"
 access:
   host: "example.com"
   port: 22
