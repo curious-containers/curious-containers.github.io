@@ -192,7 +192,8 @@ outputs:
 execution:
   engine: "ccagency"
   settings:
-    disablePull: False
+    retryIfFailed: True
+    batchConcurrencyLimit: 8
 ```
 
 Request (Python):

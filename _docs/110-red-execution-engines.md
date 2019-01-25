@@ -55,7 +55,7 @@ execution:
       auth:
         username: "username"
         password: "password"
-    retryIfFailed: True,
+    retryIfFailed: True
     batchConcurrencyLimit: 8
 ```
 

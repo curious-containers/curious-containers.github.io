@@ -278,8 +278,7 @@ inputs:
   text_file:
     class: "File"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      command: "red-connector-http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"
         method: "GET"
@@ -294,11 +293,21 @@ This minimal RED file contains three sections:
 * `inputs`: is similar to a CWL job description, but references RED connectors
 
 
-The RED inputs format is very similar to a CWL job. Note that connectors only work with files, and that the `connector` keyword replaces `path` and `location`. Each connector requires the `pyModule` and `pyClass` keywords to reference an importable Python class and `access` for the connector's settings. The information contained in `access` is validated by the connector itself and therefore varies for different connector implementations.
+The RED inputs format is very similar to a CWL job. Note that connectors only work with files, and that the `connector` keyword replaces `path` and `location`. Each connector requires the `command` and `access` keywords for a connector. The information contained in `access` is validated by the connector itself and therefore varies for different connector implementations.
 
-The given HTTP connector is a reference implementation and the only connector included with `cc-core` (different connector plugins can be found in the documentation).
+In order to use the connector it must be installed and its command must be executable. The Curious Containers provides various connectors. The HTTP connector can be installed as follows.
 
-Use `faice schema show red-connector-http` to show the corresponding jsonschema and all connector options, including BASIC or DIGEST auth.
+```bash
+pip3 install --user --upgrade red-connector-http==0.1
+```
+
+This package provides three different connector, which should now be executable.
+
+```bash
+red-connector-http --version
+red-connector-http-json --version
+red-connector-http-mock-send --version
+```
 
 
 Use the `ccagent red` commandline tool to execute the experiment.
@@ -316,8 +325,7 @@ outputs:
   out_file:
     class: "File"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      command: "red-connector-http"
       access:
         url: "http://localhost:5000/server-out.txt"
         method: "POST"
@@ -352,35 +360,35 @@ kill %%
 
 ## Container Image
 
-The next step is to explicitely document the runtime environment with all required dependencies of `grepwrap`. Container technologies are useful to create this kind reproducible and distributable environment. For the time being, the only container engine supported by Curious Containers is [Docker](https://www.docker.com/).
+The next step is to explicitely document the runtime environment with all required dependencies of `grepwrap`. Container technologies are useful to create this kind reproducible and distributable environment.
 
-Create a new file and insert the following Dockerfile description with `nano Dockerfile`.
+Create a new Dockerfile and insert the following description with `nano Dockerfile`.
 
 ```docker
 FROM docker.io/debian:9.5-slim
 
 RUN apt-get update \
-&& apt-get install -y python3-pip \
+&& apt-get install -y python3-venv \
 && useradd -ms /bin/bash cc
 
-# install cc-core
+# install app
 USER cc
 
-RUN pip3 install --no-input --user cc-core==6.0.0
+ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
 
 ENV PATH="/home/cc/.local/bin:${PATH}"
-ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
 
-# install app
-ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
+# install connectors
+RUN python3 -m venv /home/cc/.local/red \
+&& . /home/cc/.local/red/bin/activate \
+&& pip install wheel \
+&& pip install red-connector-http==0.1
 ```
 
 
 As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
-As a first step, `python3-pip` is installed from Debian repositories, then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user, installs `cc-core==6.0.0` and explicitely sets required environment variables. Again, to ensure reproducible builds, it is advised to specify a certain version of `cc-core`. The last step is to install the application itself. In this case the `grepwrap` script is added to the image.
-
-Please note, that installing `cc-core` is necessary for compatibility with Curious Containers. This package provides the `ccagent` script with all the functionality demonstrated in this guide.
+As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image. As a last step we install `red-connector-http`, which we want to use in our given experiment.
 
 Use the Docker client to build the image and name it `grepwrap-image`.
 
@@ -390,12 +398,12 @@ docker build --tag grepwrap-image .
 
 Use `docker image list` to check if the new image exists.
 
-To check if the container image is configured correctly, try running `ccagent --version` and `grepwrap --help` in a container based on the new image.
+To check if the container image is configured correctly, try running the installed commands in a container based on the new image.
 
 ```bash
 docker run --rm -u 1000:1000 grepwrap-image whoami  # should print cc
-docker run --rm -u 1000:1000 grepwrap-image ccagent --version
 docker run --rm -u 1000:1000 grepwrap-image grepwrap --help
+docker run --rm -u 1000:1000 grepwrap-image red-connector-http --version
 ```
 
 You should consider pushing the image to a registry like [DockerHub](https://hub.docker.com/) and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name `grepwrap-image`.
