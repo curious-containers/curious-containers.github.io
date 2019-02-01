@@ -388,7 +388,7 @@ RUN python3 -m venv /home/cc/.local/red \
 
 As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
-As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to `cwltool`. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image. As a last step we install `red-connector-http`, which we want to use in our given experiment.
+As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to the CWL reference implementation `cwltool`. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image. As a last step we install `red-connector-http`, which we want to use in our given experiment.
 
 Use the Docker client to build the image and name it `grepwrap-image`.
 
