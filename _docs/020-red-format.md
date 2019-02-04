@@ -155,9 +155,11 @@ If you want to use files or directories as input for an experiment in a RED file
 
 Input-connectors are executed before the actual program to download files and directories to the container file-system. The download paths are provided to the programm command as CLI arguments (see section [cli](#cli)).
 
-A connector is implemented as Python class included in a Python module. The location of the module must be included in the `PYTHONPATH` evironment variable. The can be achieved by installing the module via `pip` or by adding the path manually. Module and class must be specified under the `pyModule` and `pyClass` keywords respectively. The information provided under `access` depends on the connector.
+A connector provides a commandline interface. The location of the connector executable should be included in the `PATH` evironment variable. The name of the executable is referenced via the `command` keyword.
 
-You can now specify a connector which fetches this file via HTTP to make it accessible for your program. Details about the specific connectors can be found in the [RED Connectors: Input Files](/docs/red-connectors-input-files) documentation.
+The information provided under `access` depends on the connector. Refer to the [documentation](/docs/red-connectors-input-files) of a specific connector for more information on how to specify `access` data correctly.
+
+You can now specify a connector which fetches this file via HTTP.
 
 ```yml
 inputs:
@@ -168,10 +170,11 @@ inputs:
       pyClass: "Http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/in.txt"
-        method: "GET"
 ```
 
-In order to download an entire directory, some connectors like the HTTP connector require a directory `listing`. This listing defines the subfiles and subdirectories and is only allowed for directory connectors. Even for connectors which do not strictly require a listing it is recommended to include one, because it can be used to check the directory contents for missing files and subdirectories.
+### inputs: directories
+
+In order to download an entire directory, some connectors like the HTTP connector require a directory `listing`. This listing defines the subfiles and subdirectories and is only allowed for directory connectors. Even for connectors which do not strictly require a listing it is recommended to include one, because it will be used to automatically check the directory contents for missing files and subdirectories.
 
 ```yml
 inputs:
@@ -182,7 +185,6 @@ inputs:
       pyClass: "Http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/cc-core/master/cc_core/"
-        method: "GET"
     listing:
       - class: 'File'
         basename: 'version.py'

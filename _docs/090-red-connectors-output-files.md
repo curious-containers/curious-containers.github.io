@@ -11,7 +11,7 @@ This document provides a list of available [output file](/docs/red-format#output
 This connector can be used for HTTP and HTTPS connections.
 
 
-### Usage
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -25,8 +25,7 @@ This connector can be used for HTTP and HTTPS connections.
 
 
 ```yaml
-pyModule: "cc_core.commons.connectors.http"
-pyClass: "Http"
+command: "red-connector-http"
 access:
   url: "http://example.com/files/data.csv"
   method: "GET"
@@ -40,7 +39,9 @@ access:
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.2
+```
 
 
 ## HTTP JSON
@@ -48,18 +49,20 @@ Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-f
 This connector can be used to send JSON via HTTP and HTTPS connections. Only works with valid JSON files and sets the correct JSON content type, but is otherwise equivalent to the standard [HTTP](#http) connector.
 
 
-### Usage
+### Access
 
 ```yaml
-pyModule: "cc_core.commons.connectors.http"
-pyClass: "HttpJson"
+command: "red-connector-http-json"
+access: ...
 # refer to HTTP connector for more details
 ```
 
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.2
+```
 
 
 ## HTTP Mock Send
@@ -67,23 +70,25 @@ Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-f
 This connector can be used for HTTP and HTTPS connections. This connector is derived from the [HTTP](#http) connector and overrides the `send` method to not do anything. It is only useful for testing.
 
 
-### Usage
+### Access
 
 ```yaml
-pyModule: "cc_core.commons.connectors.http"
-pyClass: "HttpMockSend"
+command: "red-connector-http-mock-send"
+access: ...
 # refer to HTTP connector for more details
 ```
 
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.2
+```
 
 
-## SSH SFTP
+## SSH
 
-This connector can be used with the SFTP protocol via SSH.
+This connector uses SSH SFTP and SSH SCP for file transfers.
 
 
 ### Usage
@@ -99,8 +104,7 @@ This connector can be used with the SFTP protocol via SSH.
 
 
 ```yaml
-pyModule: "red_connector_ssh.sftp"
-pyClass: "Sftp"
+command: "red-connector-ssh"
 access:
   host: "example.com"
   port: 22
@@ -114,7 +118,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.2
+pip3 install --user --upgrade red-connector-ssh==0.4
 ```
 
 
@@ -123,7 +127,7 @@ pip3 install --user --upgrade red-connector-ssh==0.2
 This is a special purpose connector to exchange files with the [XNAT](https://www.xnat.org/) data management system. The complicated REST API of XNAT requires multiple subsequent HTTP requests (e.g. for session management), which are handled by this connector. The given access information is combined to form actual HTTP URLs.
 
 
-### Usage
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -134,8 +138,8 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 | containerType | enum: scans, reconstructions, assessors | no | | Container Type |
 | container | string | no | | Container ID or label |
 | xsiType | string | yes | | Container xsiType, maybe required if container does not yet exist, raises exception if existing container does not match provided xsiType |
-| resource | string | no  | | Resource ID or label |
-| file | string | no | | File name |
+| resource | string | yes | OTHER | Resource ID or label |
+| file | string | no | | File path |
 | overwriteExistingFile | boolean | yes | False | Overwrite file if it already exists, otherwise raises exception if file exists |
 | auth | dict | no | | Authentication information |
 | auth.username | string | no | | Username |
@@ -144,8 +148,7 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 
 
 ```yaml
-pyModule: "red_connector_xnat.http"
-pyClass: "Http"
+command: "red-connector-xnat-http"
 access:
   baseUrl: "https://example.com/xnat"
   project: "project"
@@ -167,5 +170,5 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.5
+pip3 install --user --upgrade red-connector-xnat==0.8
 ```

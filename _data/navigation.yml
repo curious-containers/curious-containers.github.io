@@ -1,10 +1,16 @@
 main:
   - title: "FAQ"
-    url: "/faq"
+    url: /faq
   - title: "Publications"
-    url: "/publications"
+    url: /publications
+  - title: "Examples"
+    url: /examples
 
 docs:
+  - title: "Release"
+    children:
+      - title: "Version 6.0.0"
+        url: /docs/release
   - title: "Introduction"
     children:
       - title: "RED Beginner's Guide"
@@ -19,8 +25,6 @@ docs:
         url: /docs/cc-core-cc-faice-cc-agency
       - title: "Versioning"
         url: /docs/versioning
-      - title: "Examples"
-        url: /docs/examples
   - title: "User Docs"
     children:
       - title: "RED Connectors: Input Files"

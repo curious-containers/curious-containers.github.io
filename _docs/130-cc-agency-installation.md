@@ -108,12 +108,11 @@ controller:
   bind_port: 6001
   docker:
     core_image:
-      url: "docker.io/curiouscontainers/cc-core:5.4.0"
+      url: "docker.io/curiouscontainers/cc-core:6.0.0"
       disable_pull: False
     nodes: {}
   scheduling:
     strategy: 'spread'
-    attempts_to_fail: 3
 
 mongo:
   db: "ccagency"
