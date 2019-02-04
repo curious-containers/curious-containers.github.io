@@ -148,9 +148,9 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 | --- | --- | --- | --- | --- |
 | baseUrl | string | no | | XNAT base URL without any subsequent path, starting with http:// or https:// |
 | project | string | no | | Project ID or label |
-| subject | string | yes | | Subject ID or label |
-| session | string | yes | | Session / Experiment ID or label |
-| containerType | enum: scans, reconstructions, assessors | yes | | Container Type |
+| subject | string | yes, except if session is set | | Subject ID or label |
+| session | string | yes, except if containerType is set | | Session / Experiment ID or label |
+| containerType | enum: scans, reconstructions, assessors | yes, except if container is set | | Container Type |
 | container | string | yes | | Container ID or label |
 | resource | string | no  | | Resource ID or label |
 | file | string | no | | File path |

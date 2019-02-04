@@ -5,7 +5,9 @@ permalink: /docs/red-connectors-input-directories
 
 This document provides a list of available [input directory](/docs/red-format#inputs) connectors and how to use them.
 
-**Important note**: Some of the connectors strictly require a directory listing. Take a look at the [inputs: directories](/docs/red-format#inputs-directories) section of the RED format documentation first.
+**Listings:** Some of the connectors strictly require a directory listing. Take a look at the [inputs: directories](/docs/red-format#inputs-directories) section of the RED format documentation first.
+
+**Mount Privileges:** Some of the connectors mount directories via [FUSE](https://de.wikipedia.org/wiki/Filesystem_in_Userspace). They require `mount: true` to be set in the `connector` section. This feature has security implications, because a Docker container needs to be started with additional sysadmin capabilities to allow mounting.
 
 ## HTTP
 
@@ -136,4 +138,33 @@ pip3 install --user --upgrade red-connector-ssh==0.4
 
 ## SSHFS
 
-TODO
+*Requires mount privileges.*
+
+This connector uses the FUSE filesystem SSHFS to mount a remote directory via SSH.
+
+
+### Listing
+
+Optional.
+
+### Access
+
+| Access | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| host | string | no | | Remote host domain name or IP address |
+| port | integer | yes | 22 | TCP port of SSH service on remote host |
+| username | string | no | | Username |
+| password | string | no | | Password |
+| dirName | string | no | | Directory on remote host |
+
+
+```yaml
+command: "red-connector-sshfs"
+mount: true
+access:
+  host: "example.com"
+  port: 22
+  username: "username"
+  password: "password"
+  dirName: "/home/username/files"
+```
