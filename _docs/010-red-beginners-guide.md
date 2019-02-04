@@ -297,7 +297,7 @@ The RED inputs format is very similar to a CWL job. Note that connectors only wo
 In order to use the connector it must be installed and its command must be executable. The Curious Containers provides various connectors. The HTTP connector can be installed as follows.
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.2
+pip3 install --user --upgrade red-connector-http==0.3
 ```
 
 This package provides three different connector, which should now be executable.
@@ -376,7 +376,7 @@ USER cc
 RUN python3 -m venv /home/cc/.local/red \
 && . /home/cc/.local/red/bin/activate \
 && pip install wheel \
-&& pip install red-connector-http==0.2
+&& pip install red-connector-http==0.3
 
 ENV PATH="/home/cc/.local/red/bin:${PATH}"
 
