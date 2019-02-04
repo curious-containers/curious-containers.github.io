@@ -17,7 +17,6 @@ CC-Core is a Python package which, as the name says, provides core functionality
 
 If you are installing CC-FAICE, CC-Core will be automatically installed as a package dependency with the highest compatible version.
 
-A manual installation of CC-Core is only required in container images. Take a look at the [Container Image](/docs/container-image) documentation for more information.
 
 ## CC-FAICE
 
