@@ -40,7 +40,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.1
+pip3 install --user --upgrade red-connector-http==0.2
 ```
 
 
@@ -60,7 +60,9 @@ access: ...
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.2
+```
 
 
 ## HTTP Mock Send
@@ -79,7 +81,9 @@ access: ...
 
 ### Installation
 
-Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-faice-cc-agency#cc-core).
+```bash
+pip3 install --user --upgrade red-connector-http==0.2
+```
 
 
 ## SSH
@@ -129,7 +133,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.3
+pip3 install --user --upgrade red-connector-ssh==0.4
 ```
 
 
@@ -177,5 +181,5 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.7
+pip3 install --user --upgrade red-connector-xnat==0.8
 ```

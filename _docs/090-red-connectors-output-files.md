@@ -40,7 +40,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.1
+pip3 install --user --upgrade red-connector-http==0.2
 ```
 
 
@@ -61,7 +61,7 @@ access: ...
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.1
+pip3 install --user --upgrade red-connector-http==0.2
 ```
 
 
@@ -82,7 +82,7 @@ access: ...
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.1
+pip3 install --user --upgrade red-connector-http==0.2
 ```
 
 
@@ -118,7 +118,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.3
+pip3 install --user --upgrade red-connector-ssh==0.4
 ```
 
 
@@ -170,5 +170,5 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.6
+pip3 install --user --upgrade red-connector-xnat==0.8
 ```
