@@ -11,7 +11,7 @@ This document provides a list of available [output file](/docs/red-format#output
 This connector can be used for HTTP and HTTPS connections.
 
 
-### Usage
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -49,10 +49,11 @@ pip3 install --user --upgrade red-connector-http==0.1
 This connector can be used to send JSON via HTTP and HTTPS connections. Only works with valid JSON files and sets the correct JSON content type, but is otherwise equivalent to the standard [HTTP](#http) connector.
 
 
-### Usage
+### Access
 
 ```yaml
 command: "red-connector-http-json"
+access: ...
 # refer to HTTP connector for more details
 ```
 
@@ -69,10 +70,11 @@ pip3 install --user --upgrade red-connector-http==0.1
 This connector can be used for HTTP and HTTPS connections. This connector is derived from the [HTTP](#http) connector and overrides the `send` method to not do anything. It is only useful for testing.
 
 
-### Usage
+### Access
 
 ```yaml
 command: "red-connector-http-mock-send"
+access: ...
 # refer to HTTP connector for more details
 ```
 
@@ -125,7 +127,7 @@ pip3 install --user --upgrade red-connector-ssh==0.3
 This is a special purpose connector to exchange files with the [XNAT](https://www.xnat.org/) data management system. The complicated REST API of XNAT requires multiple subsequent HTTP requests (e.g. for session management), which are handled by this connector. The given access information is combined to form actual HTTP URLs.
 
 
-### Usage
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |

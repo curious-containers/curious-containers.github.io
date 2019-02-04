@@ -3,20 +3,18 @@ title: "Container Images"
 permalink: /docs/container-images
 ---
 
-Its part of Curious Containers' concept, that data is is only handled inside of a running container and never touches a file-system of the underlying infrastructures. Therefore agent implementations, like `ccagent cwl`, `ccagent red` or `ccagent connected`, must be installed in the container image. These agents are invoked by a compatible execution engine, like `faice agent cwl`, `faice agent red` or CC-Agency. The `ccagent` implementations are provided by the `cc-core` python package, which can be installed via `pip`.
-
 The following sections show how to prepare a container image, for the two container engines `docker` and `nvidia-docker`.
 
 
 ## Docker
 
-There are many ways to build a Docker engine, be it `FROM scratch` or from an existing base image. In our examples we chose `docker.io/debian:9.5-slim` as a base image, because it is relatively small and dependencies can easily be installed from the Debian package repositories via `apt-get install`.
+There are many ways to build a Docker image. In our examples we chose `docker.io/debian:9.5-slim` as a base image, because it is relatively small and dependencies can easily be installed from the Debian package repositories via `apt-get install`. A `/bin/sh` shell, as it is preconfigured in most images, is required.
 
-Since `ccagent` is implemented in the Python package `cc-core`, a Python3 interpreter is always required. To make our lives easier, we also install `pip3`, a package manager for Python3. This allows us to install `cc-core` with a single command. Since Docker provides a clean environment by default, we have to set the `PATH` and `PYTHONPATH` environement variables explicitely. Please note, that your own application also needs to be located in a directory which is included in `PATH`.
+For the image to be used effectively, RED connector commandline application have to be installed. In order to use any of the standard connectors provided by the Curious Containers project, a Python3 interpreter must be installed as well. Since Docker provides a clean environment by default, we have to set the `PATH` environment variables explicitely. Please note, that your own application also needs to be located in a directory which is included in `PATH`.
 
-Another requirement is, that `ccagent` and the application are executed as user with uid:gid set to `1000:1000`. The debian base image does not yet include another user besides `root`. We can therefore create the first user called `cc`, wich will by default be assigned the uid:gid pair `1000:1000`.
+Another requirement is, that the application and the RED connectors are executed as user with uid:gid set to `1000:1000`. The debian base image does not have such a user configured. We can therefore create the first user called `cc`, wich will by default be assigned the uid:gid pair `1000:1000`. Please note, that the user's name does not matter.
 
-The Dockerfile below demonstrate the correct `cc-core` setup with two additional connector packages. Please note, that this Dockerfile does not include an application to be executed by `ccagent`. For a more complete example we advise you to work through the [RED Beginner's Guide](/docs/red-beginners-guide).
+The Dockerfile below does not include an application. For a more complete example we advise you to work through the [RED Beginner's Guide](/docs/red-beginners-guide).
 
 ```docker
 FROM docker.io/debian:9.5-slim
@@ -25,18 +23,19 @@ RUN apt-get update \
 && apt-get install -y python3-pip \
 && useradd -ms /bin/bash cc
 
-# install cc-core
+# switch user
 USER cc
 
-RUN pip3 install --no-input --user cc-core==6.0.0
+# install connectors
+RUN python3 -m venv /home/cc/.local/red \
+&& . /home/cc/.local/red/bin/activate \
+&& pip install wheel \
+&& pip install red-connector-http==0.1 red-connector-ssh==0.3
 
-ENV PATH="/home/cc/.local/bin:${PATH}"
-ENV PYTHONPATH="/home/cc/.local/lib/python3.5/site-packages/"
-
-# install additional connectors if you need them
-RUN pip3 install --no-input --user red-connector-ssh red-connector-xnat
+ENV PATH="/home/cc/.local/red/bin:${PATH}"
 
 # add commands here to install your application
+# ...
 ```
 
 After adding your own application to the Dockerfile, create the image using the `docker build` command. The `.` at the end of the command indicates, that `docker build` will pick up your Dockerfile from the current working directory.
@@ -48,7 +47,7 @@ docker build -t docker.io/myorganization/myimage .
 To check your image, you can run a container based on the image with uid:gid `1000:1000`.
 
 ```bash
-docker run --rm -u 1000:1000 docker.io/myorganization/myimage "ccagent --version"
+docker run --rm -u 1000:1000 docker.io/myorganization/myimage red-connector-http --version
 ```
 
 As you can see, we tagged the image with a URL, pointing to a location in the `docker.io` registry, also known as [DockerHub](https://hub.docker.com/). If you want to share your experiment with others or to execute it in a compute cluster via CC-Agency, you have to push your locally created image to a Docker registry. You can either use a public or paid organization on DockerHub or setup a private Docker registry on your own server.

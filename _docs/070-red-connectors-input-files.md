@@ -11,7 +11,7 @@ This document provides a list of available [input file](/docs/red-format#inputs)
 This connector can be used for HTTP and HTTPS connections.
 
 
-### Usage
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -49,10 +49,11 @@ pip3 install --user --upgrade red-connector-http==0.1
 This connector can be used to receive JSON via HTTP and HTTPS connections. Only works with valid JSON files and sets the correct JSON content type, but is otherwise equivalent to the standard [HTTP](#http) connector.
 
 
-### Usage
+### Access
 
 ```yaml
 command: "red-connector-http-json"
+access: ...
 # refer to HTTP connector for more details
 ```
 
@@ -67,10 +68,11 @@ Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-f
 This connector can be used for HTTP and HTTPS connections. This connector is derived from the [HTTP](#http) connector and overrides the `send` method to not do anything. It is only useful for testing.
 
 
-### Usage
+### Access
 
 ```yaml
 command: "red-connector-http-mock-send"
+access: ...
 # refer to HTTP connector for more details
 ```
 
@@ -85,15 +87,16 @@ Not required, because this connector is included in [CC-Core](/docs/cc-core-cc-f
 This connector uses SSH SFTP and SSH SCP for file transfers.
 
 
-#### Important Security Information
+**Important Security Information:**
+
 In order to access the requested data, this connector creates a ssh connection to the host.
 To make this work the connector requires a password or a valid private key to connect to the host.
 
 Be aware that anyone who has access to this login information could potentially connect to the host.
-Make sure you trust the executor of your red file.
+Make sure you trust the executor of your RED file.
 
 
-### Usage
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -135,16 +138,16 @@ pip3 install --user --upgrade red-connector-ssh==0.3
 This is a special purpose connector to exchange files with the [XNAT](https://www.xnat.org/) data management system. The complicated REST API of XNAT requires multiple subsequent HTTP requests (e.g. for session management), which are handled by this connector. The given access information is combined to form actual HTTP URLs.
 
 
-### Usage: Option 1
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
 | baseUrl | string | no | | XNAT base URL without any subsequent path, starting with http:// or https:// |
 | project | string | no | | Project ID or label |
-| subject | string | no | | Subject ID or label |
-| session | string | no | | Session / Experiment ID or label |
-| containerType | enum: scans, reconstructions, assessors | no | | Container Type |
-| container | string | no | | Container ID or label |
+| subject | string | yes | | Subject ID or label |
+| session | string | yes | | Session / Experiment ID or label |
+| containerType | enum: scans, reconstructions, assessors | yes | | Container Type |
+| container | string | yes | | Container ID or label |
 | resource | string | no  | | Resource ID or label |
 | file | string | no | | File path |
 | auth | dict | no | | Authentication information |
@@ -171,39 +174,8 @@ access:
 ```
 
 
-### Usage: Option 2
-
-| Access | Type | Optional | Default | Description |
-| --- | --- | --- | --- | --- |
-| baseUrl | string | no | | XNAT base URL without any subsequent path, starting with http:// or https:// |
-| project | string | no | | Project ID or label |
-| subject | string | no | | Subject ID or label |
-| session | string | no | | Session / Experiment ID or label |
-| resource | string | no  | | Resource ID or label |
-| file | string | no | | File path |
-| auth | dict | no | | Authentication information |
-| auth.username | string | no | | Username |
-| auth.password | string | no | | Password |
-| disableSSLVerification | boolean | yes | False | Disable verification of SSL cert |
-
-
-```yaml
-command: "red-connector-xnat-http"
-access:
-  baseUrl: "https://example.com/xnat"
-  project: "project"
-  subject: "subject"
-  session: "session"
-  resource: "resource"
-  file: "scan.dat"
-  auth:
-    username: "username"
-    password: "password"
-  disableSSLVerification: False
-```
-
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.6
+pip3 install --user --upgrade red-connector-xnat==0.7
 ```
