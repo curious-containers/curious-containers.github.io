@@ -281,7 +281,6 @@ inputs:
       command: "red-connector-http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"
-        method: "GET"
   before_context: 1
 ```
 
@@ -298,7 +297,7 @@ The RED inputs format is very similar to a CWL job. Note that connectors only wo
 In order to use the connector it must be installed and its command must be executable. The Curious Containers provides various connectors. The HTTP connector can be installed as follows.
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.1
+pip3 install --user --upgrade red-connector-http==0.2
 ```
 
 This package provides three different connector, which should now be executable.
@@ -328,7 +327,6 @@ outputs:
       command: "red-connector-http"
       access:
         url: "http://localhost:5000/server-out.txt"
-        method: "POST"
 ```
 
 
@@ -396,7 +394,7 @@ As a first step, `python3-venv` is installed from Debian repositories which is u
 Use the Docker client to build the image and name it `grepwrap-image`.
 
 ```bash
-docker build --tag grepwrap-image .
+docker build --tag grepwrap .
 ```
 
 Use `docker image list` to check if the new image exists.
@@ -404,9 +402,9 @@ Use `docker image list` to check if the new image exists.
 To check if the container image is configured correctly, try running the installed commands in a container based on the new image.
 
 ```bash
-docker run --rm -u 1000:1000 grepwrap-image whoami  # should print cc
-docker run --rm -u 1000:1000 grepwrap-image grepwrap --help
-docker run --rm -u 1000:1000 grepwrap-image red-connector-http --version
+docker run --rm -u 1000:1000 grepwrap whoami  # should print cc
+docker run --rm -u 1000:1000 grepwrap grepwrap --help
+docker run --rm -u 1000:1000 grepwrap red-connector-http --version
 ```
 
 You should consider pushing the image to a registry like [DockerHub](https://hub.docker.com/) and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name `grepwrap-image`.
@@ -430,7 +428,7 @@ doc: "Search for query terms in text files."
 
 requirements:
   DockerRequirement:
-    dockerPull: "grepwrap-image"
+    dockerPull: "grepwrap"
 
 inputs:
   query_term:
@@ -525,18 +523,16 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "grepwrap-image"
+      url: "grepwrap"
 
 inputs:
   query_term: "QU"
   text_file:
     class: "File"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      command: "red-connector-http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"
-        method: "GET"
   before_context: 1
 ```
 
@@ -557,11 +553,9 @@ outputs:
   out_file:
     class: "File"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      command: "red-connector-http"
       access:
         url: "http://172.17.0.1:5000/server-out.txt"
-        method: "POST"
 ```
 
 
