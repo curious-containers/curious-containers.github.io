@@ -237,7 +237,7 @@ Although the CWL specification also supports remote input files via the `locatio
 Create a new file and insert the following RED data with `nano red.yml`.
 
 ```yaml
-redVersion: "5"
+redVersion: "6"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"
@@ -483,7 +483,7 @@ A compatible RED file is very similar to the RED file used `ccagent red`, but re
 Create a new file and insert the following RED data with `nano red-docker.yml`.
 
 ```yaml
-redVersion: "5"
+redVersion: "6"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"

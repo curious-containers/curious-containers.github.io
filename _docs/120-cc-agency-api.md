@@ -124,7 +124,7 @@ Additionally **required** fields:
 File red.yml:
 
 ```yaml
-redVersion: "5"
+redVersion: "6"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"
@@ -164,7 +164,7 @@ container:
   engine: "docker"
   settings:
     image:
-      url: "docker.io/copla/grepwrap:6.0.0"
+      url: "docker.io/copla/grepwrap"
     ram: 256
 
 inputs:
@@ -172,22 +172,18 @@ inputs:
   text_file:
     class: "File"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      command: "red-connector-http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"
-        method: "GET"
   before_context: 1
 
 outputs:
   out_file:
     class: "File"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "HttpMockSend"
+      command: "red-connector-http"
       access:
         url: "https://example.com/out.txt"
-        method: "POST"
 
 execution:
   engine: "ccagency"

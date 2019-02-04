@@ -43,7 +43,7 @@ Read through the following tutorial sections to learn more about each part of a 
 
 ## redVersion
 
-The `redVersion` increases everytime the RED format changes, even if the new version is backwards compatible. This means that a RED file in version `"3"` should be used with Curious Containers software packages in version `3.x.x`, higher software versions are not guaranteed to work. See [Versioning](/docs/versioning) for more details.
+The `redVersion` increases everytime the RED format changes, even if the new version is backwards compatible. This means that a RED file in version `"3"` should be used with Curious Containers software packages in version `3.x.x`, higher software versions will not work. See [Versioning](/docs/versioning) for more details.
 
 
 ## cli
