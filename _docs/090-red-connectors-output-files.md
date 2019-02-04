@@ -40,7 +40,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.2
+pip3 install --user --upgrade red-connector-http==0.3
 ```
 
 
@@ -60,9 +60,7 @@ access: ...
 
 ### Installation
 
-```bash
-pip3 install --user --upgrade red-connector-http==0.2
-```
+See [HTTP](#http) connector.
 
 
 ## HTTP Mock Send
@@ -81,9 +79,7 @@ access: ...
 
 ### Installation
 
-```bash
-pip3 install --user --upgrade red-connector-http==0.2
-```
+See [HTTP](#http) connector.
 
 
 ## SSH
@@ -118,7 +114,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.4
+pip3 install --user --upgrade red-connector-ssh==0.5
 ```
 
 
@@ -170,5 +166,5 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.8
+pip3 install --user --upgrade red-connector-xnat==0.9
 ```

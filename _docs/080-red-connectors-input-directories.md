@@ -85,7 +85,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.2
+pip3 install --user --upgrade red-connector-http==0.3
 ```
 
 
@@ -133,7 +133,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.4
+pip3 install --user --upgrade red-connector-ssh==0.5
 ```
 
 ## SSHFS
@@ -167,4 +167,10 @@ access:
   username: "username"
   password: "password"
   dirName: "/home/username/files"
+```
+
+### Installation
+
+```bash
+pip3 install --user --upgrade red-connector-sshfs==0.1
 ```
