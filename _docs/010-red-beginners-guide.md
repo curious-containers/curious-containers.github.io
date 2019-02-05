@@ -391,7 +391,7 @@ As can be seen in the Dockerfile, we extend a slim Debian image from the officia
 
 As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to the CWL reference implementation `cwltool`. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image. As a last step we install `red-connector-http`, which we want to use in our given experiment.
 
-Use the Docker client to build the image and name it `grepwrap-image`.
+Use the Docker client to build the image and name it `grepwrap`.
 
 ```bash
 docker build --tag grepwrap .
@@ -407,7 +407,7 @@ docker run --rm -u 1000:1000 grepwrap grepwrap --help
 docker run --rm -u 1000:1000 grepwrap red-connector-http --version
 ```
 
-You should consider pushing the image to a registry like [DockerHub](https://hub.docker.com/) and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name `grepwrap-image`.
+You should consider pushing the image to a registry like [DockerHub](https://hub.docker.com/) and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name `grepwrap`.
 
 
 ## CWL (faice agent)
