@@ -87,7 +87,7 @@ See [HTTP](#http) connector.
 This connector uses SSH SFTP and SSH SCP for file transfers.
 
 
-### Usage
+### Access
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
