@@ -70,10 +70,10 @@ The easiest way to make Cuda available to your containerized application is to s
 
 See the following Dockerfile listing for an example.
 
-```Dockerfile
+```docker
 FROM nvidia/cuda:9.0-base
 
-# [...]
+# ...
 ```
 
 For a complete list of available Cuda base images take a look at the their [DockerHub site](https://hub.docker.com/r/nvidia/cuda).
