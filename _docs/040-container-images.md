@@ -20,7 +20,7 @@ The Dockerfile below does not include an application. For a more complete exampl
 FROM docker.io/debian:9.5-slim
 
 RUN apt-get update \
-&& apt-get install -y python3-pip \
+&& apt-get install -y python3-venv \
 && useradd -ms /bin/bash cc
 
 # switch user
