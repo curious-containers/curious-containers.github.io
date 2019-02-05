@@ -39,8 +39,6 @@ Create a new system user called `cc`. CC-Agency will run under the privileges of
 sudo useradd -ms /bin/bash cc
 ```
 
-If this tool cannot be found, you should modify `PATH` (e.g. append `${HOME}/.local/bin`).
-
 ### UWSGI Configuration
 
 *As admin user.*
@@ -76,7 +74,7 @@ Install Python packages for user `cc`.
 
 ```bash
 python3 -m venv ~/ccagency-venv
-source ~/ccagency-venv/bin/activate
+. ~/ccagency-venv/bin/activate
 pip install wheel
 pip install cc-agency
 ```
@@ -125,6 +123,8 @@ mongo:
 *As cc user.*
 
 Use the `ccagency` CLI tool, to create a new MongoDB user as specified in the `cc-agency.yml` configuration file.
+
+**Reminder**: If the virtual environment is not yet activated, run `. ~/ccagency-venv/bin/activate` before executing the `ccagency` CLI tool.
 
 ```bash
 ccagency create-db-user
