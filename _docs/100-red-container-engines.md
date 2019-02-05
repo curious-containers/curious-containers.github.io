@@ -79,7 +79,7 @@ Also possible to allocate one ore more GPUs is the following configuration.
 container:
   engine: "nvidia-docker"
   settings:
-    # [...]
+    # ...
     gpus:
       count: 1
 ```

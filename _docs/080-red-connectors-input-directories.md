@@ -49,7 +49,7 @@ This will download files from the following URLs:
 * `http://example.com/files/foo/world.json`
 * `http://example.com/files/foo/bar/table.csv`
 
-The will be stored as:
+They will be stored as:
 
 * `${GENERATED_DIR}/mydata/hello.txt`
 * `${GENERATED_DIR}/mydata/foo/world.json`
