@@ -39,6 +39,12 @@ It is recommended to install a specific version of `cc-faice`. This will automat
 pip3 install --user --upgrade cc-faice==6.0.0
 ```
 
+If you want to use the `nvidia-docker` execution engine locally and have CUDA installed on your computer, you should install `cc-faice` with additional dependencies as follows.
+
+```bash
+pip3 install --user --upgrade cc-faice[nvidia-docker]==6.0.0
+```
+
 Run CLI tool.
 
 ```bash
