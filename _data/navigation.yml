@@ -9,7 +9,7 @@ main:
 docs:
   - title: "Release"
     children:
-      - title: "Version 6.0.0"
+      - title: "Version 6"
         url: /docs/release
   - title: "Introduction"
     children:
