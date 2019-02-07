@@ -10,8 +10,7 @@ outputs:
   file_one:
     class: File
     connector:
-      pyModule: "red_connector_ssh.sftp"
-      pyClass: "Sftp"
+      command: "red-connector-ssh"
       access:
         host: "example.com"
         port: 22
@@ -22,8 +21,7 @@ outputs:
   file_two:
     class: File
     connector:
-      pyModule: "red_connector_ssh.sftp"
-      pyClass: "Sftp"
+      command: "red-connector-ssh"
       access:
         host: "example.com"
         port: 22
@@ -46,8 +44,7 @@ outputs:
   file_one:
     class: File
     connector:
-      pyModule: "red_connector_ssh.sftp"
-      pyClass: "Sftp"
+      command: "red-connector-ssh"
       access:
         host: "example.com"
         port: 22
@@ -58,8 +55,7 @@ outputs:
   file_two:
     class: File
     connector:
-      pyModule: "red_connector_ssh.sftp"
-      pyClass: "Sftp"
+      command: "red-connector-ssh"
       access:
         host: "example.com"
         port: 22
@@ -108,8 +104,7 @@ outputs:
   file_one:
     class: File
     connector:
-      pyModule: "red_connector_ssh.sftp"
-      pyClass: "Sftp"
+      command: "red-connector-ssh"
       access:
         host: "example.com"
         port: 22
@@ -120,8 +115,7 @@ outputs:
   file_two:
     class: File
     connector:
-      pyModule: "red_connector_ssh.sftp"
-      pyClass: "Sftp"
+      command: "red-connector-ssh"
       access:
         host: "example.com"
         port: 22

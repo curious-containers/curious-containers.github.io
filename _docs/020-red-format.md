@@ -164,7 +164,7 @@ You can now specify a connector which fetches this file via HTTP.
 ```yml
 inputs:
   some_file:
-    class: File
+    class: "File"
     connector:
       pyModule: "cc_core.commons.connectors.http"
       pyClass: "Http"
@@ -179,20 +179,19 @@ In order to download an entire directory, some connectors like the HTTP connecto
 ```yml
 inputs:
   some_dir:
-    class: 'Directory'
+    class: "Directory"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      command: "red-connector-http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/cc-core/master/cc_core/"
     listing:
-      - class: 'File'
-        basename: 'version.py'
-      - class: 'Directory'
-        basename: 'agent'
+      - class: "File"
+        basename: "version.py"
+      - class: "Directory"
+        basename: "agent"
         listing:
-          - class: 'File'
-            basename: '__main__.py'
+          - class: "File"
+            basename: "__main__.py"
 ```
 
 Please note, that not every connector provides functionality for files and directories, but the HTTP connector can be used in both cases. For information about these connectors take a look at the [RED Connectors: Input Directories](/docs/red-connectors-input-directories) documentation.
@@ -215,15 +214,14 @@ outputs:
   some_plot: ...
 ```
 
-If you are not interested in some of the outputs, you are not required to specify a connector for them. In this case, we are only interested in `some_table` and we specify a SSH SFTP connector.
+If you are not interested in some of the outputs, you are not required to specify a connector for them. In this case, we are only interested in `some_table` and we specify an SSH connector.
 
 ```yaml
 outputs:
   some_table:
-    class: File
+    class: "File"
     connector:
-      pyModule: "red_connector_ssh.sftp"
-      pyClass: "Sftp"
+      command: "red-connector-ssh"
       access: ...
 ```
 
