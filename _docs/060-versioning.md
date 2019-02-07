@@ -6,25 +6,19 @@ permalink: /docs/versioning
 All CC Python package versions consist of three distict numbers separated by `.` (e.g. `"3.2.1"`) with a `"${RED}.${CC}.${PACKAGE}"` scheme.
 
 
-## RED Version
+## Users
 
-If you are working with a RED file in a specific version (e.g. `"3"`), you must install CC-Core with a matching RED version (`"3.X.X"`) in your container image.
+For users, only the **RED** version is relevant. For example, if `redVersion: "6"` is set in a RED file, install `cc-faice` 6.X.X as follows.
 
-```
-pip3 install --user cc-core>=3,<4
-```
-
-
-## CC Version
-
-If you are using CC-Core with a specific RED, CC and PACKAGE version (e.g. `"3.2.1"`) in your container image, you must use CC-FAICE or CC-Agency with matching RED and CC versions (`"3.2.X"`).
-
-```
-pip3 install --user cc-faice>=3.2,<3.3
-pip3 install --user cc-agency>=3.2,<3.3
+```bash
+pip3 install --user --upgrade cc-faice==6.*
 ```
 
+If you want to send an experiment to CC-Agency it must match the **RED** version. A way to retrieve the version number of CC-Agency can be found in the [API documentation](/docs/cc-agency-api#get-version).
 
-## PACKAGE Version
 
-The PACKAGE version is only for maintenance releases of individual packages, which do not break compatibility.
+## Developers
+
+If you are installing CC-FAICE and CC-Core from source, both **RED** and **CC** versions of the software packages must match. The same holds for CC-Agency and CC-Core.
+
+The **PACKAGE** version is only for maintenance releases of individual packages, which do not break compatibility.
