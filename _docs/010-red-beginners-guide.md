@@ -115,7 +115,7 @@ The next steps of this guide, will demonstrate the formalization of the experime
 Install the current version of `cc-faice`, which will also install a compatible version of `cc-core` as a dependency.
 
 ```bash
-pip3 install --user cc-faice==6.0.0
+pip3 install --user cc-faice==6.*
 ```
 
 
