@@ -20,7 +20,7 @@ In the domain of distrubuted computing many alternative frameworks and scheduler
 
 * **Reproducible Research**: We developed the RED file format to fully describe experiments. The components of an experiment (application, data, compute resources) are references (see [FAIR Principles](https://www.force11.org/fairprinciples)) to remote servers and are therefore loosely coupled and interchangeable.
 * **Data Security**: The project is designed for biomedical applications, which involve the usage of sensitive data. CC enforces the separation of data storage and compute resources, where data is accessed via standard protocols supporting authentication. Data is never processed outside of temporary Docker containers.
-* **Machine Learning Workloads**: We are improving CC's capablities in the realm of machine learning and other high performance workloads. CC ships with support for CUDA via [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) and large data directories (e.g. [CAMELYON](https://camelyon17.grand-challenge.org/) image database) can be mounted via [FUSE](https://de.wikipedia.org/wiki/Filesystem_in_Userspace) based network connectors.
+* **Machine Learning Workloads**: We are improving CC's capablities in the realm of machine learning and other high performance workloads. CC ships with support for CUDA via [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Large data directories (e.g. [CAMELYON](https://camelyon17.grand-challenge.org/) image database) can be mounted via [FUSE](https://de.wikipedia.org/wiki/Filesystem_in_Userspace) based network connectors.
 
 
 ## What exactly is RED?
@@ -41,6 +41,7 @@ Kubernetes is an container orchestration tool, CC is not. An orchestration tool 
 ## Is CC fault-tolerant?
 
 Yes, especially CC-Agency implements multiple failure recovery mechanisms. It is programmed to catch any error, either caused by data connectors and data-processing applications or by the underlying cluster infrastructure with faulty networks, docker-engines and configurations. The error history of applications and compute nodes is documented in a database to be inspected by the user. CC-Agency performs health checks to exclude problematic compute nodes from the processing pool or to automatically rejoin them. It can be configured to retry failed experiments a certain number of times.
+
 
 ## How to support the project?
 
