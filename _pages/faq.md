@@ -20,7 +20,7 @@ In the domain of distrubuted computing many alternative frameworks and scheduler
 
 * **Reproducible Research**: We developed the RED file format to fully describe experiments. The components of an experiment (application, data, compute resources) are references (see [FAIR Principles](https://www.force11.org/fairprinciples)) to remote servers and are therefore loosely coupled and interchangeable.
 * **Data Security**: The project is designed for biomedical applications, which involve the usage of sensitive data. CC enforces the separation of data storage and compute resources, where data is accessed via standard protocols supporting authentication. Data is never processed outside of temporary Docker containers.
-* **Cuda and Machine Learning**: We are improving CC's capablities in the realm of machine learning and other high performance workloads. CC already ships with support for Cuda via [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Connectors for mounting huge data directories (like the [CAMELYON](https://camelyon17.grand-challenge.org/) image database) will be added soon.
+* **Machine Learning Workloads**: We are improving CC's capablities in the realm of machine learning and other high performance workloads. CC ships with support for CUDA via [nvidia-docker](https://github.com/NVIDIA/nvidia-docker) and large data directories (e.g. [CAMELYON](https://camelyon17.grand-challenge.org/) image database) can be mounted via [FUSE](https://de.wikipedia.org/wiki/Filesystem_in_Userspace) based network connectors.
 
 
 ## What exactly is RED?

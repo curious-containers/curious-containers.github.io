@@ -174,3 +174,15 @@ access:
 ```bash
 pip3 install --user --upgrade red-connector-sshfs==0.1
 ```
+
+This connector uses `sshfs` and `fusermount3` / `fusermount` executable, which have to be installed as well.
+
+```bash
+# on Debian / Ubuntu
+apt-get install sshfs
+```
+
+```bash
+# on Fedora
+dnf install sshfs
+```
