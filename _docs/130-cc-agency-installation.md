@@ -250,7 +250,10 @@ controller:
         base_url: "tcp://192.168.0.101:2375"
       node3:
         base_url: "unix://var/run/docker.sock"
+    allow_insecure_capabilities: false
 ```
+
+Set `allow_insecure_capabilities: true`, if you want to allow the usage of FUSE file-system mounts for certain directory connectors (e.g. sshfs) in your Docker cluster.
 
 
 *As admin user.*

@@ -29,13 +29,17 @@ If you want more control over `faice agent red` you should invoke it directly.
 ```yaml
 execution:
   engine: "ccfaice"
-  settings: {}
+  settings: {
+    insecure: false
+  }
 ```
 
 
 ### Settings
 
-Not available.
+| Access | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| insecure | boolean | yes | false | Enable SYS_ADMIN capabilities in container, if REDFILE contains connectors performing FUSE mounts. |
 
 
 ## CC-Agency
