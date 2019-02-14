@@ -172,7 +172,7 @@ access:
 ### Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-sshfs==0.1
+pip3 install --user --upgrade red-connector-sshfs==0.2
 ```
 
 This connector uses `sshfs` and `fusermount3` / `fusermount` executable, which have to be installed as well.
