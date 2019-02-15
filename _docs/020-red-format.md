@@ -166,8 +166,7 @@ inputs:
   some_file:
     class: "File"
     connector:
-      pyModule: "cc_core.commons.connectors.http"
-      pyClass: "Http"
+      command: "red-connector-http"
       access:
         url: "https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/in.txt"
 ```
