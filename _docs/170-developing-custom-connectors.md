@@ -49,10 +49,10 @@ To implement a connector called "my-connector" that is able to receive a file, t
 my-connector receive $access_json_file $internal_json_file
 
 # validate access information
-my-connector receive-validate access_file.json
+my-connector receive-validate $access_json_file
 
 # remove file
-my-connector receive-cleanup internal.json
+my-connector receive-cleanup $internal_json_file
 ```
 
 `my-connector` is the executable name of your connector. `receive`, `receive-validate` and `receive-cleanup` are subprograms of `my-connector` and they have to be written like this.
@@ -88,14 +88,14 @@ To implement a connector that is able to receive a directory, this connector sho
 
 ```bash
 # receive directory
-my-connector receive-directory access_file.json internal_file.json --listing listing_file.json  # with listing
-my-connector receive-directory access_file.json internal_file.json                              # without listing
+my-connector receive-directory $access_json_file $internal_json_file --listing listing_file.json  # with listing
+my-connector receive-directory $access_json_file $internal_json_file                              # without listing
 
 # validate access information
-my-connector receive-directory-validate access_file.json
+my-connector receive-directory-validate $access_json_file
 
 # remove directory
-my-connector receive-directory-cleanup internal.json
+my-connector receive-directory-cleanup $internal_json_file
 ```
 
 The `receive-directory` and `receive-directory-cleanup` calls have the same behaviour as the file receiving/removing functions, except that they create/remove a directory instead of a file.
@@ -113,11 +113,11 @@ To implement a connector that is able to send a file, this connector should at l
 
 ```bash
 # send file
-my-connector send access_file.json internal_file.json
+my-connector send $access_json_file $internal_json_file
 
 # validate access information
-my-connector send-validate access_file.json
+my-connector send-validate $access_json_file
 ```
 
-The `send` call reads a file descibed in `internal_file.json` and transfers it with the information in `access_file.json`.
+The `send` call reads a file descibed in `$internal_json_file` and transfers it with the information in `$access_json_file`.
 The `send-validate` call works similar to the `receive-validate` function.
