@@ -37,14 +37,14 @@ The IDs shown in the configuration, are the nvidia-device-IDs, which can be iden
 
 ## Notification Hooks
 
-To send notifications if a batch has entered a new state, you can configure notification hooks in the agency configuration as follows.
+To send HTTP notifications if a batch has entered a final state (`succeeded`, `failed` or `cancelled`), you can configure notification hooks in the agency configuration as follows.
 
 ```yaml
 controller:
   notification_hooks:
-    - url: "http://1.2.3.4:5678/filename1.txt"
+    - url: "http://example.com/notify"
 
-    - url: "http://2.3.4.5:6789/filename2.txt"
+    - url: "http://example.com/auth-notify"
       auth:
         username: "username"
         password: "password"
