@@ -186,3 +186,39 @@ apt-get install sshfs
 # on Fedora
 dnf install sshfs
 ```
+
+## HTTP-DIR-FS
+
+This connector can be used to mount directories accessible via HTTP. For more information about HTTP-DIR-FS see [here](https://github.com/fangfufu/httpdirfs).
+
+
+### Listing
+
+Optional.
+
+### Access
+
+| Access | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| url | string | no | | URL starting with http:// or https:// |
+| auth | dict | yes | | Authentication information |
+| auth.username | string | no | | Username |
+| auth.password | string | no | | Password |
+
+
+```yaml
+command: "red-connector-httpdirfs"
+mount: true
+access:
+  url: "http://example.com/files"
+  auth:
+    username: "username"
+    password: "password"
+```
+
+
+### Installation
+
+```bash
+pip3 install --user --upgrade red-connector-httpdirfs==0.1
+```
