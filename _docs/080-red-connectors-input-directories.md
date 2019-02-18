@@ -187,9 +187,9 @@ apt-get install sshfs
 dnf install sshfs
 ```
 
-## HTTP-DIR-FS
+## HTTPDirFS
 
-This connector can be used to mount directories accessible via HTTP. For more information about HTTP-DIR-FS see [here](https://github.com/fangfufu/httpdirfs).
+This connector can be used to mount directories accessible via HTTP. For more information about HTTPDirFS see [here](https://github.com/fangfufu/httpdirfs).
 
 
 ### Listing
@@ -222,3 +222,5 @@ access:
 ```bash
 pip3 install --user --upgrade red-connector-httpdirfs==0.1
 ```
+
+This connector uses `httpdirfs` and `fusermount` executables, which have to be installed as well. Install HTTPDirFS [from source](https://github.com/fangfufu/httpdirfs).
