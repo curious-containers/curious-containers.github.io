@@ -105,9 +105,7 @@ controller:
   bind_host: "127.0.0.1"
   bind_port: 6001
   docker:
-    core_image:
-      url: "docker.io/curiouscontainers/cc-core:6.0.0"
-      disable_pull: False
+    allow_insecure_capabilities: false
     nodes: {}
   scheduling:
     strategy: 'spread'
@@ -117,6 +115,9 @@ mongo:
   username: "ccadmin"
   password: "SECRET"
 ```
+
+Set `allow_insecure_capabilities: true`, if you want to allow the usage of FUSE file-system mounts for certain directory connectors (e.g. sshfs) in your Docker cluster.
+
 
 ### MongoDB User
 
@@ -250,11 +251,7 @@ controller:
         base_url: "tcp://192.168.0.101:2375"
       node3:
         base_url: "unix://var/run/docker.sock"
-    allow_insecure_capabilities: false
 ```
-
-Set `allow_insecure_capabilities: true`, if you want to allow the usage of FUSE file-system mounts for certain directory connectors (e.g. sshfs) in your Docker cluster.
-
 
 *As admin user.*
 
