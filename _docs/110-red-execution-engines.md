@@ -29,9 +29,8 @@ If you want more control over `faice agent red` you should invoke it directly.
 ```yaml
 execution:
   engine: "ccfaice"
-  settings: {
+  settings:
     insecure: false
-  }
 ```
 
 
