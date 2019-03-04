@@ -21,6 +21,11 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 We are improving CC's capablities in the realm of machine learning and other high performance workloads. CC ships with support for CUDA via [nvidia-docker](https://github.com/NVIDIA/nvidia-docker). Large data directories (e.g. [CAMELYON](https://camelyon17.grand-challenge.org/) image database) can be mounted via [FUSE](https://de.wikipedia.org/wiki/Filesystem_in_Userspace) based network connectors.
 
 
+## Issues
+
+If you want to open an issue, please go to the [curious-containers](https://github.com/curious-containers/curious-containers/issues) meta project on Github. Issue trackers of every other repository are closed.
+
+
 ## Acknowledgements
 
 The Curious Containers software is developed at [CBMI](https://cbmi.htw-berlin.de/) (HTW Berlin - University of Applied Sciences). The work is supported by the German Federal Ministry of Economic Affairs and Energy (ZIM project [BeCRF](https://www.htw-berlin.de/forschung/online-forschungskatalog/projekte/projekt/?eid=2170), grant number KF3470401BZ4), the German Federal Ministry of Education and Research (project [deep.TEACHING](https://www.deep-teaching.org/), grant number 01IS17056 and project deep.HEALTH, grant number 13FH770IX6) and HTW Berlin Booster.
