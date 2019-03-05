@@ -379,7 +379,7 @@ inputs:
   before_context: 1
 ```
 
-This minimal RED file contains three sections:
+This minimal RED file contains four sections:
 
 * `redVersion`: specifies the RED format version
 * `cli`: contains the application's CLI description in CWL format, without a `requirements` section
