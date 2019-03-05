@@ -10,7 +10,7 @@ Welcome to the **Curious Containers** project and its **RED** file format for re
 
 ## Computational Reproducibility
 
-RED (Reproducible Experiment Description) is a JSON or YAML based file format to describe data-driven experiments. A RED file allows researchers to share or publish their computational experiments, such that others can reproduce the results or customize the experiments. A minimal RED file consists of an application's commandline interface (CLI) description in [Common Workflow Language](https://www.commonwl.org/v1.0/CommandLineTool.html) (CWL) syntax, as well as CLI arguments and input file references.
+RED (Reproducible Experiment Description) is a JSON or YAML based file format to describe data-driven experiments. A RED file allows researchers to share or publish their computational experiments, such that others can reproduce the results or customize the experiments. A minimal RED file consists of an application's commandline interface (CLI) description in [Common Workflow Language](https://www.commonwl.org/v1.0/CommandLineTool.html) (CWL) syntax, a reference to a container image, as well as CLI arguments and input file references.
 
 Curious Containers provides a reference implementation of RED in Python (`cc-core`). Experiments can be executed on a local Linux host using the [Docker](https://www.docker.com/) container runtime via the FAICE tool suite (`cc-faice`). For a more advanced usage, Curious Containers Agency (`cc-agency`) can distribute experiments in a Docker cluster across multiple hosts.
 
@@ -24,9 +24,9 @@ In the past, Curious Containers was mainly a research project to develop ideas a
 It is now time to stabilize the ecosystem as a major step for longterm reproducibility. We are therefore working towards RED 10, the first stable release of the RED file format. In addition, we will define a stable CLI for RED Connectors. RED 10 and the RED Connector CLI version 1 will be supported by all future releases of the Curious Containers software components in a backwards compatible way.
 
 
-### Prerelease
+### Pre-Release
 
-You can soon expect the RED 10 prerelease version called RED 7. A prerelease of the RED connector CLI will be published as version 0.1.
+You can soon expect the RED 10 pre-release version called RED 7. A pre-release of the RED connector CLI will be published as version 0.1.
 
 
 ## Machine Learning Workloads

@@ -3,12 +3,12 @@ title: "RED Beginner's Guide"
 permalink: /docs/red-beginners-guide
 ---
 
-This tutorial explains how to create a reproducible data-driven experiment and how to document it in a Reproducible Experiment Description (RED).
+This tutorial explains how to create a reproducible data-driven experiment and how to document it in a Reproducible Experiment Description (RED). RED is based on the Common Workflow Language (CWL), that is demonstrated as well.
 
 
 ## Prerequisites
 
-This tutorial requires a **Linux** distribution, where nano (or another text editor), python3-pip, git and [Docker](https://www.docker.com/) are installed.
+This tutorial requires a **Linux** distribution, where nano (or another text editor), python3, python3-pip, python3-venv, git and [Docker](https://www.docker.com/) are installed.
 
 If a Linux distribution is not already installed on your computer, use [Vagrant](https://www.vagrantup.com/) to create a Virtual Machine (VM) with your preferred operating system (see [Vagrant VM Setup](#vagrant-vm-setup-optional))
 
@@ -24,6 +24,88 @@ git clone https://github.com/curious-containers/red-guide-vagrant.git
 cd red-guide-vagrant
 vagrant up
 vagrant ssh
+```
+
+
+## Install CWL and RED tools
+
+CWLTool and CC-FAICE are tools used in the course of this guide. They are both implemented in Python3 and should be installed under separate virtual environments (venv) to avoid conflicts.
+
+### CWLTool
+
+CWLTool is the reference implementation of CWL and not associated with the Curious Containers project. Install the tool as follows.
+
+```bash
+# create installation directory
+mkdir -p ~/.local/red-guide
+
+# create venv
+python3 -m venv ~/.local/red-guide/cwltool
+
+# activate venv
+. ~/.local/red-guide/cwltool/bin/activate
+
+# install packages
+pip install wheel
+pip install cwltool
+
+# deactivate venv
+deactivate
+
+# append venv bin directory to PATH
+export PATH=${PATH}:${HOME}/.local/red-guide/cwltool/bin
+```
+
+Consider making the `PATH` change permanent by appending the line to your `~/.bashrc` file.
+
+```bash
+echo 'export PATH=${PATH}:${HOME}/.local/red-guide/cwltool/bin' >> ~/.bashrc
+```
+
+The `cwltool` command should now be available.
+
+```bash
+cwltool --version
+cwltool --help
+```
+
+
+### CC-FAICE
+
+CC-FAICE is the reference implementation of RED and part of the Curious Containers project. Installation is equivalent to CWLTool.
+
+```bash
+# create installation directory
+mkdir -p ~/.local/red-guide
+
+# create venv
+python3 -m venv ~/.local/red-guide/cc-faice
+
+# activate venv
+. ~/.local/red-guide/cc-faice/bin/activate
+
+# install packages
+pip install wheel
+pip install cc-faice==6.*
+
+# deactivate venv
+deactivate
+
+# append venv bin directory to PATH
+export PATH=${PATH}:${HOME}/.local/red-guide/cc-faice/bin
+```
+
+Consider making the `PATH` change permanent by appending the line to your `~/.bashrc` file.
+
+```bash
+echo 'export PATH=${PATH}:${HOME}/.local/red-guide/cc-faice/bin' >> ~/.bashrc
+```
+
+The `faice` command should now be available.
+
+```bash
+faice --version
+faice --help
 ```
 
 
@@ -74,13 +156,11 @@ exit(call(command, shell=True))
 ```
 
 
-Set the executable flag for `grepwrap` and add the current directory to the `PATH` environment variable.
+Set the executable flag for `grepwrap`.
 
 ```bash
 chmod u+x grepwrap
-export PATH=$(pwd):${PATH}
 ```
-
 
 The program is a wrapper for `grep`. It stores results to `out.txt` and has a simplified interface. Use `grepwrap --help` to show all CLI arguments.
 
@@ -95,265 +175,17 @@ QUX
 QUUX
 ```
 
-
 Then execute `grepwrap` as follows.
 
 ```bash
-grepwrap -B 1 QU in.txt
+./grepwrap -B 1 QU in.txt
 ```
-
 
 Use `cat out.txt` to check the programs output.
 
 In this case the command `grepwrap -B 1 QU in.txt` is an **experiment** based on the program `grepwrap`, which has a defined **CLI** and has `python3` and `grep` as **dependencies**. It is executed with `in.txt` as **input** file, as well as `-B 1` and `QU` as **input** arguments. It produces a single file `out.txt` as **output**.
 
 The next steps of this guide, will demonstrate the formalization of the experiment, which allows for persistent storage, enables distribution and improves reproducibility. In order to do so, we need to describe the **CLI**, **dependencies**, **inputs** and **outputs**.
-
-
-## Install CC-Faice and CC-Core
-
-Install the current version of `cc-faice`, which will also install a compatible version of `cc-core` as a dependency.
-
-```bash
-pip3 install --user cc-faice==6.*
-```
-
-
-* `cc-core` provides the `ccagent` commandline tool
-* `cc-faice` provides the `faice` commandline tool
-
-Both tools are located in Python's script directory, which should be included in the `PATH` environment variable. The following code prints their version numbers.
-
-```bash
-ccagent --version
-faice --version
-```
-
-
-The `--help` argument shows available subtools and CLIs.
-
-```bash
-ccagent --help
-faice --help
-```
-
-
-If these tools cannot be found, you should modify `PATH` (e.g. append `${HOME}/.local/bin`) or fall back to executing the tools as Python modules.
-
-```bash
-python3 -m cc_core.agent --version
-python3 -m cc_faice --version
-```
-
-
-Please note that `cc-core` and `cc-faice` are compatible if the first two numbers of their versions match, as described in the [Versioning](/docs/versioning) documentation.
-
-
-## CWL (ccagent)
-
-The Common Workflow Language (CWL) provides a [syntax](http://www.commonwl.org/v1.0/CommandLineTool.html) for describing a commandline tool's interface (CLI). Curious Containers and the RED format build upon this CLI description syntax, but only support a subset of the CWL specification. In other words, every CWL description compatible with RED is also compatible with the CWL standard (e.g. with [cwltool](https://github.com/common-workflow-language/cwltool), a CWL reference implementation) but not the other way round.
-
-The supported CWL subset is specified as a jsonschema description in the `cc-core` Python package. Use the following `faice` command to show the jsonschema.
-
-```bash
-faice schema show cwl
-```
-
-You can use `faice schema --help` and `faice schema show --help` to learn more about these subcommands. The `faice schema list` command prints all available schemas.
-
-Create a new file and insert the following CWL description with `nano grepwrap-cli.cwl`. Then save and close the file.
-
-```yaml
-cwlVersion: "v1.0"
-class: "CommandLineTool"
-baseCommand: "grepwrap"
-doc: "Search for query terms in text files."
-
-inputs:
-  query_term:
-    type: "string"
-    inputBinding:
-      position: 0
-    doc: "Search for QUERY_TERM in TEXT_FILE."
-  text_file:
-    type: "File"
-    inputBinding:
-      position: 1
-    doc: "TEXT_FILE containing plain text."
-  after_context:
-    type: "int?"
-    inputBinding:
-      prefix: "-A"
-    doc: "Print NUM lines of trailing context after matching lines."
-  before_context:
-    type: "int?"
-    inputBinding:
-      prefix: "-B"
-    doc: "Print NUM lines of leading context before matching lines."
-
-outputs:
-  out_file:
-    type: "File"
-    outputBinding:
-      glob: "out.txt"
-    doc: "Query results."
-```
-
-
-CWL uses job files to describe inputs. Create a new file and insert the following job with `nano job.yml`. Then save and close the file.
-
-
-```yaml
-query_term: "QU"
-text_file:
-  class: "File"
-  path: "in.txt"
-before_context: 1
-```
-
-
-Use the `ccagent cwl` commandline tool to execute the experiment. This is equivalent to `cwltool ./grepwrap-cli.cwl ./job.yml`.
-
-```bash
-ccagent cwl ./grepwrap-cli.cwl ./job.yml
-```
-
-To get debug information with detailed exceptions use `--debug`.
-
-```bash
-ccagent cwl --debug ./grepwrap-cli.cwl ./job.yml > debug.yml
-```
-
-The resulting files will be moved to the current working directory.
-
-
-
-## RED (ccagent)
-
-The CWL `job.yml` has been used to reference input files in the local file system. To achieve reproducibility accross different computers, which is the goal of RED and FAICE, all input files should be downloadable from remote hosts and all output files should be uploadable to remote hosts.
-
-Although the CWL specification also supports remote input files via the `location` keyword in a job file, it lacks the possibility to send output files to remote hosts. In addition the `location` value can only be a single string containing a URI (e.g. `http://example.com`), which is a limiting factor when connecting to a non-standard API is required (e.g. the REST API of [XNAT](https://www.xnat.org/) 1.6.5 is not stateless and requires explicit session deletion).
-
-Create a new file and insert the following RED data with `nano red.yml`.
-
-```yaml
-redVersion: "6"
-cli:
-  cwlVersion: "v1.0"
-  class: "CommandLineTool"
-  baseCommand: "grepwrap"
-  doc: "Search for query terms in text files."
-
-  inputs:
-    query_term:
-      type: "string"
-      inputBinding:
-        position: 0
-      doc: "Search for QUERY_TERM in TEXT_FILE."
-    text_file:
-      type: "File"
-      inputBinding:
-        position: 1
-      doc: "TEXT_FILE containing plain text."
-    after_context:
-      type: "int?"
-      inputBinding:
-        prefix: "-A"
-      doc: "Print NUM lines of trailing context after matching lines."
-    before_context:
-      type: "int?"
-      inputBinding:
-        prefix: "-B"
-      doc: "Print NUM lines of leading context before matching lines."
-
-  outputs:
-    out_file:
-      type: "File"
-      outputBinding:
-        glob: "out.txt"
-      doc: "Query results."
-
-inputs:
-  query_term: "QU"
-  text_file:
-    class: "File"
-    connector:
-      command: "red-connector-http"
-      access:
-        url: "https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"
-  before_context: 1
-```
-
-
-This minimal RED file contains three sections:
-
-* `redVersion`: specifies the RED format version
-* `cli`: contains the application's CLI description in CWL format
-* `inputs`: is similar to a CWL job description, but references RED connectors
-
-
-The RED inputs format is very similar to a CWL job. Note that connectors only work with files, and that the `connector` keyword replaces `path` and `location`. Each connector requires the `command` and `access` keywords for a connector. The information contained in `access` is validated by the connector itself and therefore varies for different connector implementations.
-
-In order to use the connector it must be installed and its command must be executable. The Curious Containers provides various connectors. The HTTP connector can be installed as follows.
-
-```bash
-pip3 install --user --upgrade red-connector-http==0.3
-```
-
-This package provides three different connector, which should now be executable.
-
-```bash
-red-connector-http --version
-red-connector-http-json --version
-red-connector-http-mock-send --version
-```
-
-
-Use the `ccagent red` commandline tool to execute the experiment.
-
-```bash
-ccagent red ./red.yml
-```
-
-The resulting files will be moved to the current working directory.
-
-The RED format also allows for connector descriptions for output files. Open the existing RED file and append the following `outputs` section with `nano red.yml`.
-
-```yaml
-outputs:
-  out_file:
-    class: "File"
-    connector:
-      command: "red-connector-http"
-      access:
-        url: "http://localhost:5000/server-out.txt"
-```
-
-
-Usually an external host with a static IP / domain name and a proper Authorization configuration should be chosen for this. This improves reproducibility, because all destinations of the original experiment results are well documented.
-
-For the purpose of this guide, we temporarily start a local HTTP server on TCP PORT 5000 to receive the output file.
-
-```bash
-# start server as background job
-faice file-server &
-```
-
-Use the `ccagent red` commandline tool with the `--outputs` flag to execute the experiment. Use `--outputs` to enable the specified connectors. Otherwise the `outputs` section of your RED file will be ignored and resulting files will be moved to the current working directory.
-
-```bash
-ccagent red --outputs ./red.yml
-```
-
-The `faice file-server` is programmed to use the file name specified in the URL. Use `cat server-out.txt`
-to check the programs output.
-
-You can stop the file-server as follows.
-
-```bash
-# terminate the last background job
-kill %%
-```
 
 
 ## Container Image
@@ -386,10 +218,9 @@ ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
 ENV PATH="/home/cc/.local/bin:${PATH}"
 ```
 
-
 As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
-As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned. This is important, because `faice` will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to the CWL reference implementation `cwltool`. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image. As a last step we install `red-connector-http`, which we want to use in our given experiment.
+As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned. This is important, because CC-FAICE will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to the CWL reference implementation CWLTool. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image. As a last step we install `red-connector-http`, that we want to use to transfer data into and out of the Docker container.
 
 Use the Docker client to build the image and name it `grepwrap`.
 
@@ -410,25 +241,25 @@ docker run --rm -u 1000:1000 grepwrap red-connector-http --version
 You should consider pushing the image to a registry like [DockerHub](https://hub.docker.com/) and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name `grepwrap`.
 
 
-## CWL (faice agent)
+## CWL
 
-The `faice agent` commandline tool implements two agents similar to `ccagent` with the major difference that `faice agent` only works with containers.
+The Common Workflow Language (CWL) provides a [syntax](http://www.commonwl.org/v1.0/CommandLineTool.html) for describing a commandline tool's interface (CLI). Curious Containers and the RED format build upon this CLI description syntax, but only support a subset of the CWL specification. In other words, every CWL description compatible with RED is also compatible with the CWL standard (e.g. with [cwltool](https://github.com/common-workflow-language/cwltool), a CWL reference implementation) but not the other way round.
 
-The first agent `faice agent cwl` implements a syntax equivalent to `ccagent cwl` and `cwltool`. Compared with the CWL reference implementation `cwltool`, it does not run an application (e.g. `grepwrap`) directly, but instead invokes `ccagent cwl`, which then handles the application execution in the container.
+The supported CWL subset is specified as a jsonschema description in the `cc-core` Python package. Use the following `faice` command to show the jsonschema.
 
-In order to execute the application with local input files, we can use the `job.yml` file created earlier. Only the CWL file needs an additional `dockerPull` entry.
+```bash
+faice schema show cwl
+```
 
-Create a new file and insert the following CWL description with `nano grepwrap-cli-docker.cwl`.
+You can use `faice schema --help` and `faice schema show --help` to learn more about these subcommands. The `faice schema list` command prints all available schemas.
+
+Create a new file and insert the following CWL description with `nano grepwrap.cwl.yml`. Then save and close the file.
 
 ```yaml
 cwlVersion: "v1.0"
 class: "CommandLineTool"
 baseCommand: "grepwrap"
 doc: "Search for query terms in text files."
-
-requirements:
-  DockerRequirement:
-    dockerPull: "grepwrap"
 
 inputs:
   query_term:
@@ -458,29 +289,41 @@ outputs:
     outputBinding:
       glob: "out.txt"
     doc: "Query results."
+
+requirements:
+  DockerRequirement:
+    dockerPull: "grepwrap"
 ```
 
 
-Please note, that only the `requirements` section is different here. These CWL and job files are fully compatible with the CWL specification.
+CWL uses job files to describe inputs. Create a new file and insert the following job with `nano job.yml`. Then save and close the file.
 
-Use the `faice agent cwl` commandline tool to execute the experiment.
+
+```yaml
+query_term: "QU"
+text_file:
+  class: "File"
+  location: "in.txt"
+before_context: 1
+```
+
+
+Use `cwltool` to execute the experiment. The `--disable-pull` flag is used, because the Docker image is only available locally and cannot be pulled from a registry.
 
 ```bash
-faice agent cwl --disable-pull ./grepwrap-cli-docker.cwl ./job.yml
+cwltool --disable-pull ./grepwrap.cwl.yml ./job.yml
 ```
 
-The `--disable-pull` flag is required, because we are referencing a local container image and not a URI pointing to a registry.
-
-A directory called `outputs` was created, which is temporarily mounted as Docker volume to exchange files between the container and the host. It contains the result files.
+The resulting files will be moved to the current working directory. Use `cat out.txt` to check the programs output.
 
 
-## RED (faice agent)
+## RED
 
-The second agent implementation `faice agent red` works with RED files to execute experiments in containers. Its syntax is equivalent to `ccagent red` and it utilizes the `ccagent red` installation in the container image.
+The CWL `job.yml` has been used to reference input files in the local file system. To achieve reproducibility accross different computers, all input files should be accessed via network protocols instead of local filesystem paths.
 
-A compatible RED file is very similar to the RED file used `ccagent red`, but requires an additional `container` section.
+Unfortunately, the CWL `location` keyword in a job file can only hold a single URI (e.g. `http://example.com`), which is a limiting factor when connecting to a non-standard API is required (e.g. the REST API of [XNAT](https://www.xnat.org/) 1.6.5 is not stateless and requires explicit session deletion). RED execution engines like CC-FAICE therefore use dedicated connector programs provided by the user as part of the container image. If you go back to [Container Image](#container-image) section, you can see that `red-connector-http` is used in this guide, but other connector implementations for various network protocols exist.
 
-Create a new file and insert the following RED data with `nano red-docker.yml`.
+Create a new file and insert the following RED data with `nano grepwrap.red.yml`.
 
 ```yaml
 redVersion: "6"
@@ -532,21 +375,34 @@ inputs:
     connector:
       command: "red-connector-http"
       access:
-        url: "https://raw.githubusercontent.com/curious-containers/vagrant-quickstart/master/in.txt"
+        url: "https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/in.txt"
   before_context: 1
 ```
+
+This minimal RED file contains three sections:
+
+* `redVersion`: specifies the RED format version
+* `cli`: contains the application's CLI description in CWL format, without a `requirements` section
+* `container`: container engine settings to replace the `requirements.DockerRequirement` section of CWL
+* `inputs`: is similar to a CWL job description, but requires RED connectors
+
+
+The RED inputs format is very similar to a CWL job. Note that the `connector` keyword replaces CWL's `location`. Each connector requires the `command` and `access` keywords. The information contained in `access` is validated by the connector itself and therefore varies for different connector implementations. Refer to the RED documentation for more information.
 
 Learn more about the container engine description by showing the corresponding jsonschema with `faice schema show red-engine-container-docker` (also see [RED Container Engines](/docs/red-container-engines)).
 
 Use the `faice agent red` commandline tool to execute the experiment.
 
 ```bash
-faice agent red --disable-pull ./red-docker.yml
+faice agent red --disable-pull grepwrap.red.yml
 ```
 
-A directory called `outputs` was created, which is temporarily mounted as Docker volume to exchange files between the container and the host. It contains the result files.
+The outpout file will be moved to the `outputs` directory. Use `cat outputs/out_file.txt` to check the programs output.
 
-Again connector descriptions for output files can be included in the RED file. Open the existing file and append the following `outputs` section with `nano red-docker.yml`.
+
+### Outputs
+
+In contrast to the CWL standard, the RED format can also describe connectors to send output files to remote locations. Open the existing RED file and append the following `outputs` section with `nano grepwrap.red.yml`.
 
 ```yaml
 outputs:
@@ -558,8 +414,9 @@ outputs:
         url: "http://172.17.0.1:5000/server-out.txt"
 ```
 
+Usually, an external host with a static IP / domain name and a proper Authorization configuration should be chosen for this. This would improve reproducibility, because all destinations of the original experiment results are well documented.
 
-Please note, that in this case we are running the experiment in a container. In order to send output files from a container to the `faice file-server` running on the host, we use the standard Docker bridge IP `172.17.0.1`. Use `ifconfig` to check if another IP has been assigned to the Docker bridge on your system.
+For the purpose of this guide, we temporarily start a local HTTP server on TCP PORT 5000 to receive the output file. Please note, that in this case we are running the experiment in a container. In order to send output files from a container to the `faice file-server` running on the host, we use the standard Docker bridge IP `172.17.0.1`. Use `ifconfig` to check if another IP has been assigned to the Docker bridge on your system.
 
 Before the experiment can be executed, the file server needs to be started.
 
@@ -568,14 +425,13 @@ Before the experiment can be executed, the file server needs to be started.
 faice file-server &
 ```
 
-
-Use the `faice agent red` commandline tool to execute the experiment. Again, use `--outputs` to enable the RED output connectors.
+Use the `faice agent red` commandline tool with the `--outputs` flag to execute the experiment. Use `--outputs` to enable the specified connectors. Otherwise the `outputs` section of your RED file will be ignored and resulting files will be moved to the current working directory as demonstrated before.
 
 ```bash
-faice agent red --disable-pull --outputs ./red-docker.yml
+faice agent red --disable-pull --outputs ./grepwrap.red.yml
 ```
 
-Use `cat server-out.txt` to check the programs output. Since we used the `--outputs` flag, no `outputs` directory was created for data exchange between the container and the host.
+The `faice file-server` is programmed to use the file name specified in the URL. Use `cat server-out.txt` to check the programs output.
 
 You can stop the file-server as follows.
 
