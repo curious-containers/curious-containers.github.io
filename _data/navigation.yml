@@ -9,7 +9,7 @@ main:
 docs:
   - title: "Release"
     children:
-      - title: "Version 6"
+      - title: "Version 7"
         url: /docs/release
   - title: "Introduction"
     children:
@@ -51,5 +51,5 @@ docs:
         url: /docs/source-code-repositories
       - title: "Source Code Setup"
         url: /docs/source-code-setup
-      - title: "Developing Custom Connectors"
-        url: /docs/developing-custom-connectors
+      - title: "RED Connector CLI"
+        url: /docs/red-connector-cli

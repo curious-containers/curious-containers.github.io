@@ -1,14 +1,33 @@
 ---
 title: "Developing Custom Connectors"
-permalink: /docs/developing-custom-connectors
+permalink: /docs/red-connector-cli
 ---
 
-This text explains how to implement custom connectors. See [here](https://www.curious-containers.cc/docs/red-connectors-input-files) for an introduction to RED connectors.
+This is the RED Connector CLI specification version 0.1, a pre-release of the upcomming stable version 1.
 
-A RED connector is a command line program, that can be used to receive files/directories or to send files.
-To make a connector work with cc-core and faice it has to implement a command line interface defined in the next sections.
+Take a look at the [RED format](https://www.curious-containers.cc/docs/red-format#inputs) documentation for an introduction to connectors.
 
-A RED connector takes access information as input, defining from where to receive data or where to send it.
+
+## Subcommands
+
+A RED Connector is a CLI tool with an arbitrary name for its executable. A connector can choose to implement a subset of functionality, which then requires certain subcommands to be present in the form of `connector-executable subcommand`. The following table lists the optional and required subcommands sorted by functionality.
+
+| Subcommand | Required | Functionality |
+| --- | --- | --- |
+| cli-version | yes | Report CLI version |
+| receive-file | no | Download input file to container |
+| receive-file-validate | if receive-file | |
+| send-file | no | Upload output file from container |
+| send-file-validate | if send-file | |
+| receive-dir | no | Download input directory to container |
+| receive-dir-validate | if receive-dir | |
+| send-dir | no | Upload output directory from container |
+| send-dir-validate | if send-dir | |
+| receive-mount | no | Mount input directory (read-only) in container |
+| receive-mount-validate | if receive-mount | |
+| send-mount | no | Mount output directory (read-write) in container |
+| send-mount-validate | if send-mount | |
+| umount | if receive-mount or send-mount | Unmount directory before container exits |
 
 
 ## Example
