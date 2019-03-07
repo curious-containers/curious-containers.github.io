@@ -23,11 +23,9 @@ A RED Connector is a CLI tool with an arbitrary name for its executable. A conne
 | receive-dir-validate | if receive-dir | |
 | send-dir | no | Upload output directory from container |
 | send-dir-validate | if send-dir | |
-| receive-mount | no | Mount input directory (read-only) in container |
-| receive-mount-validate | if receive-mount | |
-| send-mount | no | Mount output directory (read-write) in container |
-| send-mount-validate | if send-mount | |
-| umount | if receive-mount or send-mount | Unmount directory before container exits |
+| mount-dir | no | Mount input directory in container |
+| mount-dir-validate | if mount-dir | |
+| umount-dir | if mount-dir | Unmount directory before container exits |
 
 
 ## Example
