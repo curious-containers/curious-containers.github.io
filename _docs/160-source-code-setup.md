@@ -89,6 +89,7 @@ poetry install
 
 Run the following components in separate terminals.
 
+
 ### Terminal 1 - MongoDB
 
 Run MongoDB in a Docker container.
@@ -101,7 +102,17 @@ The created database is stored in the local filesystem (see `dev/docker-compose.
 
 A MongoDB admin user account is created automatically by a `mongo-seed` container defined in `dev/docker-compose.yml`. The credentials are read from `dev/cc-agency.yml`.
 
-### Terminal 2 - CC-Agency Controller
+
+### Terminal 2 - CC-Agency Trustee
+
+You can only run one instance of CC-Agency Trustee at a time. It provides a central in-memory secrets storage for experiments. If you restart this service all secrets will be lost and unfinished experiments will fail.
+
+```bash
+PYTHONPATH=../cc-core poetry run ccagency-trustee -c dev/cc-agency.yml
+```
+
+
+### Terminal 3 - CC-Agency Controller
 
 You can only run one instance of CC-Agency Controller at a time. It provides the central scheduling component, which connectes to a cluster of docker-engines.
 
@@ -109,7 +120,8 @@ You can only run one instance of CC-Agency Controller at a time. It provides the
 PYTHONPATH=../cc-core poetry run ccagency-controller -c dev/cc-agency.yml
 ```
 
-### Terminal 3 - CC-Agency Broker
+
+### Terminal 4 - CC-Agency Broker
 
 CC-Agency Broker provides a REST API, to schedule RED experiments, receive agent callbacks and to query information. It informs the Controller about changes via a ZMQ socket. Edit `dev/uwsgi.ini` to increase the number of Broker processes or threads.
 
@@ -123,20 +135,6 @@ Create users to authenticate with the CC-Agency Broker REST API, with or without
 
 ```bash
 PYTHONPATH=../cc-core poetry run ccagency create-broker-user -c dev/cc-agency.yml
-```
-
-### Create CC-Core Image
-
-The conf file `dev/cc-agency.yml` references a `cc-core` Docker image. You can build it locally.
-
-```bash
-docker build -t cc-core ../cc-core
-```
-
-Run a container based on this image, to check if everything is working.
-
-```
-docker run -u 1000:1000 cc-core ccagent --help
 ```
 
 ### Reset Database

@@ -101,14 +101,15 @@ broker:
     tokens_valid_for_seconds: 86400  # 24 h
 
 controller:
-  external_url: "tcp://127.0.0.1:6001"
-  bind_host: "127.0.0.1"
-  bind_port: 6001
+  bind_socket_path: "~/.cache/cc-agency-controller.sock"
   docker:
     allow_insecure_capabilities: false
     nodes: {}
   scheduling:
     strategy: 'spread'
+
+trustee:
+  bind_socket_path: "~/.cache/cc-agency-trustee.sock"
 
 mongo:
   db: "ccagency"
@@ -116,7 +117,7 @@ mongo:
   password: "SECRET"
 ```
 
-Set `allow_insecure_capabilities: true`, if you want to allow the usage of FUSE file-system mounts for certain directory connectors (e.g. sshfs) in your Docker cluster.
+Set `allow_insecure_capabilities: true`, if you want to allow the usage of FUSE file-system mounts for certain directory connectors (e.g. red-connector-ssh mount-dir) in your Docker cluster.
 
 
 ### MongoDB User
@@ -147,14 +148,46 @@ Additional users can be added at all times.
 
 *As admin user.*
 
+
+#### Trustee Service
+
+Create Systemd unit file `/etc/systemd/system/ccagency-trustee.service` for CC-Agency Trustee.
+
+```ini
+[Unit]
+Description=CC-Agency Trustee
+Documentation=https://www.curious-containers.cc/
+
+[Service]
+Type=simple
+User=cc
+Group=cc
+ExecStart=/home/cc/ccagency-venv/bin/ccagency-trustee
+Restart=no
+Environment=PYTHONUNBUFFERED=1
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Enable and start `ccagency-trustee` service.
+
+```bash
+sudo systemctl enable ccagency-trustee
+sudo systemctl start ccagency-trustee
+```
+
+
+#### Controller Service
+
 Create Systemd unit file `/etc/systemd/system/ccagency-controller.service` for CC-Agency Controller.
 
 ```ini
 [Unit]
 Description=CC-Agency Controller
 Documentation=https://www.curious-containers.cc/
-Requires=mongod.service
-After=mongod.service
+Requires=mongod.service ccagency-trustee.service
+After=mongod.service ccagency-trustee.service
 
 [Service]
 Type=simple
@@ -175,14 +208,17 @@ sudo systemctl enable ccagency-controller
 sudo systemctl start ccagency-controller
 ```
 
+
+#### Broker Service
+
 Create Systemd unit file `/etc/systemd/system/ccagency-broker.service` for CC-Agency Broker.
 
 ```ini
 [Unit]
 Description=CC-Agency Broker
 Documentation=https://www.curious-containers.cc/
-Requires=ccagency-controller.service mongod.service apache2.service
-After=ccagency-controller.service mongod.service apache2.service
+Requires=ccagency-controller.service ccagency-trustee.service mongod.service apache2.service
+After=ccagency-controller.service ccagency-trustee.service mongod.service apache2.service
 
 [Service]
 Type=simple
@@ -281,6 +317,10 @@ sudo less /var/log/apache2/access.log
 # CC-Agency Controller
 sudo systemctl status ccagency-controller
 sudo journalctl -u ccagency-controller
+
+# CC-Agency Trustee
+sudo systemctl status ccagency-trustee
+sudo journalctl -u ccagency-trustee
 
 # CC-Agency Broker
 sudo systemctl status ccagency-broker
