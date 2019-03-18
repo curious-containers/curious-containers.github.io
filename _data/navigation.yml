@@ -3,8 +3,6 @@ main:
     url: /faq
   - title: "Publications"
     url: /publications
-  - title: "Examples"
-    url: /examples
 
 docs:
   - title: "Release"
