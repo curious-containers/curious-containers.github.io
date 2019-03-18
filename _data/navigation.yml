@@ -25,6 +25,12 @@ docs:
         url: /docs/cc-core-cc-faice-cc-agency
       - title: "Versioning"
         url: /docs/versioning
+  - title: "Specs"
+    children:
+      - title: "RED 10"
+        url: "/docs/red-10"
+      - title: "RED Connector CLI 1"
+        url: "/docs/red-connector-cli-1"
   - title: "User Docs"
     children:
       - title: "RED Connectors: Input Files"
@@ -51,5 +57,4 @@ docs:
         url: /docs/source-code-repositories
       - title: "Source Code Setup"
         url: /docs/source-code-setup
-      - title: "RED Connector CLI"
-        url: /docs/red-connector-cli
+
