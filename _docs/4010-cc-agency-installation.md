@@ -48,6 +48,23 @@ sudo mkdir -p /opt/ccagency/privileged /opt/ccagency/unprivileged
 sudo chown www-data:www-data /opt/ccagency/unprivileged
 ```
 
+Create `/opt/ccagency/privileged/ccagency-trustee.ini` for uwsgi. The `wsgi-file` path may vary for your version of Python 3.
+
+```ini
+[uwsgi]
+plugins = python3
+http-socket = 127.0.0.1:6001
+wsgi-file = /home/cc/ccagency-venv/lib/python3.5/site-packages/cc_agency/trustee/app.py
+uid = cc
+gid = cc
+processes = 1
+threads = 1
+
+if-env = VIRTUAL_ENV
+virtualenv = %(_)
+endif =
+```
+
 Create `/opt/ccagency/privileged/ccagency-broker.ini` for uwsgi. The `wsgi-file` path may vary for your version of Python 3.
 
 ```ini
@@ -90,7 +107,7 @@ ccagency --help
 
 *As cc user.*
 
-Create configuration file `~/.config/cc-agency.yml`. Copy the following content, but choose a new strong `mongo.password` and save it in the file. The parameter `broker.external_url` should match the domain name of your server, as we will later define in the Apache2 site configuration.
+Create configuration file `~/.config/cc-agency.yml`. Copy the following content, but choose new strong values for `mongo.password` and `trustee.password`. The parameter `broker.external_url` should match the domain name of your server, as we will later define in the Apache2 site configuration.
 
 ```yaml
 broker:
@@ -109,7 +126,9 @@ controller:
     strategy: 'spread'
 
 trustee:
-  bind_socket_path: "~/.cache/cc-agency-trustee.sock"
+  internal_url: "http://127.0.0.1:6001"
+  username: "cctrustee"
+  password: "SECRET"
 
 mongo:
   db: "ccagency"
@@ -118,6 +137,13 @@ mongo:
 ```
 
 Set `allow_insecure_capabilities: true`, if you want to allow the usage of FUSE file-system mounts for certain directory connectors (e.g. red-connector-ssh mount-dir) in your Docker cluster.
+
+
+Change the file permissions to be restrictive. This will prevent system users other than `cc` to access your confidential configuration.
+
+```bash
+chmod 600 ~/.config/cc-agency.yml
+```
 
 
 ### MongoDB User
@@ -154,17 +180,14 @@ Additional users can be added at all times.
 Create Systemd unit file `/etc/systemd/system/ccagency-trustee.service` for CC-Agency Trustee.
 
 ```ini
-[Unit]
 Description=CC-Agency Trustee
 Documentation=https://www.curious-containers.cc/
 
 [Service]
 Type=simple
-User=cc
-Group=cc
-ExecStart=/home/cc/ccagency-venv/bin/ccagency-trustee
+ExecStart=/usr/bin/uwsgi /opt/ccagency/privileged/ccagency-trustee.ini
 Restart=no
-Environment=PYTHONUNBUFFERED=1
+Environment=VIRTUAL_ENV=/home/cc/ccagency-venv
 
 [Install]
 WantedBy=multi-user.target

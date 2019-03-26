@@ -105,16 +105,16 @@ A MongoDB admin user account is created automatically by a `mongo-seed` containe
 
 ### Terminal 2 - CC-Agency Trustee
 
-You can only run one instance of CC-Agency Trustee at a time. It provides a central in-memory secrets storage for experiments. If you restart this service all secrets will be lost and unfinished experiments will fail.
+You can only run one process/thread of CC-Agency Trustee at a time. It provides a central in-memory secrets storage for experiments. If you restart this service all secrets will be lost and unfinished experiments will fail.
 
 ```bash
-PYTHONPATH=../cc-core poetry run ccagency-trustee -c dev/cc-agency.yml
+PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi-trustee.ini
 ```
 
 
 ### Terminal 3 - CC-Agency Controller
 
-You can only run one instance of CC-Agency Controller at a time. It provides the central scheduling component, which connectes to a cluster of docker-engines.
+You can only run one process/thread of CC-Agency Controller at a time. It provides the central scheduling component, which connectes to a cluster of docker-engines.
 
 ```bash
 PYTHONPATH=../cc-core poetry run ccagency-controller -c dev/cc-agency.yml
@@ -126,7 +126,7 @@ PYTHONPATH=../cc-core poetry run ccagency-controller -c dev/cc-agency.yml
 CC-Agency Broker provides a REST API, to schedule RED experiments, receive agent callbacks and to query information. It informs the Controller about changes via a ZMQ socket. Edit `dev/uwsgi.ini` to increase the number of Broker processes or threads.
 
 ```bash
-PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi.ini
+PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi-broker.ini
 ```
 
 ### Create Users
