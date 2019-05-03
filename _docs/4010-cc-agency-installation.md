@@ -122,8 +122,6 @@ controller:
   docker:
     allow_insecure_capabilities: false
     nodes: {}
-  scheduling:
-    strategy: 'spread'
 
 trustee:
   internal_url: "http://127.0.0.1:6001"
