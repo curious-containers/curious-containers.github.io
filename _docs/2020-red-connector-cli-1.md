@@ -120,3 +120,5 @@ example-connector send-file-validate /path/to/access.json
 
 The `send` call transfers a file located under the given `/path/to/output/file` to the remote target as specifified in `/path/to/access.json`.
 The `send-file-validate` call works similar to the `receive-file-validate` call.
+
+TODO

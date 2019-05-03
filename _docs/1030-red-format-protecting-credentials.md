@@ -14,10 +14,10 @@ outputs:
       access:
         host: "example.com"
         port: 22
-        username: "myusername"
-        password: "mypassword"
-        fileDir: "/home/username/files"
-        fileName: "file_one.txt"
+        auth:
+          username: "myusername"
+          password: "mypassword"
+        filePath: "/home/username/files/file_one.txt"
   file_two:
     class: File
     connector:
@@ -25,10 +25,10 @@ outputs:
       access:
         host: "example.com"
         port: 22
-        username: "myusername"
-        password: "mypassword"
-        fileDir: "/home/username/files"
-        fileName: "file_two.txt"
+        auth:
+          username: "myusername"
+          password: "mypassword"
+        filePath: "/home/username/files/file_two.txt"
 ```
 
 RED supports two complementary concepts, *variables* and *protected key* to ensure the safety of credentials. This allows RED files to be easily **stored**, **published** or **shared**, without compromising any functionality.
@@ -48,10 +48,10 @@ outputs:
       access:
         host: "example.com"
         port: 22
-        username: "{{ssh_username}}"
-        password: "{{ssh_password}}"
-        fileDir: "/home/username/files"
-        fileName: "file_one.txt"
+        auth:
+          username: "{{ssh_username}}"
+          password: "{{ssh_password}}"
+        filePath: "/home/username/files/file_one.txt"
   file_two:
     class: File
     connector:
@@ -59,10 +59,10 @@ outputs:
       access:
         host: "example.com"
         port: 22
-        username: "{{ssh_username}}"
-        password: "{{ssh_password}}"
-        fileDir: "/home/username/files"
-        fileName: "file_two.txt"
+        auth:
+          username: "{{ssh_username}}"
+          password: "{{ssh_password}}"
+        filePath: "/home/username/files/file_two.txt"
 ```
 {% endraw %}
 
@@ -71,26 +71,15 @@ In this case we replaced both occurrences of `myusername` with the variable `ssh
 If you are now using CC-FAICE CLI tools like `faice agent red` or `faice exec` it will interactively ask you once for `ssh_username` and once for `ssh_password` to insert the values.
 
 {% raw %}
-Variables can only be used with string values, which must be located somewhere under an `access` or `auth` key. The string must start with `{{` and end with `}}`, everything in between is the variable's name.
+Variables can only be used with string values, which must be located somewhere under an `access` or `auth` key. The variable part of the string is enclosed by double curly braces `{{...}}`.
 {% endraw %}
 
 
-### Variables File
+### Save Values in Keyring
 
-You can store values to be filled into your variables in a separate file. This file can be in JSON or YAML format and should only contain key-value pairs, where the key is the variable name. The following YAML content could be stored as `secrets.yml`.
+You can store values to be filled into your variables in a keyring utility (e.g. [gnome-keyring](https://wiki.gnome.org/action/show/Projects/GnomeKeyring?action=show&redirect=GnomeKeyring)) using the [keyring](https://github.com/jaraco/keyring) python script, that gets installed as a dependency of CC-FAICE.
 
-```yaml
-ssh_username: "myusername"
-ssh_password: "mypassword"
-```
-
-You can then use `faice agent red` or `faice exec` commands with the `--variables` option.
-
-```
-faice agent red red.yml --variables=secrets.yml
-faice exec red.yml --variables=secrets.yml
-```
-
+TODO
 
 
 ## Protected Keys

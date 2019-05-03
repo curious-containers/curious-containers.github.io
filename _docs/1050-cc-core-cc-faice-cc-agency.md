@@ -10,8 +10,7 @@ The following section introduce the software components of Curious Containers.
 CC-Core is a Python package which, as the name says, provides core functionality to the Curious Containers ecosystem. The main purposes of this package are:
 
 1. Providing JSON-schema definitions for the supported [CWL Command Line Tool Description](https://www.commonwl.org/v1.0/CommandLineTool.html) standard and the [RED format](/docs/red-format).
-2. Implementing CLI programs, so-called agents, to run data-driven experiments in CWL or RED format.
-3. Being a software library for shared functionality in CC-FAICE and CC-Agency.
+2. Being a software library for shared functionality in CC-FAICE and CC-Agency.
 
 ### Installation
 
@@ -22,7 +21,7 @@ If you are installing CC-FAICE, CC-Core will be automatically installed as a pac
 
 FAICE (Fair Collaboration and Experiments) is a CLI tool suite, providing a lot of functionality to users. The main functions are:
 
-* Implementing meta agents to launch corresponding CC-Core agents inside of Docker containers, which will then run the actual experiments defined in CWL or RED format.
+* Providing an agent to run experiments in RED format.
 * Additional tools to convert, validate and export RED files.
 
 ### Installation
@@ -36,13 +35,13 @@ sudo dnf install python3-pip
 It is recommended to install a specific version of `cc-faice`. This will automatically install the latest compatible version of `cc-core`.
 
 ```bash
-pip3 install --user --upgrade cc-faice==6.*
+pip3 install --user --upgrade cc-faice==7.*
 ```
 
 If you want to use the `nvidia-docker` execution engine locally and have CUDA installed on your computer, you should install `cc-faice` with additional dependencies as follows.
 
 ```bash
-pip3 install --user --upgrade cc-faice[nvidia-docker]==6.*
+pip3 install --user --upgrade cc-faice[nvidia-docker]==7.*
 ```
 
 Run CLI tool.
@@ -58,14 +57,11 @@ If this tool cannot be found, you should modify `PATH` (e.g. append `${HOME}/.lo
 python3 -m cc_faice --version
 ```
 
-### Agents
+### Agent RED
 
-CC-FAICE implements two meta agents, `cwl` and `red`, which refer to the corresponding CC-Core agents. While the CC-Core agents execute an experiment directly, the CC-FAICE agents only work with Docker containers, where CC-Core has to be installed in the Docker image beforehand. A CC-FAICE meta agent will launch the corresponding CC-Core agent via Docker, which will then take over control to download input files, run the experiment and upload output files within the container.
-
-Use the following CLI tools.
+CC-FAICE provides a RED agent, a program to run an experiment as decribed in a RED file. Experiments are executed in Docker containers, based on the specified Docker image. Use the following CLI tool.
 
 ```bash
-faice agent cwl --help
 faice agent red --help
 ```
 
@@ -73,7 +69,7 @@ faice agent red --help
 
 CC-Agency is an advanced server software, which is able to connect to a distributed cluster of docker-engines and schedules experiments defined in RED format for parallel execution.
 
-It implements two major software components: CC-Agency Broker provides a restful web API for users, to register experiments and to query information. CC-Agency Controller is a background process, which connects to a Docker cluster and schedules the experiments for execution.
+It implements three major software components: CC-Agency Broker provides a restful web API for users, to register experiments and to query information. CC-Agency Controller is a background process, which connects to a Docker cluster and schedules the experiments for execution. CC-Agency Trustee is a service to temporarily store credentials in memory, until the correponding experiment finished in one of the states *succeeded*, *failed* or *cancelled*.
 
 CC-Agency persists the state of experiments in a database and is very fault tolerant, when it comes to failing containers, docker-engines or network connections.
 
@@ -91,8 +87,6 @@ As a positive side-effect, your experiments do not rely on any local files, whic
 
 As a technical necessity, you are required to send your Docker image and data access credentials defined in your RED file to CC-Agency. It is therefore strongly advised to only use CC-Agency if you **trust the operator** with this sensitive data.
 
-To improve data protection you should use **temporary credentials** whenever possible.
-
-CC-Agency will store credentials temporarily in its database. As soon as the processing of a batch or experiment finishes, the values of **protected keys** under the `access` data in the connector sections and under the `auth` data in the engine sections are **overwritten** in the database. By default, only `password` is considered a protected key. You can protect other keys if they refer to string values, by prepending `_` (e.g. `_username`) in the RED data (see [Protected Keys](/docs/red-format-protecting-credentials#protected-keys)), before posting it to CC-Agency.
+To improve data protection you should use **temporary credentials** whenever possible. CC-Agency will store credentials temporarily in memory. As soon as the processing of a batch or experiment finishes, these credentials will be removed.
 
 All data handling is done inside of Docker containers. The container file systems are deleted after processing, leaving no traces of your data on remote servers.

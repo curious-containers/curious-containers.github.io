@@ -31,12 +31,12 @@ docs:
         url: "/docs/red-connector-cli-1"
   - title: "User Docs"
     children:
-      - title: "RED Connectors: Input Files"
-        url: /docs/red-connectors-input-files
-      - title: "RED Connectors: Input Directories"
-        url: /docs/red-connectors-input-directories
-      - title: "RED Connectors: Output Files"
-        url: /docs/red-connectors-output-files
+      - title: "RED Connector: SSH"
+        url: /docs/red-connector-ssh
+      - title: "RED Connector: HTTP"
+        url: /docs/red-connector-http
+      - title: "RED Connector: XNAT"
+        url: /docs/red-connector-xnat
       - title: "RED Container Engines"
         url: /docs/red-container-engines
       - title: "RED Execution Engines"

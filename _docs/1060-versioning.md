@@ -8,10 +8,10 @@ All CC Python package versions consist of three distict numbers separated by `.`
 
 ## Users
 
-For users, only the **RED** version is relevant. For example, if `redVersion: "6"` is set in a RED file, install `cc-faice` 6.X.X as follows.
+For users, only the **RED** version is relevant. For example, if `redVersion: "7"` is set in a RED file, install `cc-faice` 7.X.X as follows.
 
 ```bash
-pip3 install --user --upgrade cc-faice==6.*
+pip3 install --user --upgrade cc-faice==7.*
 ```
 
 If you want to send an experiment to CC-Agency it must match the **RED** version. A way to retrieve the version number of CC-Agency can be found in the [API documentation](/docs/cc-agency-api#get-version).
