@@ -24,9 +24,9 @@ In the past, Curious Containers was mainly a research project to develop ideas a
 It is now time to stabilize the ecosystem as a major step for longterm reproducibility. We are therefore working towards RED 10, the first stable release of the RED file format. In addition, we will define a stable CLI for RED Connectors. RED 10 and the RED Connector CLI version 1 will be supported by all future releases of the Curious Containers software components in a backwards compatible way.
 
 
-### Pre-Release
+### RED 7 Pre-Release
 
-You can soon expect the RED 10 pre-release version called RED 7. A pre-release of the RED connector CLI will be published as version 0.1.
+Our current release RED 7 is a RED 10 pre-release version. This version will most likely become RED 10 without any additional changes, provided that we do not detect any error during the testing phase. A pre-release of the RED connector CLI 1 is now released as version 0.1.
 
 
 ## Machine Learning Workloads

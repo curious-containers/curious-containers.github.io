@@ -17,15 +17,15 @@ A RED Connector is a CLI tool with an arbitrary name for its executable. A conne
 | cli-version | yes | Report CLI version |
 | receive-file | no | Download input file to container |
 | receive-file-validate | if receive-file | |
-| send-file | no | Upload output file from container |
-| send-file-validate | if send-file | |
 | receive-dir | no | Download input directory to container |
 | receive-dir-validate | if receive-dir | |
-| send-dir | no | Upload output directory from container |
-| send-dir-validate | if send-dir | |
 | mount-dir | no | Mount input directory in container |
 | mount-dir-validate | if mount-dir | |
 | umount-dir | if mount-dir | Unmount directory before container exits |
+| send-file | no | Upload output file from container |
+| send-file-validate | if send-file | |
+| send-dir | no | Upload output directory from container |
+| send-dir-validate | if send-dir | |
 
 
 ## Example
@@ -50,7 +50,15 @@ This should result in a file created at `/tmp/myinputfile.txt` and with the cont
 `red-connector-http` is the name of the connector executable. `receive-file` is a subprogram, that is used to retrieve a file. `access.json` is a json file with information on how to access the data. The content of an access file is provided by the corresponding `connector.access` section of a RED file. The expected access information is not part of the RED specification, but instead specified by the connector implementation.
 
 
-## Inputs: Receiving Files
+## cli-version
+
+Connectors must print their CLI version, if this subcommand is executed. For example:
+
+```
+0.1
+```
+
+## receive-file and receive-file-validate
 
 To implement a connector called `example-connector` that is able to receive a file, this connector should at least implement the following command line calls.
 
@@ -64,24 +72,20 @@ example-connector receive-file-validate /path/to/access.json
 
 `example-connector` is the executable name of your connector. `receive-file` and `receive-file-validate` are subprograms of `example-connector`. `/path/to/access.json` and `/path/to/store/input/file` are positional arguments.
 
-
-### receive-file
-
 The command line call `example-connector receive-file /path/to/access.json /path/to/store/input/file` should result in a new file stored under `/path/to/store/input/file`.
 The `access.json` file defines how to get access to the resource. The content of the access file is defined by the connector and can be different for different connectors.
 
 If it is not possible to access the data described in the access file, the connector should exit with a non zero exit code.
 Additional the connector should print a human readable error message to stderr.
 
-
-### receive-file-validate
-
 The command line call `example-connector receive-file-validate /path/to/store/input/file` should exit with a non-zero exit code, if the given access data is invalid.
 The connector is not forced to check the accessibility of the described content.
 Additional the connector should print a human readable error message to stderr in case of invalid access data.
 
+TODO
 
-## Inputs: Receiving Directories
+
+## receive-dir and receive-dir-validate
 
 To implement a connector that is able to receive a directory, this connector should at least implement the following command line calls.
 
@@ -106,7 +110,11 @@ The `receive-dir-validate` call works similar to the `receive-file-validate` cal
 A optional listing file in json format can be supplied. The listing has to be in CWL format (See [inputs: directories](/docs/red-format#inputs-directories)). If the connector does not require a listing, it can be ignored, but the connector should be prepared accept the --listing option. If a listing is required by the connector but not provided in the RED connector section, the recive-dir-validate call should fail with a non-zero exit code.
 
 
-## Outputs: Sending Files
+## mount-dir, mount-dir-validate and umount-dir
+
+TODO
+
+## send-file and send-file-validate
 
 To implement a connector that is able to send a file, this connector should at least implement the following command line calls.
 
@@ -120,5 +128,9 @@ example-connector send-file-validate /path/to/access.json
 
 The `send` call transfers a file located under the given `/path/to/output/file` to the remote target as specifified in `/path/to/access.json`.
 The `send-file-validate` call works similar to the `receive-file-validate` call.
+
+TODO
+
+## send-dir and send-dir-validate
 
 TODO
