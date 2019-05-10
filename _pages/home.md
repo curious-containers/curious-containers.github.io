@@ -21,12 +21,12 @@ Together, RED and Curious Containers support the [FAIR principles](https://www.f
 
 In the past, Curious Containers was mainly a research project to develop ideas and try new concepts in the context of computational reproducibility. Our existing file formats and software components are considered BETA releases.
 
-It is now time to stabilize the ecosystem as a major step for longterm reproducibility. We are therefore working towards RED 10, the first stable release of the RED file format. In addition, we will define a stable CLI for RED Connectors. RED 10 and the RED Connector CLI version 1 will be supported by all future releases of the Curious Containers software components in a backwards compatible way.
+It is now time to stabilize the ecosystem as a major step towards longterm reproducibility. We are therefore working on RED 10, the first stable release of the RED file format. In addition, we will define a stable CLI for RED Connectors. RED 10 and the RED Connector CLI version 1 will be supported by all future releases of the Curious Containers software components in a backwards compatible way.
 
 
-### RED 7 Pre-Release
+### RED 10 Pre-Release
 
-Our current release RED 7 is a RED 10 pre-release version. This version will most likely become RED 10 without any additional changes, provided that we do not detect any error during the testing phase. A pre-release of the RED connector CLI 1 is now released as version 0.1.
+Our current release RED 7 is a RED 10 pre-release version. This version will most likely become RED 10 (we are skipping 8 and 9) without any additional changes, provided that we do not detect any errors during the testing phase. A pre-release of the RED connector CLI 1 is now released as version 0.1.
 
 
 ## Machine Learning Workloads
