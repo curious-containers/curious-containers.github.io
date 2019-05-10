@@ -76,6 +76,7 @@ wsgi-file = /home/cc/ccagency-venv/lib/python3.5/site-packages/cc_agency/broker/
 uid = cc
 gid = cc
 processes = 4
+threads = 4
 lazy-apps = True
 
 if-env = VIRTUAL_ENV
