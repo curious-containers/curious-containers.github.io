@@ -19,7 +19,7 @@ Make sure you trust the executor of your RED file.
 ## Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.7
+pip3 install --user --upgrade red-connector-ssh==0.8
 ```
 
 Additionally, if you would like to use [mount-dir](#mount-dir) functionality, the SSHFS CLI tools must be installed.

@@ -32,7 +32,7 @@ ENV PATH /home/cc/.local/bin:${PATH}
 RUN python3 -m venv /home/cc/.local/red \
 && . /home/cc/.local/red/bin/activate \
 && pip install wheel \
-&& pip install red-connector-http==0.4 red-connector-ssh==0.7 \
+&& pip install red-connector-http==0.5 red-connector-ssh==0.8 \
 && mkdir -p /home/cc/.local/bin \
 && ln -s /home/cc/.local/red/bin/red-connector-* /home/cc/.local/bin
 

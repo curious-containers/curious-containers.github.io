@@ -10,7 +10,7 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 ## Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.10
+pip3 install --user --upgrade red-connector-xnat==0.11
 ```
 
 ## Inputs
