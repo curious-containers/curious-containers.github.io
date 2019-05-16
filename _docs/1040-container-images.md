@@ -10,7 +10,7 @@ The following sections show how to prepare a container image, for the two contai
 
 There are many ways to build a Docker image. In our examples we chose `docker.io/debian:9.5-slim` as a base image, because it is relatively small and dependencies can easily be installed from the Debian package repositories via `apt-get install`. A POSIX shell (`/bin/sh`), as it is preconfigured in most images, and a Python3 interpreter (version >= 3.4), must be installed.
 
-For the image to be used effectively, RED connector commandline application have to be installed. In order to use any of the standard connectors provided by the Curious Containers project, a Python3 interpreter must be installed as well. Since Docker provides a clean environment by default, we have to set the `PATH` environment variables explicitely. Please note, that your own application also needs to be located in a directory which is included in `PATH`.
+For the image to be used effectively, RED connector commandline applications have to be installed. In order to use any of the standard connectors provided by the Curious Containers project, a Python3 interpreter must be installed as well. Since Docker provides a clean environment by default, we have to set the `PATH` environment variables explicitely. Please note, that your own application also needs to be located in a directory which is included in `PATH`.
 
 Another requirement is, that the application and the RED connectors are executed as user with uid:gid set to `1000:1000`. The debian base image does not have such a user configured. We can therefore create the first user called `cc`, wich will by default be assigned the uid:gid pair `1000:1000`. Please note, that the user's name does not matter.
 
