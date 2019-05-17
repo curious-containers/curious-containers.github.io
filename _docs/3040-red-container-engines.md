@@ -71,7 +71,7 @@ container:
 ```
 
 
-This configuration will try to pull the image `example-image`, with the supplied authentication. The executing container will only use 256 MB RAM and two GPUs with at least 256 MB VRAM.
+This configuration will try to pull the image `example-image`, with the supplied authentication. The executing container will only use 256 MB RAM and two GPUs with at least 256 MB VRAM. A maxVram parameter does not exist, because GPUs are always allocated as a complete device.
 
 As an alternative, the `count` of required GPUs can be given, without specifying `minVram` parameters:
 
