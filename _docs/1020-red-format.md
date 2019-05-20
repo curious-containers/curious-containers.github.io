@@ -261,7 +261,7 @@ When using the `faice agent red` CLI tool or when sending an experiment to CC-Ag
 
 ## execution
 
-Under the `execution` keyword you can specify an execution engine, which is capable of processing the given RED file. For example the URL and access information to a CC-Agency server can be given here. For supported execution engines take a look at the [RED Execution Engines](/red/red-execution-engines) documentation.
+Under the `execution` keyword you can specify an execution engine, which is capable of processing the given RED file. For example the URL and access information to a CC-Agency server can be given here. For supported execution engines take a look at the [RED Execution Engines](/docs/red-execution-engines) documentation.
 
 ```yaml
 execution:
