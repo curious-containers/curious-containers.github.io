@@ -27,7 +27,7 @@ RED connector HTTP JSON is included with RED connector HTTP. For installation in
 
 
 ```yaml
-command: "red-connector-http"
+command: "red-connector-http-json"
 access:
   url: "http://example.com/data"
   method: "GET"
@@ -54,7 +54,7 @@ access:
 
 
 ```yaml
-command: "red-connector-http"
+command: "red-connector-http-json"
 access:
   url: "http://example.com/data"
   method: "GET"
