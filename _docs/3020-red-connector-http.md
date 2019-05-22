@@ -10,7 +10,7 @@ This connector can be used for HTTP and HTTPS connections.
 ## Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-http==0.5
+pip3 install --user --upgrade red-connector-http==0.6
 ```
 
 Additionally, if you would like to use [mount-dir](#mount-dir) functionality, the HTTPDirFS CLI tools must be installed [from source](https://github.com/fangfufu/httpdirfs).

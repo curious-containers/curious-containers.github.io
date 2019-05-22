@@ -37,6 +37,8 @@ docs:
         url: /docs/red-connector-http
       - title: "RED Connector: HTTP JSON"
         url: /docs/red-connector-http-json
+      - title: "RED Connector: HTTP Archive"
+        url: /docs/red-connector-http-archive
       - title: "RED Connector: XNAT"
         url: /docs/red-connector-xnat
       - title: "RED Container Engines"
