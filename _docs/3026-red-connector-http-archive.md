@@ -36,6 +36,7 @@ access:
     password: "password"
     method: "BASIC"
   disableSSLVerification: False
+  archiveFormat: "gztar"
 ```
 
 #### Listing
