@@ -26,7 +26,7 @@ It is now time to stabilize the ecosystem as a major step towards longterm repro
 
 ### RED 10 Pre-Release
 
-Our current release RED 7 is a RED 10 pre-release version. This version will most likely become RED 10 (we are skipping 8 and 9) without any additional changes, provided that we do not detect any errors during the testing phase. A pre-release of the RED connector CLI 1 is now released as version 0.1.
+The next release, RED 8, will be a RED 10 pre-release version. This version will most likely become RED 10 (we are skipping version 9) without any additional changes, provided that we do not detect any errors during the testing phase. RED 8 will include RED Connector CLI 1, a stable interface for connectors to ensure long-term compatibility of container images with future Curious Containers software releases.
 
 
 ## Machine Learning Workloads
