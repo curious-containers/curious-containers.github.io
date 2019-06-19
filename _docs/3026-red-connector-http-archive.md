@@ -29,7 +29,7 @@ RED connector HTTP Archive is included with RED connector HTTP. For installation
 ```yaml
 command: "red-connector-http"
 access:
-  url: "http://example.com/files/data.csv"
+  url: "http://example.com/files/data.tar.gz"
   method: "GET"
   auth:
     username: "username"
