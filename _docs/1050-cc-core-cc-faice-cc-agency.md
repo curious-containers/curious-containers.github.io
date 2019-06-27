@@ -75,9 +75,7 @@ CC-Agency persists the state of experiments in a database and is very fault tole
 
 ### Usage
 
-If you are a user and would like to connect to an existing installation of CC-Agency, please refer to the [REST API](/docs/cc-agency-api) documentation.
-
-It is advised to test and validate your RED files and containers locally with [CC-FAICE](#cc-faice).
+If you are a user and would like to connect to an existing installation of CC-Agency, please refer to the [REST API](/docs/cc-agency-api) documentation. It is recommended to specify a CC-Agency instance under the [execution](/docs/red-format#execution) keyword of your RED file. You can then use the `faice exec` commandline tool to send the experiment to CC-Agency. The tool will automatically validate your RED file and asks you for missing [variable values](/docs/red-format-protecting-credentials) if they are not found in your keyring.
 
 In order to make your resources referenced in a RED file, like a Docker image and input/output file locations, available to a remote Docker cluster, they have to be **published** in an appropriate way. This means that Docker images have to be uploaded to a Docker registry, like the official [DockerHub](https://hub.docker.com/) or a private [registry](https://docs.docker.com/registry/), and that data exchange must be handled through a data management system (DMS) via the network. We provide RED connector plugins for secure file exchange protocols and the [XNAT](https://www.xnat.org/) DMS. Of course, as demanded by the [FAIR princibles](https://www.force11.org/fairprinciples), common authentication mechanisms are supported for Docker registry and data connections.
 
