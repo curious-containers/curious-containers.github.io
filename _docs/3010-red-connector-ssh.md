@@ -103,6 +103,7 @@ Optional. If listing exists, only the specified subdirectories and files are bei
 | auth.username | string | no | | Username |
 | auth.password | string | no | | Password |
 | dirPath | string | no | | Directory path on remote host |
+| writable | boolean | yes | False | Enable write access to mounted directory |
 
 
 ```yaml
@@ -115,6 +116,7 @@ access:
     username: "username"
     password: "password"
   dirPath: "/home/username/files"
+  writable: False
 ```
 
 #### Listing
