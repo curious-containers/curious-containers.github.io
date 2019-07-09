@@ -7,6 +7,31 @@ toc_label: "Table of Contents"
 ---
 
 
+## Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological
+
+*Christoph Jansen and Bruno Schilling and Klaus Strohmenger and Michael Witt and Jonas Annuscheit and Dagmar Krefting*
+
+[DOI: 10.1109/CCGRID.2019.00080](https://doi.org/10.1109/CCGRID.2019.00080)
+
+We introduce the RED file format and the CC-FAICE and CC-Agency execution engines. To demonstrate the capablities of the system, a reproducible training of a Convolutional Neural Network (CNN) for tumor classification is performed on pathological image data. The CNN training requires CUDA GPU acceleration and FUSE file systems to mount large datasets in a container.
+
+```bibtex
+@InProceedings{Jansen2019,
+   author = {Jansen, Christoph and Schilling, Bruno and Strohmenger, Klaus and Witt, Michael and Annuscheit, Jonas and Krefting, Dagmar},
+   title = {Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological},
+   booktitle = {2019 19th IEEE/ACM International Symposium on Cluster, Cloud and Grid Computing (CCGRID)},
+   year = {2019},
+   location = {Larnaca, Cyprus, Cyprus},
+   pages = {621-630},
+   numpages = {10},
+   url = {https://doi.org/10.1109/CCGRID.2019.00080},
+   doi = {10.1109/CCGRID.2019.00080},
+   publisher = {IEEE},
+   keywords = {Reproducibility, Performance, Deep Learning, Machine Learning, Container, Docker, Filesystem in Userspace, CUDA, FAIR Principles, Common Workflow Language, Reproducible Experiment Descriptions, Curious Containers},
+}
+```
+
+
 ## Towards Reproducible Research in a Biomedical Collaboration Platform Following the FAIR Guiding Principles (2017)
 
 *Christoph Jansen, Maximilian Beier, Michael Witt, Sonja Frey, Dagmar Krefting*
