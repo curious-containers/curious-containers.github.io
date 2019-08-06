@@ -7,7 +7,7 @@ toc_label: "Table of Contents"
 ---
 
 
-## Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological Images
+## Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological Images (2019)
 
 *Christoph Jansen, Bruno Schilling, Klaus Strohmenger, Michael Witt, Jonas Annuscheit, Dagmar Krefting*
 
