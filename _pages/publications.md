@@ -7,9 +7,9 @@ toc_label: "Table of Contents"
 ---
 
 
-## Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological
+## Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological Images (2019)
 
-*Christoph Jansen and Bruno Schilling and Klaus Strohmenger and Michael Witt and Jonas Annuscheit and Dagmar Krefting*
+*Christoph Jansen, Bruno Schilling, Klaus Strohmenger, Michael Witt, Jonas Annuscheit, Dagmar Krefting*
 
 [DOI: 10.1109/CCGRID.2019.00080](https://doi.org/10.1109/CCGRID.2019.00080)
 
@@ -18,7 +18,7 @@ We introduce the RED file format and the CC-FAICE and CC-Agency execution engine
 ```bibtex
 @InProceedings{Jansen2019,
    author = {Jansen, Christoph and Schilling, Bruno and Strohmenger, Klaus and Witt, Michael and Annuscheit, Jonas and Krefting, Dagmar},
-   title = {Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological},
+   title = {Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological Images},
    booktitle = {2019 19th IEEE/ACM International Symposium on Cluster, Cloud and Grid Computing (CCGRID)},
    year = {2019},
    location = {Larnaca, Cyprus, Cyprus},
