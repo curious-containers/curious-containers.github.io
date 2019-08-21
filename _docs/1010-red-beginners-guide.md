@@ -327,7 +327,7 @@ Unfortunately, the CWL `location` keyword in a job file can only hold a single U
 Create a new file and insert the following RED data with `nano grepwrap.red.yml`.
 
 ```yaml
-redVersion: "6"
+redVersion: "7"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"
@@ -399,44 +399,3 @@ faice agent red --disable-pull grepwrap.red.yml
 ```
 
 The outpout file will be moved to the `outputs` directory. Use `cat outputs/out_file/out.txt` to check the programs output.
-
-
-### Outputs
-
-In contrast to the CWL standard, the RED format can also describe connectors to send output files to remote locations. Open the existing RED file and append the following `outputs` section with `nano grepwrap.red.yml`.
-
-```yaml
-outputs:
-  out_file:
-    class: "File"
-    connector:
-      command: "red-connector-http"
-      access:
-        url: "http://172.17.0.1:5000/server-out.txt"
-```
-
-Usually, an external host with a static IP / domain name and a proper Authorization configuration should be chosen for this. This would improve reproducibility, because all destinations of the original experiment results are well documented.
-
-For the purpose of this guide, we temporarily start a local HTTP server on TCP PORT 5000 to receive the output file. Please note, that in this case we are running the experiment in a container. In order to send output files from a container to the `faice file-server` running on the host, we use the standard Docker bridge IP `172.17.0.1`. Use `ifconfig` to check if another IP has been assigned to the Docker bridge on your system.
-
-Before the experiment can be executed, the file server needs to be started.
-
-```bash
-# start server as background job
-faice file-server &
-```
-
-Use the `faice agent red` commandline tool with the `--outputs` flag to execute the experiment. Use `--outputs` to enable the specified connectors. Otherwise the `outputs` section of your RED file will be ignored and resulting files will be moved to the current working directory as demonstrated before.
-
-```bash
-faice agent red --disable-pull --outputs ./grepwrap.red.yml
-```
-
-The `faice file-server` is programmed to use the file name specified in the URL. Use `cat server-out.txt` to check the programs output.
-
-You can stop the file-server as follows.
-
-```bash
-# terminate the last background job
-kill %%
-```
