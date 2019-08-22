@@ -7,7 +7,7 @@ main:
 docs:
   - title: "Release"
     children:
-      - title: "Version 7"
+      - title: "Version 8"
         url: /docs/release
   - title: "Guides"
     children:
@@ -16,11 +16,17 @@ docs:
       - title: "RED Storage Guide"
         url: /docs/red-storage-guide
       - title: "RED Machine Learning Guide"
-        url: /docs/red-storage-guide
+        url: /docs/red-machine-learning-guide
       - title: "RED Agency Guide"
-        url: /docs/red-storage-guide
+        url: /docs/red-agency-guide
+  - title: "Specs"
+    children:
+      - title: "RED-CWL 10"
+        url: "/docs/red-cwl-10"
+      - title: "RED Connector CLI 1"
+        url: "/docs/red-connector-cli-1"
   - title: "General Docs"
-      children:
+    children:
       - title: "RED Format"
         url: /docs/red-format
       - title: "RED Format: Protecting Credentials"
@@ -31,12 +37,6 @@ docs:
         url: /docs/cc-core-cc-faice-cc-agency
       - title: "Versioning"
         url: /docs/versioning
-  - title: "Specs"
-    children:
-      - title: "RED-CWL 10"
-        url: "/docs/red-cwl-10"
-      - title: "RED Connector CLI 1"
-        url: "/docs/red-connector-cli-1"
   - title: "User Docs"
     children:
       - title: "RED Connector: SSH"
