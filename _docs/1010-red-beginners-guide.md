@@ -15,14 +15,7 @@ From the Curious Container 8 release onwards, CC-FAICE supports Mac using [Docke
 
 ### Option 1: Linux Setup
 
-If you are using a Linux distribution, please ensure that the following packages are installed.
-
-* nano (or another text editor)
-* python3
-* python3-pip
-* python3-venv
-* git
-* docker
+If you are using a Linux distribution, please ensure that the packages `nano` (or another text editor), `python3`, `python3-pip`, `python3-venv`, `git` and a docker-engine are installed.
 
 On Ubuntu 18.04:
 
