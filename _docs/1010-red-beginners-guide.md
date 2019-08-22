@@ -443,7 +443,7 @@ Use the `faice agent red` commandline tool to execute the experiment.
 faice agent red --disable-pull grepwrap.red.yml
 ```
 
-The output file will be moved to the `outputs` directory. Use `cat outputs/out_file/out.txt` to check the programs output.
+The output file will be moved to the `outputs` directory. Use `cat outputs/out.txt` to check the programs output.
 
 
 ### Push Image to Container Registry

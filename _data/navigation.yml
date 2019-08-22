@@ -13,12 +13,12 @@ docs:
     children:
       - title: "RED Beginner's Guide"
         url: /docs/red-beginners-guide
-      - title: "RED Storage Guide"
-        url: /docs/red-storage-guide
-      - title: "RED Machine Learning Guide"
-        url: /docs/red-machine-learning-guide
-      - title: "RED Agency Guide"
-        url: /docs/red-agency-guide
+      - title: "Storage Guide"
+        url: /docs/storage-guide
+      - title: "Machine Learning Guide"
+        url: /docs/machine-learning-guide
+      - title: "CC-Agency Guide"
+        url: /docs/cc-agency-guide
   - title: "Specs"
     children:
       - title: "RED-CWL 10"
