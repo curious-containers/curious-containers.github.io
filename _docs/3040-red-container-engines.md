@@ -54,7 +54,7 @@ container:
 
 ```yaml
 container:
-  engine: "nvidia-docker"
+  engine: "docker"
   settings:
     image:
       url: "example-image"
@@ -73,7 +73,7 @@ The executing container will only use 256 MB RAM and two GPUs with at least 256 
 
 ```yaml
 container:
-  engine: "nvidia-docker"
+  engine: "docker"
   settings:
     image:
       url: "example-image"
