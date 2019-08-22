@@ -49,7 +49,7 @@ brew install nano python git
 
 ### Option 3: Windows Setup
 
-Windows support is planned for the upcoming Curious Container 8.1 release. As of now, please skip to Option 4 or use a different virtualization technology, like [Hyper-V](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-ubuntu-virtual-machines-on-hyper-v) or [Windows Subsystem for Linux 2 (WSL2)](https://devblogs.microsoft.com/commandline/wsl-2-is-now-available-in-windows-insiders/).
+Windows support is planned for the upcoming Curious Container 8.1 release. As of now, please skip to [Option 4](#option-4-vagrant-vm-setup) or use a different virtualization technology, like [Hyper-V](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-ubuntu-virtual-machines-on-hyper-v) or [Windows Subsystem for Linux 2 (WSL2)](https://devblogs.microsoft.com/commandline/wsl-2-is-now-available-in-windows-insiders/).
 
 
 ### Option 4: Vagrant VM Setup
