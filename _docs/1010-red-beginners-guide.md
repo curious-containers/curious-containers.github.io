@@ -29,7 +29,7 @@ On Ubuntu 18.04:
 ```bash
 sudo groupadd docker  # to avoid reboot
 sudo apt-get update
-sudo apt-get install nano python3 python3-pip python3-venv git docker-engine
+sudo apt-get install nano python3 python3-pip python3-venv git docker.io
 ```
 
 On Fedora 30:
