@@ -26,12 +26,12 @@ As an introduction (in german), watch the following [talk at the deRSE 2019](htt
 
 In the past, Curious Containers was mainly a research project to develop ideas and try new concepts in the context of computational reproducibility. Our existing file formats and software components are considered BETA releases.
 
-It is now time to stabilize the ecosystem as a major step towards longterm reproducibility. We are therefore working on RED 10, the first stable release of the RED file format. In addition, we will define a stable CLI for RED Connectors. RED 10 and the RED Connector CLI version 1 will be supported by all future releases of the Curious Containers software components in a backwards compatible way.
+It is now time to stabilize the ecosystem as a major step towards long-term reproducibility. With RED 8, the RED Connector CLI 1 specification has been released. Therefore all container images and the RED connectors installed inside them, will be compatible with future RED versions.
 
 
 ### RED 10 Pre-Release
 
-The next release, RED 8, will be a RED 10 pre-release version. This version will most likely become RED 10 (we are skipping version 9) without any additional changes, provided that we do not detect any errors during the testing phase. RED 8 will include RED Connector CLI 1, a stable interface for connectors to ensure long-term compatibility of container images with future Curious Containers software releases.
+With RED 9, we will move from the CWL 1.0 to the CWL 1.1 standard. RED 9 will be tested extensively without many additional changes, hopefully leading to a rock solid RED 10 release.
 
 
 ## Machine Learning Workloads
