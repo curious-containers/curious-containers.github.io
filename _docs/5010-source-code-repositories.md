@@ -6,6 +6,7 @@ toc: false
 
 Github Organization: [curious-containers](https://github.com/curious-containers)
 
+* [curious-containers](https://github.com/curious-containers/curious-containers) (issue tracker)
 * [curious-containers.github.io](https://github.com/curious-containers/curious-containers.github.io) (documentation)
 * [cc-core](https://github.com/curious-containers/cc-core)
 * [cc-faice](https://github.com/curious-containers/cc-faice)

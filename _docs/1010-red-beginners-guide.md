@@ -8,14 +8,60 @@ This tutorial explains how to create a reproducible data-driven experiment and h
 
 ## Prerequisites
 
-This tutorial requires a **Linux** distribution, where nano (or another text editor), python3, python3-pip, python3-venv, git and [Docker](https://www.docker.com/) are installed.
+Curious Containers is best supported on Linux distributions and all experiments run as CLI tools in Linux containers using Docker.
 
-If a Linux distribution is not already installed on your computer, use [Vagrant](https://www.vagrantup.com/) to create a Virtual Machine (VM) with your preferred operating system (see [Vagrant VM Setup](#vagrant-vm-setup-optional))
+From the Curious Container 8 release onwards, CC-FAICE supports Mac using [Docker for Mac](https://docs.docker.com/docker-for-mac/). Please note, that Docker for Mac internally uses a virtual machine to run Linux containers.
 
 
-### Vagrant VM Setup (Optional)
+### Option 1: Linux Setup
 
-If you don't have access to a Linux system or just don't want to install Docker by hand, you can setup a provisioned vagrant VM to follow the tutorial. This is entirely optional.
+If you are using a Linux distribution, please ensure that the following packages are installed.
+
+* nano (or another text editor)
+* python3
+* python3-pip
+* python3-venv
+* git
+* docker
+
+On Ubuntu 18.04:
+
+```bash
+sudo groupadd docker  # to avoid reboot
+sudo apt-get update
+sudo apt-get install nano python3 python3-pip python3-venv git docker-engine
+```
+
+On Fedora 30:
+
+```bash
+sudo groupadd docker  # to avoid reboot
+sudo dnf install nano python3 python3-pip python3-venv git moby-engine
+```
+
+Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
+
+
+### Option 2: Mac Setup
+
+1. [Install Docker for Mac](https://docs.docker.com/docker-for-mac/install/).
+    * Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
+2. [Install Brew](https://brew.sh/index_de).
+3. Install required packages via `brew`.
+
+```bash
+brew install nano python git
+```
+
+
+### Option 3: Windows Setup
+
+Windows support is planned for the upcoming Curious Container 8.1 release. As of now, please skip to Option 4 or use a different virtualization technology, like [Hyper-V](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-ubuntu-virtual-machines-on-hyper-v) or [Windows Subsystem for Linux 2 (WSL2)](https://devblogs.microsoft.com/commandline/wsl-2-is-now-available-in-windows-insiders/).
+
+
+### Option 4: Vagrant VM Setup
+
+If you don't have access to a Linux system or just don't want to install Docker by hand, you can setup a provisioned vagrant VM to follow the tutorial.
 
 First install Git, Vagrant and Virtualbox, then follow the instructions below.
 
@@ -30,6 +76,7 @@ vagrant ssh
 ## Install CWL and RED tools
 
 CWLTool and CC-FAICE are tools used in the course of this guide. They are both implemented in Python3 and should be installed under separate virtual environments (venv) to avoid conflicts.
+
 
 ### CWLTool
 
@@ -86,7 +133,7 @@ python3 -m venv ~/.local/red-guide/cc-faice
 
 # install packages
 pip install wheel
-pip install cc-faice==7.*
+pip install cc-faice==8.*
 
 # deactivate venv
 deactivate
@@ -95,7 +142,7 @@ deactivate
 export PATH=${PATH}:${HOME}/.local/red-guide/cc-faice/bin
 ```
 
-Consider making the `PATH` change permanent by appending the line to your `~/.bashrc` file.
+Consider making the `PATH` change permanent by appending the last line to your `~/.bashrc` or `~/.profile` file.
 
 ```bash
 echo 'export PATH=${PATH}:${HOME}/.local/red-guide/cc-faice/bin' >> ~/.bashrc
@@ -212,7 +259,7 @@ RUN mkdir -p /home/cc/.local/bin
 RUN python3 -m venv /home/cc/.local/red \
 && . /home/cc/.local/red/bin/activate \
 && pip install wheel \
-&& pip install red-connector-http==0.6 \
+&& pip install red-connector-http==1.0 \
 && ln -s /home/cc/.local/red/bin/red-connector-* /home/cc/.local/bin
 
 # install app
@@ -238,8 +285,6 @@ docker run --rm -u 1000:1000 grepwrap whoami  # should print cc
 docker run --rm -u 1000:1000 grepwrap grepwrap --help
 docker run --rm -u 1000:1000 grepwrap red-connector-http --version
 ```
-
-You should consider pushing the image to a registry like [DockerHub](https://hub.docker.com/) and reference it by its full URL. This ensures reproducibility across hosts. With RED it is also possible to use private Docker registries where authorization is required. For the sake of this guide, we will only reference the image by its local name `grepwrap`.
 
 
 ## CWL
@@ -327,7 +372,7 @@ Unfortunately, the CWL `location` keyword in a job file can only hold a single U
 Create a new file and insert the following RED data with `nano grepwrap.red.yml`.
 
 ```yaml
-redVersion: "7"
+redVersion: "8"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"
@@ -398,4 +443,59 @@ Use the `faice agent red` commandline tool to execute the experiment.
 faice agent red --disable-pull grepwrap.red.yml
 ```
 
-The outpout file will be moved to the `outputs` directory. Use `cat outputs/out_file/out.txt` to check the programs output.
+The output file will be moved to the `outputs` directory. Use `cat outputs/out_file/out.txt` to check the programs output.
+
+
+### Push Image to Container Registry
+
+In order to have a fully portable experiment, the `grepwrap` Docker image must be pushed to a [Docker registry](https://docs.docker.com/registry/). This allows you to reference the image using a URL in the RED file. You can connect to a private registry or create a free account on [DockerHub](https://hub.docker.com/). Please note, that the free DockerHub account will only allow publicly accessible images.
+
+```bash
+REGISTRY=docker.io
+ORGANIZATION=curiouscontainers
+IMAGE=grepwrap
+IMAGE_URL=${REGISTRY}/${ORGANIZATION}/${IMAGE}
+
+docker login ${REGISTRY}
+
+# rename image to full URL
+docker tag ${IMAGE} ${IMAGE_URL}
+
+# push the image to the registry
+docker push ${IMAGE_URL}
+```
+
+Then open the RED file with `nano grepwrap.red.yml` and change the image URL.
+
+```yaml
+container:
+  engine: "docker"
+  settings:
+    image:
+      url: "docker.io/curiouscontainers/grepwrap"
+```
+
+If you run `faice agent red` again, you won't need the `--disable-pull` flag anymore.
+
+```bash
+faice agent red grepwrap.red.yml
+```
+
+
+### Specify RED Execution Engine
+
+Since the experiment has now been tested with `faice agent red`, the RED execution engine of CC-FAICE, we can specify it in the optional `execution` section of the RED document. Open the file and append the following RED data with `nano grepwrap.red.yml`.
+
+```yaml
+execution:
+  engine: "ccfaice"
+  settings: {}
+```
+
+Please note, that the `settings` dictionary must be empty. For other RED execution engines, like `ccagency`, various settings are possible in this section.
+
+Now, that the RED execution engine is specified, we can invoke `faice exec` to run the experiment. This tool will read the `execution` section and automatically hand the RED file to specified engine.
+
+```bash
+faice exec grepwrap.red.yml
+```

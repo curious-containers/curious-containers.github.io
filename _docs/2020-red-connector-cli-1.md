@@ -3,7 +3,7 @@ title: "RED Connector CLI 1 Specification"
 permalink: /docs/red-connector-cli-1
 ---
 
-This is the RED Connector CLI specification version `0.1`, a pre-release of the upcomming stable version `1`.
+This is the RED Connector CLI specification version `1`. The specification takes effect with the release of RED 8 and will be supported in all future releases.
 
 Take a look at the [RED format](https://www.curious-containers.cc/docs/red-format#inputs) documentation for an introduction to connectors.
 

@@ -3,7 +3,7 @@ title: "Container Images"
 permalink: /docs/container-images
 ---
 
-The following sections show how to prepare a container image, for the two container engines `docker` and `nvidia-docker`.
+The following sections show how to prepare a Docker container image for RED.
 
 
 ## Docker
@@ -32,7 +32,7 @@ ENV PATH /home/cc/.local/bin:${PATH}
 RUN python3 -m venv /home/cc/.local/red \
 && . /home/cc/.local/red/bin/activate \
 && pip install wheel \
-&& pip install red-connector-http==0.5 red-connector-ssh==0.8 \
+&& pip install red-connector-http==1.0 red-connector-ssh==1.0 \
 && mkdir -p /home/cc/.local/bin \
 && ln -s /home/cc/.local/red/bin/red-connector-* /home/cc/.local/bin
 
@@ -64,18 +64,18 @@ docker push docker.io/myorganization/myimage
 In your RED file you can now reference your image under `container.settings.image.url`. If read access to your image is restricted via user credentials you can provide them as `container.settings.image.auth.username` and `container.settings.image.auth.password` respectively. See the [RED Container Engines](/docs/red-container-engines) documentation for more information.
 
 
-## Nvidia-Docker
+### CUDA
 
-In order to use Cuda applications on Nvidia GPUs, you have to switch from `container.engine: "docker"` to `container.engine: "nvidia-docker"` in your RED file. For more details take a look at the [nvidia-docker container engine](/docs/red-container-engines#nvidia-docker) documentation.
+In order to use CUDA applications on Nvidia GPUs, you have to specify GPUs in your RED file. For more details take a look at the [Docker container engine](/docs/red-container-engines#docker) documentation.
 
-The easiest way to make Cuda available to your containerized application is to start your Dockerfile with `FROM nvidia/cuda:9.0-base`. Of course the underlying host's driver and hardware must support the desired cuda version (e.g. 9.0).
+The easiest way to make CUDA available to your containerized application is to start your Dockerfile with `FROM docker.io/nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04`. Of course the underlying host's driver and hardware must support the desired cuda version (e.g. 10.1).
 
 See the following Dockerfile listing for an example.
 
 ```docker
-FROM nvidia/cuda:9.0-base
+FROM docker.io/nvidia/cuda:10.1-cudnn7-runtime-ubuntu18.04
 
 # ...
 ```
 
-For a complete list of available Cuda base images take a look at the their [DockerHub site](https://hub.docker.com/r/nvidia/cuda).
+For a complete list of available CUDA base images take a look at the their [DockerHub site](https://hub.docker.com/r/nvidia/cuda).

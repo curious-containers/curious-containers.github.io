@@ -5,7 +5,7 @@ permalink: /docs/red-connector-http-archive
 
 This connector can be used to receive an archive file via HTTP and HTTPS connections and then extract it into a directory. This connector is a variant of [RED Connector HTTP](/docs/red-connector-http) connector.
 
-**Current CLI version**: 0.1
+**Current CLI version**: 1
 
 ## Installation
 

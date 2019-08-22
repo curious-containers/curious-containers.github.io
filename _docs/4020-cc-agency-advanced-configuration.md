@@ -28,12 +28,11 @@ controller:
               vram: 1024
 ```
 
-This configuration means that two GPUs are present on a node "gpu\_node1".
-Each GPU has 1024 MB VRAM.
-Currently only Nvidia-GPUs are supported. To make the GPUs accessible for docker, [Nvidia-Docker](https://github.com/NVIDIA/nvidia-docker) has to be installed on each GPU node.
+This configuration means that two GPUs are present on a node "gpu\_node1". Each GPU has 1024 MB VRAM.
+Currently only Nvidia-GPUs are supported. To make the GPUs accessible for docker, you have to install the proprietary Nvidia GPU driver and the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker) or its predecessor [Nvidia-Docker 2](https://github.com/NVIDIA/nvidia-docker) on each GPU node.
 
-The IDs shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` for example
-(see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
+The IDs shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` (see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
+
 
 ## Notification Hooks
 
@@ -43,17 +42,16 @@ To send HTTP notifications if a batch has entered a final state (`succeeded`, `f
 controller:
   notification_hooks:
     - url: "http://example.com/notify"
-
     - url: "http://example.com/auth-notify"
       auth:
         username: "username"
         password: "password"
 ```
 
-This configuration will result in a HTTP Post to every url given if a batch in this agency reaches a new state.
-The `auth` field is optional.
+This configuration will result in a HTTP Post to each url, as soon as a batch state changes. The `auth` field is optional.
 
 The content of a notification is a list of batch information, specifying the `batchId` and the new `state` of the batch:
+
 
 **Example:**
 

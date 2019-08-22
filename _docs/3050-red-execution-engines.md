@@ -7,21 +7,20 @@ A RED execution engine is a software, which executes an experiment based on a gi
 implemented by the Curious Containers project: the `faice agent red` command included in the CC-FAICE package and
 CC-Agency.
 
-Both execution engines implement the `docker` and `nvidia-docker` [Container Engines](/docs/red-container-engines).
+Both execution engines implement the [Docker container engine](/docs/red-container-engines).
 
 Use `faice exec` CLI tool to automatically invoke the engine specified in your RED file for execution.
 
 
 ## CC-FAICE
 
-Set `execution.engine` as `ccfaice`in your RED file, then use `faice exec red.yml`. This is equivalent to the following
-command.
+Set `execution.engine` as `ccfaice`in your RED file, then use `faice exec red.yml`. This is equivalent to `faice agent red --debug red.yml`, if no output connectors are specified, or to `faice agent red --debug --outputs red.yml`, if output connectors are specified in the RED file.
 
 ```bash
-faice agent red --debug --outputs red.yml
+
 ```
 
-If you want more control over `faice agent red` you should invoke it directly.
+If you want more control over `faice agent red`, you should invoke it directly.
 
 
 ### Example Configuration

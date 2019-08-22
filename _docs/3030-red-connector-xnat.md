@@ -5,12 +5,12 @@ permalink: /docs/red-connector-xnat
 
 This is a special purpose connector to exchange files with the [XNAT](https://www.xnat.org/) data management system. The complicated REST API of XNAT requires multiple subsequent HTTP requests (e.g. for session management), which are handled by this connector. The given access information is combined to form actual HTTP URLs.
 
-**Current CLI version**: 0.1
+**Current CLI version**: 1
 
 ## Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-xnat==0.12
+pip3 install --user --upgrade red-connector-xnat==1.0
 ```
 
 ## Inputs

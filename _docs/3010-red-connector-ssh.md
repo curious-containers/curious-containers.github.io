@@ -5,7 +5,7 @@ permalink: /docs/red-connector-ssh
 
 RED Connector SSH is currently the only complete connector implementation for Curious Containers.
 
-**Current CLI version**: 0.1
+**Current CLI version**: 1
 
 
 ## Important Security Information
@@ -19,7 +19,7 @@ Make sure you trust the executor of your RED file.
 ## Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==0.8
+pip3 install --user --upgrade red-connector-ssh==1.0
 ```
 
 Additionally, if you would like to use [mount-dir](#mount-dir) functionality, the SSHFS CLI tools must be installed.
@@ -92,7 +92,7 @@ access:
 
 #### Listing
 
-Optional. If listing exists, only the specified subdirectories and files are being transfered.
+Optional. If listing exists, only the specified subdirectories and files are being transferred.
 
 ### mount-dir
 

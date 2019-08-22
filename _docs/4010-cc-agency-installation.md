@@ -19,8 +19,7 @@ sudo apt-get install apache2 libapache2-mod-proxy-uwsgi
 
 *As admin user.*
 
-Install MongoDB 4.0. Instructions can be found in the
-[MongoDB documentation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/).
+Install MongoDB 4.0. Instructions can be found in the [MongoDB documentation](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/).
 
 After the installation of the required system packages, enable and start the service.
 
@@ -108,11 +107,10 @@ ccagency --help
 
 *As cc user.*
 
-Create configuration file `~/.config/cc-agency.yml`. Copy the following content, but choose new strong values for `mongo.password` and `trustee.password`. The parameter `broker.external_url` should match the domain name of your server, as we will later define in the Apache2 site configuration.
+Create configuration file `~/.config/cc-agency.yml`. Copy the following content, but choose new strong values for `mongo.password` and `trustee.password`.
 
 ```yaml
 broker:
-  external_url: "https://example.com/cc"
   auth:
     num_login_attempts: 3
     block_for_seconds: 30
@@ -259,7 +257,7 @@ sudo systemctl enable ccagency-broker
 sudo systemctl start ccagency-broker
 ```
 
-Create apache2 site `/etc/apache2/sites-available/ccagency-broker.conf`. Change `SSLCertificateFile` and `SSLCertificateKeyFile` paths or switch to an unencrypted configuration, which is not recommended. The server name should match the domain of your server. The Broker will listen on `https://example.com/cc`, as also defined under `broker.external_url` in the `cc-agency.yml` file.
+Create apache2 site `/etc/apache2/sites-available/ccagency-broker.conf`. Change `SSLCertificateFile` and `SSLCertificateKeyFile` paths or switch to an unencrypted configuration, which is not recommended. The server name should match the domain of your server. The Broker will be available as `https://example.com/cc`.
 
 ```apache
 Listen 443

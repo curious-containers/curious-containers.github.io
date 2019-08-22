@@ -3,20 +3,36 @@ title: "RED Container Engines"
 permalink: /docs/red-container-engines
 ---
 
-RED Container Engines are used to execute programs in a virtual environment like a docker container.
-
-There are currently two engines available in Curious Containers, `docker` and `nvidia-docker`.
-
-If you want your application to use Nvidia GPUs for CUDA support you have to use `nvidia-docker`.
+RED Container Engines are used to execute programs in a virtual environment like a docker container. Currently only Docker is supported as a container engine in Curious Containers.
 
 
 ## Docker
 
-Docker makes it possible to run the applications specified in the RED file in an isolated and secure environment.
+Docker makes it possible to run the applications specified in the RED file in an isolated and secure environment with optional resource limitations. To run your application inside a docker container you have to specify which docker image to use. Information about how to build such an image can be found in the [Container Images](/docs/container-images) documentation.
 
-To run your application inside a docker container you have to specify which docker image to use. Information about how to build such an image can be found in the [Container Images](/docs/container-images) documentation.
 
-Additional you can specify hardware limitations which are applied to the container.
+### Nvidia GPUs
+
+If you are using the RED execution engine `faice agent red` from CC-FAICE and want your application to use Nvidia GPUs for CUDA support, you have to install the proprietary Nvidia GPU driver and the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker) or its predecessor [Nvidia-Docker 2](https://github.com/NVIDIA/nvidia-docker).
+
+It is not required to have CUDA installed on the host operating system, but it must be installed in the container image. See the [CUDA](/docs/container-images#cuda) section in the container images documentation for more information on building compatible images.
+
+
+### Settings
+
+| Access | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| image | dict | no | | The image |
+| image.url | string | no | | The URL of the image |
+| image.auth | dict | yes | | Authentication information |
+| image.auth.username | string | no | | Username |
+| image.auth.password | string | no | | Password |
+| ram | int | CC-FAICE: yes; CC-Agency: no | | The RAM limitation for the container in MB |
+| gpus | dict | yes | | Make Nvidia GPUs available in a Docker container |
+| gpus.vendor | string | no | | Currently only "nvidia" allowed |
+| gpus.count | int | if gpus.devices is specified | | The number of GPUs to allocate |
+| gpus.devices | list | if gpus.count is specified | | A list of GPU devices with specified requirements |
+| gpus.devices.${item}.vramMin | int | no | | The minimal VRAM that must be present in MB |
 
 
 ### Example Configuration
@@ -34,26 +50,7 @@ container:
 ```
 
 
-### Settings
-
-| Access | Type | Optional | Default | Description |
-| --- | --- | --- | --- | --- |
-| image | dict | no | | The image |
-| image.url | string | no | | The URL of the image |
-| image.auth | dict | yes | | Authentication information |
-| image.auth.username | string | no | | Username |
-| image.auth.password | string | no | | Password |
-| ram | int | yes | | The RAM limitation for the container in MB |
-
-
-## Nvidia-Docker
-
-To enable support for nvidia GPUs you can use the `nvidia-docker` engine. The configuration for `nvidia-docker` is similar to the `docker` configuration. Additional there are hardware requirements for GPUs. If the executing computer can't fulfill the GPU requirements the execution will not be successful.
-
-This engine requires CUDA to be installed in the container images. See the [Nvidia Docker](/docs/container-images#nvidia-docker) section in the container images documentation for more information on building compatible images.
-
-
-### Example Configuration
+### Example Configurations with Nvidia GPUs
 
 ```yaml
 container:
@@ -66,34 +63,27 @@ container:
         password: "password"
     ram: 256
     gpus:
-      - minVram: 256
-      - minVram: 256
+      vendor: "nvidia"
+      devices:
+        - vramMin: 256
+        - vramMin: 256
 ```
 
-
-This configuration will try to pull the image `example-image`, with the supplied authentication. The executing container will only use 256 MB RAM and two GPUs with at least 256 MB VRAM. A maxVram parameter does not exist, because GPUs are always allocated as a complete device.
-
-As an alternative, the `count` of required GPUs can be given, without specifying `minVram` parameters:
+The executing container will only use 256 MB RAM and two GPUs with at least 256 MB VRAM. A `vramMax` parameter does not exist, because GPUs are always allocated as a complete device.
 
 ```yaml
 container:
   engine: "nvidia-docker"
   settings:
-    # ...
+    image:
+      url: "example-image"
+      auth:
+        username: "username"
+        password: "password"
+    ram: 256
     gpus:
+      vendor: "nvidia"
       count: 1
 ```
 
-
-### Settings
-
-| Access | Type | Optional | Default | Description |
-| --- | --- | --- | --- | --- |
-| image | dict | no | | The image |
-| image.url | string | no | | The URL of the image |
-| image.auth | dict | yes | | Authentication information |
-| image.auth.username | string | no | | Username |
-| image.auth.password | string | no | | Password |
-| ram | int | yes | | The RAM limitation for the container in MB |
-| gpus.minVram | int | yes | | The minimal VRAM that must be present in MB |
-| gpus.count | int | yes | | The number of GPUs to allocate |
+This is an alternative way to specify the number of required GPUs, without specifying `vramMin` for each device.

@@ -105,8 +105,8 @@ Response (JSON):
 
 ```json
 {
-    "agencyVersion": "7.0.0",
-    "coreVersion": "7.0.0"
+    "agencyVersion": "8.0.0",
+    "coreVersion": "8.0.0"
 }
 ```
 
@@ -124,7 +124,7 @@ Additionally **required** fields:
 File red.yml:
 
 ```yaml
-redVersion: "7"
+redVersion: "8"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"

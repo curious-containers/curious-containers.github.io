@@ -5,7 +5,7 @@ permalink: /docs/red-connector-http-json
 
 This connector can be used to receive JSON via HTTP and HTTPS connections. Only works with valid JSON files and sets the correct JSON content type, but is otherwise equivalent to the standard [RED Connector HTTP](/docs/red-connector-http) connector.
 
-**Current CLI version**: 0.1
+**Current CLI version**: 1
 
 ## Installation
 
