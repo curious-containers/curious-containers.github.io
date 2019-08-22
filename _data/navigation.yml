@@ -9,10 +9,18 @@ docs:
     children:
       - title: "Version 7"
         url: /docs/release
-  - title: "Introduction"
+  - title: "Guides"
     children:
       - title: "RED Beginner's Guide"
         url: /docs/red-beginners-guide
+      - title: "RED Storage Guide"
+        url: /docs/red-storage-guide
+      - title: "RED Machine Learning Guide"
+        url: /docs/red-storage-guide
+      - title: "RED Agency Guide"
+        url: /docs/red-storage-guide
+  - title: "General Docs"
+      children:
       - title: "RED Format"
         url: /docs/red-format
       - title: "RED Format: Protecting Credentials"
@@ -59,4 +67,3 @@ docs:
         url: /docs/source-code-repositories
       - title: "Source Code Setup"
         url: /docs/source-code-setup
-
