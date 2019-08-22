@@ -77,9 +77,11 @@ Variables can only be used with string values, which must be located somewhere u
 
 ### Save Values in Keyring
 
-You can store values to be filled into your variables in a keyring utility (e.g. [gnome-keyring](https://wiki.gnome.org/action/show/Projects/GnomeKeyring?action=show&redirect=GnomeKeyring)) using the [keyring](https://github.com/jaraco/keyring) python script, that gets installed as a dependency of CC-FAICE.
+You can store values to be filled into your variables in a keyring utility (e.g. [Gnome-Keyring](https://wiki.gnome.org/action/show/Projects/GnomeKeyring?action=show&redirect=GnomeKeyring)) using the [keyring](https://github.com/jaraco/keyring) Python package, that gets installed as a dependency of CC-FAICE.
 
-TODO
+If the `faice agent red` and `faice exec` encounter a variable, that is not yet stored in a keyring, they will ask for it in an interactive CLI dialogue. After you specified the values, they will automatically prompt you with the option to store these values in the keyring. By default, the secrets will be stored in a keyring service named `red`. You can change this using the CLI argument `--keyring-service`.
+
+If you want to add or remove secrets manually, you can use the `keyring` CLI command, that is provide by the `keyring` Python package (see `keyring --help`). For Gnome-Keyring you can use the Linux GUI tool `seahorse` to view stored values.
 
 
 ## Protected Keys
