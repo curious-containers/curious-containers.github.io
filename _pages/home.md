@@ -14,7 +14,7 @@ RED (Reproducible Experiment Description) is a JSON or YAML based file format to
 
 Curious Containers provides a reference implementation of RED in Python (`cc-core`). Experiments can be executed on a local Linux host using the [Docker](https://www.docker.com/) container runtime via the FAICE tool suite (`cc-faice`). For a more advanced usage, Curious Containers Agency (`cc-agency`) can distribute experiments in a Docker cluster across multiple hosts.
 
-Together, RED and Curious Containers support the [FAIR principles](https://www.force11.org/fairprinciples) for reproducible research. If you are new to the project, we advise you to work through the [RED Beginner's Guide](docs/red-beginners-guide). Examples can be found on the [Tawian](https://somnonetz.github.io/tawian/) meta-platform.
+Together, RED and Curious Containers support the [FAIR principles](https://www.force11.org/fairprinciples) for reproducible research. If you are new to the project, we advise you to work through the [RED Beginner's Guide](docs/red-beginners-guide).
 
 As an introduction (in german), watch the following [talk at the deRSE 2019](https://www.de-rse.org/de/conf2019/talk/7LLTCN/) conference for research software engineering ([PDF Slides](https://www.de-rse.org/de/conf2019/talk/7LLTCN/slides.pdf), [Video](https://doi.org/10.5446/42497)).
 
