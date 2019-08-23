@@ -32,7 +32,7 @@ It is now time to stabilize the ecosystem as a major step towards long-term repr
 
 ### RED 10 Pre-Releases
 
-We have released RED 8, that includes the RED Connector CLI 1 specification. Therefore all container images and their installed RED connectors, that are prepared to work with RED 8, will be compatible with all future RED versions.
+We have released RED 8, that includes the RED Connector CLI 1 specification. Therefore container images and their installed RED connectors, that are prepared to work with RED 8, will be compatible with all future RED versions.
 
 With RED 9, we will move from the CWL 1.0 to the CWL 1.1 standard. RED 9 will be tested extensively without many additional changes, hopefully leading to a rock solid RED 10 release.
 
