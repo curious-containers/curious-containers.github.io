@@ -508,6 +508,7 @@ If you do not have access to this server, you have to replace the output connect
 
 Append the following section to the RED file using `nano grepwrap.red.yml`.
 
+{% raw %}
 ```yaml
 outputs:
   out_file:
@@ -526,6 +527,7 @@ Please note, that `{{ssh_username}}` and `{{ssh_password}}` are [variables](/doc
 This is a powerful feature of RED, that allows you to share or publish these files, even if the configuration requires authentication credentials.
 The `faice agent red` and `faice exec` commands will interactively ask you to fill in this information on the command-line.
 You have the option to store these values in a keyring application, if one is installed on your system.
+{% endraw %}
 
 The name `outputs.out_file` refers to the arbitrary name, that is specified under `cli.outputs.out_file`.
 While the information under `cli.outputs.out_file` tells the connector where the file is located in the container filesytem, the information under `outputs.out_file` tells the connector the desired upload destination.
