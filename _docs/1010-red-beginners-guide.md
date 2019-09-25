@@ -12,6 +12,7 @@ Curious Containers is best supported on Linux distributions and all experiments 
 
 From the Curious Container 8 release onwards, CC-FAICE supports Mac using [Docker for Mac](https://docs.docker.com/docker-for-mac/). Please note, that Docker for Mac internally uses a virtual machine to run Linux containers.
 
+The last section of this guide, [Upload Output to a Remote Destination](#upload-output-to-a-remote-destination), requires you to have write access to an arbitrary SSH server.
 
 ### Option 1: Linux Setup
 
@@ -252,16 +253,18 @@ RUN mkdir -p /home/cc/.local/bin
 RUN python3 -m venv /home/cc/.local/red \
 && . /home/cc/.local/red/bin/activate \
 && pip install wheel \
-&& pip install red-connector-http==1.0 \
+&& pip install red-connector-http==1.0 red-connector-ssh==1.0 \
 && ln -s /home/cc/.local/red/bin/red-connector-* /home/cc/.local/bin
 
 # install app
 ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
 ```
 
-As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry. To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
+As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry.
+To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
-As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned. This is important, because CC-FAICE will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to the CWL reference implementation CWLTool. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image. As a last step we install `red-connector-http`, that we want to use to transfer data into and out of the Docker container.
+As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned. This is important, because CC-FAICE will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to the CWL reference implementation CWLTool. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image.
+As a last step we install `red-connector-http` and `red-connector-ssh`, that we want to use to transfer data into and out of the Docker container.
 
 Use the Docker client to build the image and name it `grepwrap`.
 
@@ -277,6 +280,7 @@ To check if the container image is configured correctly, try running the install
 docker run --rm -u 1000:1000 grepwrap whoami  # should print cc
 docker run --rm -u 1000:1000 grepwrap grepwrap --help
 docker run --rm -u 1000:1000 grepwrap red-connector-http --version
+docker run --rm -u 1000:1000 grepwrap red-connector-ssh --version
 ```
 
 
@@ -426,9 +430,7 @@ This minimal RED file contains four sections:
 * `inputs`: is similar to a CWL job description, but requires RED connectors
 
 
-The RED inputs format is very similar to a CWL job. Note that the `connector` keyword replaces CWL's `location`. Each connector requires the `command` and `access` keywords. The information contained in `access` is validated by the connector itself and therefore varies for different connector implementations. Refer to the RED documentation for more information.
-
-Learn more about the container engine description by showing the corresponding jsonschema with `faice schema show red-engine-container-docker` (also see [RED Container Engines](/docs/red-container-engines)).
+The RED inputs format is very similar to a CWL job. Note that the `connector` keyword replaces CWL's `location`. Each connector requires the `command` and `access` keywords. The information contained in `access` is validated by the connector itself and therefore varies for different connector implementations. Curious Containers cannot access files from local file paths, because it would the defeat the purpose of a portable experiment. Therefore the `in.txt` was pushed to GitHub, where it can be accessed from any computer using an HTTP URL.
 
 Use the `faice agent red` commandline tool to execute the experiment.
 
@@ -436,7 +438,7 @@ Use the `faice agent red` commandline tool to execute the experiment.
 faice agent red --disable-pull grepwrap.red.yml
 ```
 
-The output file will be moved to the `outputs` directory. Use `cat outputs/out.txt` to check the programs output.
+The output file will be automatically copied from the container filesystem to the `outputs` directory in your current working directory. Use `cat outputs/out.txt` to check the programs output.
 
 
 ### Push Image to Container Registry
@@ -488,6 +490,54 @@ execution:
 Please note, that the `settings` dictionary must be empty. For other RED execution engines, like `ccagency`, various settings are possible in this section.
 
 Now, that the RED execution engine is specified, we can invoke `faice exec` to run the experiment. This tool will read the `execution` section and automatically hand the RED file to specified engine.
+
+```bash
+faice exec grepwrap.red.yml
+```
+
+
+### Upload Output to a Remote Destination
+
+As demonstrated in this guide, the RED execution engine of CC-FAICE will copy the `out.txt` file to the local filesystem for the user to inspect.
+This is a convenience feature of CC-FAICE, that is not available in other execution engines like CC-Agency.
+Instead, output files and directories should be uploaded to a remote server location using connectors.
+
+Since CC is a framework and not a tightly integrated research platform, you must have access to a storage server.
+In this section, the non-public storage server `avocado01.f4.htw-berlin.de` is used.
+If you do not have access to this server, you have to replace the output connector `access` information in the RED file to fit your **own SSH server**.
+
+Append the following section to the RED file using `nano grepwrap.red.yml`.
+
+```yaml
+outputs:
+  out_file:
+    class: "File"
+    connector:
+      command: "red-connector-ssh"
+      access:
+        host: "avocado01.f4.htw-berlin.de"
+        auth:
+          username: "{{ssh_username}}"
+          password: "{{ssh_password}}"
+        filePath: "/home/users/{{ssh_username}}/out.txt"
+```
+
+Please note, that `{{ssh_username}}` and `{{ssh_password}}` are [variables](/docs/red-format-protecting-credentials).
+This is a powerful feature of RED, that allows you to share or publish these files, even if the configuration requires authentication credentials.
+The `faice agent red` and `faice exec` commands will interactively ask you to fill in this information on the command-line.
+You have the option to store these values in a keyring application, if one is installed on your system.
+
+The name `outputs.out_file` refers to the arbitrary name, that is specified under `cli.outputs.out_file`.
+While the information under `cli.outputs.out_file` tells the connector where the file is located in the container filesytem, the information under `outputs.out_file` tells the connector the desired upload destination.
+There can only be a single output connector per output file.
+
+If you are running the experiment directly via `faice agent red`, you have to set the `--outputs` flag to execute the connectors in the `outputs` section instead of copying the files to the local filesystem.
+
+```bash
+faice agent red --outputs grepwrap.red.yml
+```
+
+If you are using `faice exec`, this will happen automatically if an `outputs` section is specified in the RED file.
 
 ```bash
 faice exec grepwrap.red.yml

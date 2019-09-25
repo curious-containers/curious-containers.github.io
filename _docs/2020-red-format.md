@@ -43,7 +43,7 @@ Read through the following tutorial sections to learn more about each part of a 
 
 ## redVersion
 
-The `redVersion` increases everytime the RED format changes, even if the new version is backwards compatible. This means that a RED file in version `"3"` should be used with Curious Containers software packages in version `3.x.x`, higher software versions will not work. See [Versioning](/docs/versioning) for more details.
+The `redVersion` increases everytime the RED format changes. This means that a RED file in version `"3"` should be used with Curious Containers software packages in version `3.x.x`, higher software versions will not work. See [Versioning](/docs/versioning) for more details.
 
 
 ## cli
@@ -134,7 +134,11 @@ cli:
 
 ## inputs
 
-To run an experiment, concrete inputs for the CLI program have to be provided. This is done under the `inputs` keyword. Inputs can be primitive types like `int` or `boolean` or remote Files and Directories. Primitive types are just included in the RED file. As can be seen in the listing below, the indentifiers in `inputs` refer to the arbitrary identifiers in `cli.inputs` (e.g. `inputs.some_flag` refers to `cli.inputs.some_flag`).
+To run an experiment, concrete inputs for the CLI program have to be provided.
+This is done under the `inputs` keyword.
+Inputs can be primitive types like `int` or `boolean` or remote Files and Directories.
+Primitive types are just included in the RED file.
+As can be seen in the listing below, the identifiers in `inputs` refer to the arbitrary identifiers in `cli.inputs` (e.g. `inputs.some_flag` refers to `cli.inputs.some_flag`).
 
 ```yml
 cli:
@@ -151,15 +155,14 @@ inputs:
   some_dir: ...
 ```
 
-If you want to use files or directories as input for an experiment in a RED file, you have to use so-called RED connectors. RED connectors for [input-files](/docs/red-connectors-input-files) and [input-directories](/docs/red-connectors-input-directories) exist, supporting a variety of protocols. If the available connectors do not suit you, you can implement your own in Python and easily integrate them with the [CC plugin API for connectors](/docs/developing-custom-connectors).
+To make files and directories available as input for an experiment, you have to use RED connectors, that support a variety of protocols like [SSH](/docs/red-connector-ssh), [HTTP](/docs/red-connector-http).
+If the available connectors do not suit you, you can implement your own following the [RED Connector CLI 1](/docs/red-connector-cli-1) specification.
+Input files are downloaded automatically into a running container. The download paths are provided to the programm command as CLI arguments (see section [cli](#cli)).
 
-Input-connectors are executed before the actual program to download files and directories to the container file-system. The download paths are provided to the programm command as CLI arguments (see section [cli](#cli)).
+The `command` keyword refers to name of the connector executable that is made available to system via the `PATH` environment variable.
+The information provided under `access` depends on the connector. Refer to the documentation of a specific connector for more information on how to specify `access` data correctly.
 
-A connector provides a commandline interface. The location of the connector executable should be included in the `PATH` evironment variable. The name of the executable is referenced via the `command` keyword.
-
-The information provided under `access` depends on the connector. Refer to the [documentation](/docs/red-connectors-input-files) of a specific connector for more information on how to specify `access` data correctly.
-
-You can now specify a connector which fetches this file via HTTP.
+The following example uses the HTTP connector to download a single input file.
 
 ```yml
 inputs:
@@ -193,14 +196,14 @@ inputs:
             basename: "__main__.py"
 ```
 
-Please note, that not every connector provides functionality for files and directories, but the HTTP connector can be used in both cases. For information about these connectors take a look at the [RED Connectors: Input Directories](/docs/red-connectors-input-directories) documentation.
+Please note, that not every connector provides functionality for input files and directories, but the HTTP and SSH connectors can be used in both cases.
 
 
 ## outputs
 
-Outputs of a data-processing application must be written to files. These files can then be uploaded to remote servers using various connectors. CC-Core includes a HTTP connector, but setting up an appropriate HTTP server, which can receive the file can be complicated. Since most Servers have SSH already configured, using the SSH SFTP connector is more convenient. For more information on how to install and use a different connector take a look at the Red Connectors for [Output Files](/docs/red-connectors-output-files) documentation.
+Outputs of an experiment can then be uploaded to remote servers using various connectors.
 
-Again, the output identifiers in the `outputs` section refer to the identifiers defnined under `cli.outputs`.
+Again, the output identifiers in the `outputs` section refer to the arbitrary identifiers defined under `cli.outputs`.
 
 ```yaml
 cli:
@@ -221,7 +224,13 @@ outputs:
     class: "File"
     connector:
       command: "red-connector-ssh"
-      access: ...
+      access:
+        host: "example.com"
+        port: 22
+        auth:
+          username: "username"
+          password: "password"
+        filePath: "/home/username/files/out.txt"
 ```
 
 
@@ -246,7 +255,7 @@ execution: ...
 
 ## container
 
-RED provides are generic way to include settings for container engines, such that CC or other tools can implement different engines. Curious Containers is built around Docker and its supported implementations can be found in the [RED Container Engines](/docs/red-container-engines) documenation.
+RED provides are generic way to include settings for container engines, such that CC or other tools can implement different engines. Curious Containers currently only supports Docker as a [RED Container Engine](/docs/red-container-engines).
 
 Under the `container` keyword, you have to provide the `engine` name and the `settings` for the chosen engine.
 
@@ -255,8 +264,6 @@ container:
   engine: "docker"
   settings: ...
 ```
-
-When using the `faice agent red` CLI tool or when sending an experiment to CC-Agency, a container engine must be specified.
 
 
 ## execution

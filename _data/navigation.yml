@@ -13,16 +13,12 @@ docs:
     children:
       - title: "RED Beginner's Guide"
         url: /docs/red-beginners-guide
-      - title: "Storage Guide"
-        url: /docs/storage-guide
       - title: "Machine Learning Guide"
         url: /docs/machine-learning-guide
-      - title: "CC-Agency Guide"
-        url: /docs/cc-agency-guide
   - title: "Specs"
     children:
-      - title: "RED-CWL 10"
-        url: "/docs/red-cwl-10"
+      - title: "RED-CWL 1"
+        url: "/docs/red-cwl-1"
       - title: "RED Connector CLI 1"
         url: "/docs/red-connector-cli-1"
   - title: "General Docs"
@@ -33,8 +29,10 @@ docs:
         url: /docs/red-format-protecting-credentials
       - title: "Container Images"
         url: /docs/container-images
-      - title: "CC-Core, CC-FAICE, CC-Agency"
-        url: /docs/cc-core-cc-faice-cc-agency
+      - title: "CC-FAICE"
+        url: /docs/cc-faice
+      - title: "CC-Agency"
+        url: /docs/cc-agency
       - title: "Versioning"
         url: /docs/versioning
   - title: "User Docs"

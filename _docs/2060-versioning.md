@@ -21,4 +21,4 @@ If you want to send an experiment to CC-Agency it must match the **RED** version
 
 If you are installing CC-FAICE and CC-Core from source, both **RED** and **CC** versions of the software packages must match. The same holds for CC-Agency and CC-Core.
 
-The **PACKAGE** version is only for maintenance releases of individual packages, which do not break compatibility.
+The **PACKAGE** version is only for maintenance releases of individual packages, that do not break compatibility.
