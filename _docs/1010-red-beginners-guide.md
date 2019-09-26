@@ -14,6 +14,7 @@ From the Curious Container 8 release onwards, CC-FAICE supports Mac using [Docke
 
 The last section of this guide, [Upload Output to a Remote Destination](#upload-output-to-a-remote-destination), requires you to have write access to an arbitrary SSH server.
 
+
 ### Option 1: Linux Setup
 
 If you are using a Linux distribution, please ensure that the packages `nano` (or another text editor), `python3`, `python3-pip`, `python3-venv`, `git` and a docker-engine are installed.
@@ -520,7 +521,7 @@ outputs:
         auth:
           username: "{{ssh_username}}"
           password: "{{ssh_password}}"
-        filePath: "/home/users/{{ssh_username}}/out.txt"
+        filePath: "out.txt"
 ```
 
 Please note, that `{{ssh_username}}` and `{{ssh_password}}` are [variables](/docs/red-format-protecting-credentials).
@@ -543,4 +544,13 @@ If you are using `faice exec`, this will happen automatically if an `outputs` se
 
 ```bash
 faice exec grepwrap.red.yml
+```
+
+Since the specified `filePath` is relative, the file will be uploaded to the SSH user's home directory. It can be downloaded via `scp`.
+
+```bash
+SSH_USERNAME=christoph
+SSH_HOST=avocado01.f4.htw-berlin.de
+
+scp ${SSH_USERNAME}@${SSH_HOST}:out.txt .
 ```

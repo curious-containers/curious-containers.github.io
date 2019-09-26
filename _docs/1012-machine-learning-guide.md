@@ -9,7 +9,7 @@ If you follow this guide, you learn how to create and reproduce a comprehensive 
 Before you continue, make sure that you have understood the contents of the [RED Beginner's Guide](/docs/red-beginners-guide).
 
 This guide contains two experiments.
-In the first experiment, a Convolutional Neural Network (CNN) is trained on the PCAM dataset to classify tumor tissue in pathological image slides.
+In the first experiment, a Convolutional Neural Network (CNN) is trained on the [PCAM](https://github.com/basveeling/pcam) dataset to classify tumor tissue in pathological image slides.
 The second experiment uses the trained model in an inference task.
 
 
@@ -24,4 +24,26 @@ You can still follow the guide using your **own SSH server**.
 ### Download Dataset to Storage Server
 
 You can skip this section, if you have SSH access to `avocado01.f4.htw-berlin.de`.
+
+Login to your SSH server, create a `PCAM` folder in your home directory, download the PCAM dataset using `curl` and extract the files using `gunzip`.
+
+```bash
+SSH_USERNAME=christoph
+SSH_HOST=avocado01.f4.htw-berlin.de
+ssh ${SSH_USERNAME}:${SSH_HOST}
+mkdir PCAM
+curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_train_x.h5.gz
+curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_train_y.h5.gz
+curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_valid_x.h5.gz
+curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_valid_y.h5.gz
+curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_test_x.h5.gz
+curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_test_y.h5.gz
+gunzip *.h5.gz
+```
+
+When following the tutorial, you have to **replace** all occurrences of `dirPath: /data/ldap/PCAM` with `dirPath: PCAM` and all occurrences of `host: avocado01.f4.htw-berlin.de` with your own SSH server.
+
+
+## Training Experiment
+
 
