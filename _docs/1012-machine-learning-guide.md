@@ -486,10 +486,10 @@ faice exec cnn-training.red.json
 You can watch the progress using the live log files.
 
 ```bash
-SSH_SERVER=avocado01.f4.htw-berlin.de
 SSH_USERNAME=christoph
+SSH_HOST=avocado01.f4.htw-berlin.de
 
-ssh ${SSH_USERNAME}@${SSH_SERVER}
+ssh ${SSH_USERNAME}@${SSH_HOST}
 tail -f cnn-training/log/training_0.log
 # tail -f cnn-training/log/training_1.log
 ```
