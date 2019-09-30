@@ -3,7 +3,6 @@ title: "Machine Learning Guide"
 permalink: /docs/machine-learning-guide
 ---
 
-**This guide is currently under construction**
 
 If you follow this guide, you learn how to create and reproduce a comprehensive machine learning experiment, that leverages the full potential of the CC framework.
 Before you continue, make sure that you have understood the contents of the [RED Beginner's Guide](/docs/red-beginners-guide).
