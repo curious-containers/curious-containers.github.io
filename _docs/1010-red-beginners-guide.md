@@ -419,7 +419,7 @@ inputs:
     connector:
       command: "red-connector-http"
       access:
-        url: "https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/in.txt"
+        url: "https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/red-beginners-guide/in.txt"
   before_context: 1
 ```
 
