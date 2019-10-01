@@ -341,6 +341,7 @@ This makes the process of creating a large RED file much easier.
 
 Create the python script using `nano cnn-training.red.py` and make it executable `chmod u+x cnn-training.red.py`.
 
+{% raw %}
 ```python
 #!/usr/bin/env python3
 
@@ -441,6 +442,7 @@ red = {
 with open('cnn-training.red.json', 'w') as f:
     json.dump(red, f, indent=4)
 ```
+{% endraw %}
 
 This script uses the `json` module from the Python standard library to load a CWL file named `cnn-training.cwl.json`, because Python does not provide a built-in YAML module.
 You may have noticed, that we created a CWL in YAML format earlier and we have to convert the file for further processing using the `faice convert format` tool.
