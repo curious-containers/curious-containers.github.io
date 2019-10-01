@@ -496,7 +496,7 @@ tail -f cnn-training/log/training_0.log
 ```
 
 In addition, you can check the status of your experiment's batches using the [CC-Agency API](/docs/cc-agency-api).
-For example, the following Python snippet uses the external packages `requests` and `keyring` to get information about the last to registered batches.
+For example, the following Python snippet uses the external packages `requests` and `keyring` to get information about the last two registered batches.
 The keyring part only works if you have used `faice exec` or the `keyring` CLI tool to store the variable values.
 
 
