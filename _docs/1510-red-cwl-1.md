@@ -1,6 +1,7 @@
 ---
 title: "RED-CWL 1 Specification"
 permalink: /docs/red-cwl-1
+---
 
 **This spec is currently under construction**
 
