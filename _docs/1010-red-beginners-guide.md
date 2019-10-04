@@ -6,7 +6,7 @@ permalink: /docs/red-beginners-guide
 This tutorial explains how to create a reproducible data-driven experiment and how to document it in a Reproducible Experiment Description (RED). RED is based on the Common Workflow Language (CWL), that is demonstrated as well.
 
 
-## Prerequisites
+# Prerequisites
 
 Curious Containers is best supported on Linux distributions and all experiments run as CLI tools in Linux containers using Docker.
 
@@ -15,7 +15,7 @@ From the Curious Container 8 release onwards, CC-FAICE supports Mac using [Docke
 The last section of this guide, [Upload Output to a Remote Destination](#upload-output-to-a-remote-destination), requires you to have write access to an arbitrary SSH server.
 
 
-### Option 1: Linux Setup
+## Option 1: Linux Setup
 
 If you are using a Linux distribution, please ensure that the packages `nano` (or another text editor), `python3`, `python3-pip`, `python3-venv`, `git` and a docker-engine are installed.
 
@@ -37,7 +37,7 @@ sudo dnf install nano python3 python3-pip python3-venv git moby-engine
 Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
 
 
-### Option 2: Mac Setup
+## Option 2: Mac Setup
 
 1. [Install Docker for Mac](https://docs.docker.com/docker-for-mac/install/).
     * Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
@@ -49,12 +49,12 @@ brew install nano python git
 ```
 
 
-### Option 3: Windows Setup
+## Option 3: Windows Setup
 
 Windows support is planned for the upcoming Curious Container 8.1 release. As of now, please skip to [Option 4](#option-4-vagrant-vm-setup) or use a different virtualization technology, like [Hyper-V](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-ubuntu-virtual-machines-on-hyper-v) or [Windows Subsystem for Linux 2 (WSL2)](https://devblogs.microsoft.com/commandline/wsl-2-is-now-available-in-windows-insiders/).
 
 
-### Option 4: Vagrant VM Setup
+## Option 4: Vagrant VM Setup
 
 If you don't have access to a Linux system or just don't want to install Docker by hand, you can setup a provisioned vagrant VM to follow the tutorial.
 
@@ -68,12 +68,12 @@ vagrant ssh
 ```
 
 
-## Install CWL and RED tools
+# Install CWL and RED tools
 
 CWLTool and CC-FAICE are tools used in the course of this guide. They are both implemented in Python3 and should be installed under separate virtual environments (venv) to avoid conflicts.
 
 
-### CWLTool
+## CWLTool
 
 CWLTool is the reference implementation of CWL and not associated with the Curious Containers project. Install the tool as follows.
 
@@ -112,7 +112,7 @@ cwltool --help
 ```
 
 
-### CC-FAICE
+## CC-FAICE
 
 CC-FAICE is the reference implementation of RED and part of the Curious Containers project. Installation is equivalent to CWLTool.
 
@@ -151,7 +151,7 @@ faice --help
 ```
 
 
-## Sample Application
+# Sample Application
 
 Lets first create our own small CLI application with Python3. It's called `grepwrap`.
 
@@ -230,7 +230,7 @@ In this case the command `grepwrap -B 1 QU in.txt` is an **experiment** based on
 The next steps of this guide, will demonstrate the formalization of the experiment, which allows for persistent storage, enables distribution and improves reproducibility. In order to do so, we need to describe the **CLI**, **dependencies**, **inputs** and **outputs**.
 
 
-## Container Image
+# Container Image
 
 The next step is to explicitely document the runtime environment with all required dependencies of `grepwrap`. Container technologies are useful to create this kind reproducible and distributable environment.
 
@@ -285,7 +285,7 @@ docker run --rm -u 1000:1000 grepwrap red-connector-ssh --version
 ```
 
 
-## CWL
+# CWL
 
 The Common Workflow Language (CWL) provides a [syntax](http://www.commonwl.org/v1.0/CommandLineTool.html) for describing a commandline tool's interface (CLI). Curious Containers and the RED format build upon this CLI description syntax, but only support a subset of the CWL specification. In other words, every CWL description compatible with RED is also compatible with the CWL standard (e.g. with [cwltool](https://github.com/common-workflow-language/cwltool), a CWL reference implementation) but not the other way round.
 
@@ -361,7 +361,7 @@ cwltool --disable-pull ./grepwrap.cwl.yml ./job.yml
 The resulting files will be moved to the current working directory. Use `cat out.txt` to check the programs output.
 
 
-## RED
+# RED
 
 The CWL `job.yml` has been used to reference input files in the local file system. To achieve reproducibility accross different computers, all input files should be accessed via network protocols instead of local filesystem paths.
 
@@ -442,7 +442,7 @@ faice agent red --disable-pull grepwrap.red.yml
 The output file will be automatically copied from the container filesystem to the `outputs` directory in your current working directory. Use `cat outputs/out.txt` to check the programs output.
 
 
-### Push Image to Container Registry
+## Push Image to Container Registry
 
 In order to have a fully portable experiment, the `grepwrap` Docker image must be pushed to a [Docker registry](https://docs.docker.com/registry/). This allows you to reference the image using a URL in the RED file. You can connect to a private registry or create a free account on [DockerHub](https://hub.docker.com/). Please note, that the free DockerHub account will only allow publicly accessible images.
 
@@ -478,7 +478,7 @@ faice agent red grepwrap.red.yml
 ```
 
 
-### Specify RED Execution Engine
+## Specify RED Execution Engine
 
 Since the experiment has now been tested with `faice agent red`, the RED execution engine of CC-FAICE, we can specify it in the optional `execution` section of the RED document. Open the file and append the following RED data with `nano grepwrap.red.yml`.
 
@@ -497,7 +497,7 @@ faice exec grepwrap.red.yml
 ```
 
 
-### Upload Output to a Remote Destination
+## Upload Output to a Remote Destination
 
 As demonstrated in this guide, the RED execution engine of CC-FAICE will copy the `out.txt` file to the local filesystem for the user to inspect.
 This is a convenience feature of CC-FAICE, that is not available in other execution engines like CC-Agency.

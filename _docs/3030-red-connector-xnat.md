@@ -7,15 +7,15 @@ This is a special purpose connector to exchange files with the [XNAT](https://ww
 
 **Current CLI version**: 1
 
-## Installation
+# Installation
 
 ```bash
 pip3 install --user --upgrade red-connector-xnat==1.0
 ```
 
-## Inputs
+# Inputs
 
-### receive-file
+## receive-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -50,9 +50,9 @@ access:
   disableSSLVerification: False
 ```
 
-## Outputs
+# Outputs
 
-### send-file
+## send-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |

@@ -7,7 +7,7 @@ This connector can be used for HTTP and HTTPS connections.
 
 **Current CLI version**: 1
 
-## Installation
+# Installation
 
 ```bash
 pip3 install --user --upgrade red-connector-http==1.0
@@ -15,35 +15,9 @@ pip3 install --user --upgrade red-connector-http==1.0
 
 Additionally, if you would like to use [mount-dir](#mount-dir) functionality, the HTTPDirFS CLI tools must be installed [from source](https://github.com/fangfufu/httpdirfs).
 
-## Inputs
+# Inputs
 
-### receive-file
-
-| Access | Type | Optional | Default | Description |
-| --- | --- | --- | --- | --- |
-| url | string | no | | URL starting with http:// or https:// |
-| method | enum: GET, PUT, POST | yes | GET | HTTP method  |
-| auth | dict | yes | | Authentication information |
-| auth.username | string | no | | Username |
-| auth.password | string | no | | Password |
-| auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
-| disableSSLVerification | boolean | yes | False | Disable verification of SSL cert |
-
-
-```yaml
-command: "red-connector-http"
-access:
-  url: "http://example.com/files/data.csv"
-  method: "GET"
-  auth:
-    username: "username"
-    password: "password"
-    method: "BASIC"
-  disableSSLVerification: False
-```
-
-
-### receive-dir
+## receive-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -68,7 +42,33 @@ access:
   disableSSLVerification: False
 ```
 
-#### Listing
+
+## receive-dir
+
+| Access | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| url | string | no | | URL starting with http:// or https:// |
+| method | enum: GET, PUT, POST | yes | GET | HTTP method  |
+| auth | dict | yes | | Authentication information |
+| auth.username | string | no | | Username |
+| auth.password | string | no | | Password |
+| auth.method | enum: BASIC, DIGEST | yes | BASIC | Authentication method |
+| disableSSLVerification | boolean | yes | False | Disable verification of SSL cert |
+
+
+```yaml
+command: "red-connector-http"
+access:
+  url: "http://example.com/files/data.csv"
+  method: "GET"
+  auth:
+    username: "username"
+    password: "password"
+    method: "BASIC"
+  disableSSLVerification: False
+```
+
+### Listing
 
 This connector requires a listing. The connector will automatically combine the provided base URL with the directories and files in the listing to form new URLs.
 
@@ -109,7 +109,7 @@ They will be stored as:
 * `${GENERATED_DIR}/mydata/foo/world.json`
 * `${GENERATED_DIR}/mydata/foo/bar/table.csv`
 
-### mount-dir
+## mount-dir
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -129,13 +129,13 @@ access:
     password: "password"
 ```
 
-#### Listing
+### Listing
 
 Optional. Only used for verification.
 
-## Outputs
+# Outputs
 
-### send-file
+## send-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |

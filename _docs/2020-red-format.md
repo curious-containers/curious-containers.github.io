@@ -41,12 +41,12 @@ faice schema show red
 Read through the following tutorial sections to learn more about each part of a RED file.
 
 
-## redVersion
+# redVersion
 
 The `redVersion` increases everytime the RED format changes. This means that a RED file in version `"3"` should be used with Curious Containers software packages in version `3.x.x`, higher software versions will not work. See [Versioning](/docs/versioning) for more details.
 
 
-## cli
+# cli
 
 Curious Containers only works with applications providing a proper commandline interface (CLI). This CLI, with its positional and optional arguments, must be described in the Command Workflow Language (CWL) [commandline specification](https://www.commonwl.org/v1.0/CommandLineTool.html) syntax. Other CWL compatible tools require separate `.cwl` files, but a RED file has the CWL description embedded under the `cli` keyword.
 
@@ -132,7 +132,7 @@ cli:
 ```
 
 
-## inputs
+# inputs
 
 To run an experiment, concrete inputs for the CLI program have to be provided.
 This is done under the `inputs` keyword.
@@ -174,7 +174,7 @@ inputs:
         url: "https://raw.githubusercontent.com/curious-containers/red-guide-vagrant/master/in.txt"
 ```
 
-### inputs: directories
+## inputs: directories
 
 In order to download an entire directory, some connectors like the HTTP connector require a directory `listing`. This listing defines the subfiles and subdirectories and is only allowed for directory connectors. Even for connectors which do not strictly require a listing it is recommended to include one, because it will be used to automatically check the directory contents for missing files and subdirectories.
 
@@ -199,7 +199,7 @@ inputs:
 Please note, that not every connector provides functionality for input files and directories, but the HTTP and SSH connectors can be used in both cases.
 
 
-## outputs
+# outputs
 
 Outputs of an experiment can then be uploaded to remote servers using various connectors.
 
@@ -234,7 +234,7 @@ outputs:
 ```
 
 
-## batches
+# batches
 
 With the `batches` keyword multiple `inputs` and `outputs` can be specified as a list. Each batch is processed independently in its own Docker container.
 
@@ -253,7 +253,7 @@ execution: ...
 ```
 
 
-## container
+# container
 
 RED provides are generic way to include settings for container engines, such that CC or other tools can implement different engines. Curious Containers currently only supports Docker as a [RED Container Engine](/docs/red-container-engines).
 
@@ -266,7 +266,7 @@ container:
 ```
 
 
-## execution
+# execution
 
 Under the `execution` keyword you can specify an execution engine, which is capable of processing the given RED file. For example the URL and access information to a CC-Agency server can be given here. For supported execution engines take a look at the [RED Execution Engines](/docs/red-execution-engines) documentation.
 

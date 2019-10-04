@@ -16,7 +16,7 @@ To make this work the connector requires a password or a valid private key to co
 Be aware that anyone who has access to this login information could potentially connect to the host.
 Make sure you trust the executor of your RED file.
 
-## Installation
+# Installation
 
 ```bash
 pip3 install --user --upgrade red-connector-ssh==1.0
@@ -34,9 +34,9 @@ apt-get install sshfs
 dnf install sshfs
 ```
 
-## Inputs
+# Inputs
 
-### receive-file
+## receive-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -63,7 +63,7 @@ access:
   filePath: "/home/username/files/data.csv"
 ```
 
-### receive-dir
+## receive-dir
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -90,11 +90,11 @@ access:
   dirPath: "/home/username/files"
 ```
 
-#### Listing
+### Listing
 
 Optional. If listing exists, only the specified subdirectories and files are being transferred.
 
-### mount-dir
+## mount-dir
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -119,13 +119,13 @@ access:
   writable: false
 ```
 
-#### Listing
+### Listing
 
 Optional. Only used for verification.
 
-## Outputs
+# Outputs
 
-### send-file
+## send-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -152,7 +152,7 @@ access:
   filePath: "/home/username/files/data.csv"
 ```
 
-### send-dir
+## send-dir
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -179,6 +179,6 @@ access:
   dirPath: "/home/username/files"
 ```
 
-#### Listing
+### Listing
 
 Optional. If listing exists, only the specified subdirectories and files are being transfered.

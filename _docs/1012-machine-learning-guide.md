@@ -11,7 +11,7 @@ A basic understanding of machine learning methods is recommended.
 This guide contains an experiment, that trains a Convolutional Neural Network (CNN) on the [PCAM](https://github.com/basveeling/pcam) dataset to classify tumor tissue in pathological image slides.
 
 
-## Teaching Goals
+# Teaching Goals
 
 The main teaching goals of this guide are:
 
@@ -22,7 +22,7 @@ The main teaching goals of this guide are:
 * how to send experiments to the CC-Agency execution engine
 
 
-## Prerequisites
+# Prerequisites
 
 Using an **Nvidia GPU** for training acceleration is **recommended** but not required.
 
@@ -30,7 +30,7 @@ The dataset used in this guide is located on the `avocado01.f4.htw-berlin.de` st
 You can still follow the guide using your **own SSH server**.
 
 
-### Download Dataset to Storage Server
+## Download Dataset to Storage Server
 
 You can **skip this section**, if you have SSH access to `avocado01.f4.htw-berlin.de`.
 
@@ -53,7 +53,7 @@ gunzip *.h5.gz
 When following the tutorial, you have to **replace** all occurrences of `/data/ldap/histopathologic/original_read_only/PCAM_extracted` with `PCAM` and all occurrences of `avocado01.f4.htw-berlin.de` with your own SSH server.
 
 
-### Create Log Directory
+## Create Log Directory
 
 Create an empty `cnn-training/log` directory on in your SSH user's home directory, such that it can be mounted via SSHFS later.
 
@@ -65,12 +65,12 @@ mkdir -p cnn-training/log
 ```
 
 
-## Training Experiment
+# Training Experiment
 
 This part of the guide describes the setup of the experiment.
 
 
-### Training Code
+## Training Code
 
 The following code uses a pre-release of tensorflow 2. A standard CNN architecture `NASNetMobile` is used, to learn the binary classification of tumor tiles.
 Store this code in a file using `nano cnn-training.py`, or another editor of your choice, and make the file executable with `chmod u+x cnn-training.py`.
@@ -218,7 +218,7 @@ If multiple trainings are executed in parallel, this name can be changed to avoi
 We will use this feature to mount a writable SSHFS network filesystem for logging, such that the training progress can be viewed live outside of the container.
 
 
-### CWL
+## CWL
 
 Now create a CLI description of the `cnn-training.py` program as `nano cnn-training.cwl.yml`.
 
@@ -280,7 +280,7 @@ The output is defined as a `File` named `weights.h5`.
 Since the file is mandatory, CC will report an error if the training code does not create it.
 
 
-### Docker Image
+## Docker Image
 
 Create the following Dockerfile using `nano Dockerfile`.
 
@@ -332,7 +332,7 @@ Of course, you won't be allowed to push the image to the `curiouscontainers` org
 To follow this guide, you do not have to publish the image yourself, because it is already available under the given image URL.
 
 
-### RED
+## RED
 
 The `batches` keyword in a RED file can be used to provide `inputs` / `outputs` pairs as a list.
 This batch processing feature can be used to run multiple containers in different configurations.

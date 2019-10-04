@@ -7,13 +7,13 @@ This connector can be used to receive an archive file via HTTP and HTTPS connect
 
 **Current CLI version**: 1
 
-## Installation
+# Installation
 
 RED connector HTTP Archive is included with RED connector HTTP. For installation instructions please refer to the [corresponding documentation](/docs/red-connector-http#installation).
 
-## Inputs
+# Inputs
 
-### receive-dir
+## receive-dir
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -39,6 +39,6 @@ access:
   archiveFormat: "gztar"
 ```
 
-#### Listing
+### Listing
 
 Optional. Only used for verification.

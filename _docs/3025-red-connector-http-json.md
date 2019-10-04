@@ -7,13 +7,13 @@ This connector can be used to receive JSON via HTTP and HTTPS connections. Only 
 
 **Current CLI version**: 1
 
-## Installation
+# Installation
 
 RED connector HTTP JSON is included with RED connector HTTP. For installation instructions please refer to the [corresponding documentation](/docs/red-connector-http#installation).
 
-## Inputs
+# Inputs
 
-### receive-file
+## receive-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -38,9 +38,9 @@ access:
   disableSSLVerification: False
 ```
 
-## Outputs
+# Outputs
 
-### send-file
+## send-file
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |

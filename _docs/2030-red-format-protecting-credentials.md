@@ -34,7 +34,7 @@ outputs:
 RED supports two complementary concepts, *variables* and *protected key* to ensure the safety of credentials. This allows RED files to be easily **stored**, **published** or **shared**, without compromising any functionality.
 
 
-## Variables
+# Variables
 
 In the example above, two files are sent to the same SSH server using the same user credentials. Using *variables*, this information can be replaced as follows.
 
@@ -75,7 +75,7 @@ Variables can only be used with string values, which must be located somewhere u
 {% endraw %}
 
 
-### Save Values in Keyring
+## Save Values in Keyring
 
 You can store values to be filled into your variables in a keyring utility (e.g. [Gnome-Keyring](https://wiki.gnome.org/action/show/Projects/GnomeKeyring?action=show&redirect=GnomeKeyring)) using the [keyring](https://github.com/jaraco/keyring) Python package, that gets installed as a dependency of CC-FAICE.
 
@@ -84,7 +84,7 @@ If the `faice agent red` and `faice exec` encounter a variable, that is not yet 
 If you want to add or remove secrets manually, you can use the `keyring` CLI command, that is provide by the `keyring` Python package (see `keyring --help`). For Gnome-Keyring you can use the Linux GUI tool `seahorse` to view stored values.
 
 
-## Protected Keys
+# Protected Keys
 
 Protected keys are an additional concept and can be used in RED files. A protected key is a hint for CC-FAICE and CC-Agency, that the corresponding value must be handled with care. This means that these values should not appear in log files and that CC-Agency must delete this information from its database after the processing is done.
 

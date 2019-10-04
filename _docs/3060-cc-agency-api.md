@@ -34,7 +34,7 @@ yaml = YAML(typ='safe')
 | /batches/BATCH_ID | [GET](#get-batchesbatch_id), [DELETE](#delete-batchesbatch_id) |
 | /nodes | [GET](#get-nodes) |
 
-## GET /
+# GET /
 
 Hello World.
 
@@ -52,7 +52,7 @@ Response (JSON):
 {"Hello": "World"}
 ```
 
-## GET /token
+# GET /token
 
 Request temporary password token, which replaces the actual user password for basic auth.
 
@@ -88,7 +88,7 @@ requests.get(
 ```
 
 
-## GET /version
+# GET /version
 
 Installed CC-Core and CC-Agency versions.
 
@@ -111,7 +111,7 @@ Response (JSON):
 ```
 
 
-## POST /red
+# POST /red
 
 Send RED data to CC-Agency, which will result in one database entry in the `experiments` collection and one or more entries in the `batches` collection. The agency's scheduler will trigger the parallel processing of the batches in the distributed cluster of docker-engines.
 
@@ -212,7 +212,7 @@ Response (JSON):
 ```
 
 
-## GET /experiments/count
+# GET /experiments/count
 
 Count experiments stored in database.
 
@@ -240,7 +240,7 @@ Response (JSON):
 ```
 
 
-## GET /experiments
+# GET /experiments
 
 List experiments stored in database sorted by registration time in descending order.
 
@@ -265,7 +265,7 @@ requests.get(
 ```
 
 
-## GET /experiments/EXPERIMENT_ID
+# GET /experiments/EXPERIMENT_ID
 
 Get full experiment stored in database by its `experimentId`.
 
@@ -281,7 +281,7 @@ requests.get(
 ```
 
 
-## GET /batches/count
+# GET /batches/count
 
 Count batches stored in database.
 
@@ -312,7 +312,7 @@ Response (JSON):
 ```
 
 
-## GET /batches
+# GET /batches
 
 List batches stored in database sorted by registration time in descending order.
 
@@ -340,7 +340,7 @@ requests.get(
 ```
 
 
-## GET /batches/BATCH_ID
+# GET /batches/BATCH_ID
 
 Get full batch stored in database by its `batchId`.
 
@@ -356,7 +356,7 @@ requests.get(
 ```
 
 
-## DELETE /batches/BATCH_ID
+# DELETE /batches/BATCH_ID
 
 Cancel unfinished batch by its `batchId`. This will not delete their database entries.
 
@@ -372,7 +372,7 @@ requests.delete(
 ```
 
 
-## GET /nodes
+# GET /nodes
 
 List docker-engine nodes available in the cluster.
 

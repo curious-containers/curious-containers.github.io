@@ -4,7 +4,7 @@ permalink: /docs/cc-agency-advanced-configuration
 ---
 
 
-## GPU Nodes
+# GPU Nodes
 
 If Nvidia GPUs are available on a node, they can be configured as follows.
 
@@ -34,7 +34,7 @@ Currently only Nvidia-GPUs are supported. To make the GPUs accessible for docker
 The IDs shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` (see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
 
 
-## Notification Hooks
+# Notification Hooks
 
 To send HTTP notifications if a batch has entered a final state (`succeeded`, `failed` or `cancelled`), you can configure notification hooks in the agency configuration as follows.
 

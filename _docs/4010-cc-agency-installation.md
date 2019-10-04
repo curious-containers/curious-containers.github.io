@@ -5,7 +5,7 @@ permalink: /docs/cc-agency-installation
 
 The following instructions have been tested on Ubuntu 18.04 with Python 3.6. Instructions for other Linux distributions should be similar.
 
-### System Packages
+# System Packages
 
 *As admin user.*
 
@@ -15,7 +15,7 @@ sudo apt-get install python3-pip python3-venv uwsgi uwsgi-plugin-python3
 sudo apt-get install apache2 libapache2-mod-proxy-uwsgi
 ```
 
-### MongoDB
+# MongoDB
 
 *As admin user.*
 
@@ -28,7 +28,7 @@ sudo systemctl enable mongod
 sudo systemctl start mongod
 ```
 
-### System User
+# System User
 
 *As admin user.*
 
@@ -38,7 +38,7 @@ Create a new system user called `cc`. CC-Agency will run under the privileges of
 sudo useradd -ms /bin/bash cc
 ```
 
-### UWSGI Configuration
+# UWSGI Configuration
 
 *As admin user.*
 
@@ -83,7 +83,7 @@ virtualenv = %(_)
 endif =
 ```
 
-### Python Packages
+# Python Packages
 
 *As cc user.*
 
@@ -103,7 +103,7 @@ ccagency --help
 ```
 
 
-### CC-Agency Configuration
+# CC-Agency Configuration
 
 *As cc user.*
 
@@ -143,7 +143,7 @@ chmod 600 ~/.config/cc-agency.yml
 ```
 
 
-### MongoDB User
+# MongoDB User
 
 *As cc user.*
 
@@ -155,7 +155,7 @@ Use the `ccagency` CLI tool, to create a new MongoDB user as specified in the `c
 ccagency create-db-user
 ```
 
-### Broker User
+# Broker User
 
 *As cc user.*
 
@@ -167,12 +167,12 @@ ccagency create-broker-user
 
 Additional users can be added at all times.
 
-### Systemd Units
+# Systemd Units
 
 *As admin user.*
 
 
-#### Trustee Service
+## Trustee Service
 
 Create Systemd unit file `/etc/systemd/system/ccagency-trustee.service` for CC-Agency Trustee.
 
@@ -198,7 +198,7 @@ sudo systemctl start ccagency-trustee
 ```
 
 
-#### Controller Service
+## Controller Service
 
 Create Systemd unit file `/etc/systemd/system/ccagency-controller.service` for CC-Agency Controller.
 
@@ -229,7 +229,7 @@ sudo systemctl start ccagency-controller
 ```
 
 
-#### Broker Service
+## Broker Service
 
 Create Systemd unit file `/etc/systemd/system/ccagency-broker.service` for CC-Agency Broker.
 
@@ -285,7 +285,7 @@ sudo a2ensite ccagency-broker
 sudo systemctl restart apache2
 ```
 
-### Docker Cluster
+# Docker Cluster
 
 *As cc user.*
 
@@ -317,7 +317,7 @@ Restart CC-Agency Controller:
 sudo systemctl restart ccagency-controller
 ```
 
-### Status and Logging
+# Status and Logging
 
 *As admin user.*
 

@@ -3,8 +3,6 @@ title: "CC-Agency"
 permalink: /docs/cc-agency
 ---
 
-# CC-Agency
-
 CC-Agency is an advanced server software, which is able to connect to a distributed cluster of docker-engines and schedules experiments defined in RED format for parallel execution.
 
 It implements three major software components: CC-Agency Broker provides a restful web API for users, to register experiments and to query information. CC-Agency Controller is a background process, which connects to a Docker cluster and schedules the experiments for execution. CC-Agency Trustee is a service to temporarily store credentials in memory, until the correponding experiment finished in one of the states *succeeded*, *failed* or *cancelled*.
@@ -12,7 +10,7 @@ It implements three major software components: CC-Agency Broker provides a restf
 CC-Agency persists the state of experiments in a database and is very fault tolerant, when it comes to failing containers, docker-engines or network connections.
 
 
-## Usage
+# Usage
 
 If you are a user and would like to connect to an existing installation of CC-Agency, please refer to the [REST API](/docs/cc-agency-api) documentation. It is recommended to specify a CC-Agency instance under the [execution](/docs/red-format#execution) keyword of your RED file. You can then use the `faice exec` commandline tool to send the experiment to CC-Agency. The tool will automatically validate your RED file and asks you for missing [variable values](/docs/red-format-protecting-credentials) if they are not found in your keyring.
 
@@ -21,7 +19,7 @@ In order to make your resources referenced in a RED file, like a Docker image an
 As a positive side-effect, your experiments do not rely on any local files, which allows you to share and store your RED files in a **reproducible** way.
 
 
-## Data Security
+# Data Security
 
 As a technical necessity, you are required to send your Docker image and data access credentials defined in your RED file to CC-Agency. It is therefore strongly advised to only use CC-Agency if you **trust the operator** with this sensitive data.
 

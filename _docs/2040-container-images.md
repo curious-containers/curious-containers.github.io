@@ -6,7 +6,7 @@ permalink: /docs/container-images
 The following sections show how to prepare a Docker container image for RED.
 
 
-## Docker
+# Docker
 
 There are many ways to build a Docker image. In our examples we chose `docker.io/debian:9.5-slim` as a base image, because it is relatively small and dependencies can easily be installed from the Debian package repositories via `apt-get install`. A POSIX shell (`/bin/sh`), as it is preconfigured in most images, and a Python3 interpreter (version >= 3.4), must be installed.
 
@@ -64,7 +64,7 @@ docker push docker.io/myorganization/myimage
 In your RED file you can now reference your image under `container.settings.image.url`. If read access to your image is restricted via user credentials you can provide them as `container.settings.image.auth.username` and `container.settings.image.auth.password` respectively. See the [RED Container Engines](/docs/red-container-engines) documentation for more information.
 
 
-### CUDA
+## CUDA
 
 In order to use CUDA applications on Nvidia GPUs, you have to specify GPUs in your RED file. For more details take a look at the [Docker container engine](/docs/red-container-engines#docker) documentation.
 

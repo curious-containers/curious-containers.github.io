@@ -10,7 +10,7 @@ This is the RED Connector CLI specification version `1`. The specification takes
 Take a look at the [RED format](https://www.curious-containers.cc/docs/red-format#inputs) documentation for an introduction to connectors.
 
 
-## Subcommands
+# Subcommands
 
 A RED Connector is a CLI tool with an arbitrary name for its executable. A connector can choose to implement a subset of functionality, which then requires certain subcommands to be present in the form of `example-connector subcommand`. The following table lists the optional and required subcommands sorted by functionality.
 
@@ -30,7 +30,7 @@ A RED Connector is a CLI tool with an arbitrary name for its executable. A conne
 | send-dir-validate | if send-dir | |
 
 
-## Example
+# Example
 
 This example shows a connector cli and a typical execution of it.
 
@@ -52,7 +52,7 @@ This should result in a file created at `/tmp/myinputfile.txt` and with the cont
 `red-connector-http` is the name of the connector executable. `receive-file` is a subprogram, that is used to retrieve a file. `access.json` is a json file with information on how to access the data. The content of an access file is provided by the corresponding `connector.access` section of a RED file. The expected access information is not part of the RED specification, but instead specified by the connector implementation.
 
 
-## cli-version
+# cli-version
 
 Connectors must print their CLI version, if this subcommand is executed. For example:
 
@@ -60,7 +60,7 @@ Connectors must print their CLI version, if this subcommand is executed. For exa
 0.1
 ```
 
-## receive-file and receive-file-validate
+# receive-file and receive-file-validate
 
 To implement a connector called `example-connector` that is able to receive a file, this connector should at least implement the following command line calls.
 
@@ -87,7 +87,7 @@ Additional the connector should print a human readable error message to stderr i
 TODO
 
 
-## receive-dir and receive-dir-validate
+# receive-dir and receive-dir-validate
 
 To implement a connector that is able to receive a directory, this connector should at least implement the following command line calls.
 
@@ -112,11 +112,11 @@ The `receive-dir-validate` call works similar to the `receive-file-validate` cal
 A optional listing file in json format can be supplied. The listing has to be in CWL format (See [inputs: directories](/docs/red-format#inputs-directories)). If the connector does not require a listing, it can be ignored, but the connector should be prepared accept the --listing option. If a listing is required by the connector but not provided in the RED connector section, the recive-dir-validate call should fail with a non-zero exit code.
 
 
-## mount-dir, mount-dir-validate and umount-dir
+# mount-dir, mount-dir-validate and umount-dir
 
 TODO
 
-## send-file and send-file-validate
+# send-file and send-file-validate
 
 To implement a connector that is able to send a file, this connector should at least implement the following command line calls.
 
@@ -133,6 +133,6 @@ The `send-file-validate` call works similar to the `receive-file-validate` call.
 
 TODO
 
-## send-dir and send-dir-validate
+# send-dir and send-dir-validate
 
 TODO

@@ -6,19 +6,19 @@ permalink: /docs/red-container-engines
 RED Container Engines are used to execute programs in a virtual environment like a docker container. Currently only Docker is supported as a container engine in Curious Containers.
 
 
-## Docker
+# Docker
 
 Docker makes it possible to run the applications specified in the RED file in an isolated and secure environment with optional resource limitations. To run your application inside a docker container you have to specify which docker image to use. Information about how to build such an image can be found in the [Container Images](/docs/container-images) documentation.
 
 
-### Nvidia GPUs
+## Nvidia GPUs
 
 If you are using the RED execution engine `faice agent red` from CC-FAICE and want your application to use Nvidia GPUs for CUDA support, you have to install the proprietary Nvidia GPU driver and the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker) or its predecessor [Nvidia-Docker 2](https://github.com/NVIDIA/nvidia-docker).
 
 It is not required to have CUDA installed on the host operating system, but it must be installed in the container image. See the [CUDA](/docs/container-images#cuda) section in the container images documentation for more information on building compatible images.
 
 
-### Settings
+## Settings
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
@@ -35,7 +35,7 @@ It is not required to have CUDA installed on the host operating system, but it m
 | gpus.devices.${item}.vramMin | int | no | | The minimal VRAM that must be present in MB |
 
 
-### Example Configuration
+## Example Configuration
 
 ```yaml
 container:
@@ -50,7 +50,7 @@ container:
 ```
 
 
-### Example Configurations with Nvidia GPUs
+## Example Configurations with Nvidia GPUs
 
 ```yaml
 container:

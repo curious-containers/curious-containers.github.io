@@ -12,7 +12,7 @@ Both execution engines implement the [Docker container engine](/docs/red-contain
 Use `faice exec` CLI tool to automatically invoke the engine specified in your RED file for execution.
 
 
-## CC-FAICE
+# CC-FAICE
 
 Set `execution.engine` as `ccfaice`in your RED file, then use `faice exec red.yml`. This is equivalent to `faice agent red --debug red.yml`, if no output connectors are specified, or to `faice agent red --debug --outputs red.yml`, if output connectors are specified in the RED file.
 
@@ -23,7 +23,7 @@ Set `execution.engine` as `ccfaice`in your RED file, then use `faice exec red.ym
 If you want more control over `faice agent red`, you should invoke it directly.
 
 
-### Example Configuration
+## Example Configuration
 
 ```yaml
 execution:
@@ -32,18 +32,18 @@ execution:
 ```
 
 
-### Settings
+## Settings
 
 Not available. Insert empty dict, for `ccfaice` engine settings.
 
 
-## CC-Agency
+# CC-Agency
 
 Set `execution.engine` as `ccagency`, which allows `faice exec` to contact the CC-Agency Broker REST interface
 (`${url}/red`) to register the experiment on your behalf.
 
 
-### Example Configuration
+## Example Configuration
 
 ```yaml
 execution:
@@ -59,7 +59,7 @@ execution:
 ```
 
 
-### Settings
+## Settings
 
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
