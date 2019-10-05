@@ -483,12 +483,16 @@ You can now run `cnn-training.red.py` to create the `cnn-training.red.json` file
 
 If you are using `engine: 'ccagency'`, use `faice exec` to submit the batches to CC-Agency.
 
-```batch
+```bash
 faice exec cnn-training.red.json
 ```
 
 If your are using `engine: 'ccfaice'` instead, you have to add the `--insecure` flag to set `SYS_ADMIN` capabilities in Docker.
 These capabilities are required to use FUSE file systems like SSHFS in a Docker container.
+
+```bash
+faice exec --insecure cnn-training.red.json
+```
 
 You can watch the progress using the live log files.
 
