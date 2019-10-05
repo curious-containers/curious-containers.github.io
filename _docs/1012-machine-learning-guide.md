@@ -459,7 +459,9 @@ Remember to change the `SSH_SERVER` constant, if you are not using `avocado01.f4
 Under the `execution` keyword CC-Agency is specified as engine.
 The URL is set to `https://agency.f4.htw-berlin.de/cc`.
 If you do not have an account for this instance of CC-Agency, you can change the URL to point to a self-hosted agency.
-As an alternative, you can use switch to CC-FAICE and execute the experiment locally using the following code snippet.
+
+As an alternative, you can switch to CC-FAICE and execute the experiment locally using the following code snippet.
+
 
 ```python
 red = {
@@ -470,7 +472,8 @@ red = {
 }
 ```
 
-If you do not have access to GPUs, remove the `gpus` section to run the program on a CPU. This may take more time.
+If you want to use an Nvidia GPU in your system you must have the [docker-ce](https://docs.docker.com/install/) version of Docker and [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker) installed, which is only possible on Linux.
+If you do not have access to GPUs or your system does not fulfill the aforementioned requirements remove the `gpus` section from the RED file to run the program on a CPU. Using the CPU may slow down the processing.
 
 You can now run `cnn-training.red.py` to create the `cnn-training.red.json` file.
 
@@ -478,11 +481,14 @@ You can now run `cnn-training.red.py` to create the `cnn-training.red.json` file
 ./cnn-training.red.py
 ```
 
-Use `faice exec` to submit the batches to CC-Agency.
+If you are using `engine: 'ccagency'`, use `faice exec` to submit the batches to CC-Agency.
 
 ```batch
 faice exec cnn-training.red.json
 ```
+
+If your are using `engine: 'ccfaice'` instead, you have to add the `--insecure` flag to set `SYS_ADMIN` capabilities in Docker.
+These capabilities are required to use FUSE file systems like SSHFS in a Docker container.
 
 You can watch the progress using the live log files.
 
