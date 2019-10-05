@@ -39,7 +39,7 @@ Login to your SSH server, create a `PCAM` folder in your home directory, downloa
 ```bash
 SSH_USERNAME=christoph
 SSH_HOST=avocado01.f4.htw-berlin.de
-ssh ${SSH_USERNAME}:${SSH_HOST}
+ssh ${SSH_USERNAME}@${SSH_HOST}
 mkdir PCAM
 curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_train_x.h5.gz
 curl -fO https://zenodo.org/record/2546921/files/camelyonpatch_level_2_split_train_y.h5.gz
@@ -60,7 +60,7 @@ Create an empty `cnn-training/log` directory on in your SSH user's home director
 ```bash
 SSH_USERNAME=christoph
 SSH_HOST=avocado01.f4.htw-berlin.de
-ssh ${SSH_USERNAME}:${SSH_HOST}
+ssh ${SSH_USERNAME}@${SSH_HOST}
 mkdir -p cnn-training/log
 ```
 
