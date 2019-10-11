@@ -17,6 +17,8 @@ docs:
         url: /docs/machine-learning-guide
   - title: "Specs"
     children:
+      - title: "RED-CWL 0"
+        url: "/docs/red-cwl-0"
       - title: "RED-CWL 1"
         url: "/docs/red-cwl-1"
       - title: "RED Connector CLI 1"
