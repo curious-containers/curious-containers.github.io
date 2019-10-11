@@ -258,14 +258,14 @@ Not supported.
 Not supported.
 
 
-### CommandOutputEnumSchema
+#### CommandOutputEnumSchema
 
 [CWL 1.0 - 5.2.5.1 CommandOutputEnumSchema](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandOutputEnumSchema)
 
 Not supported.
 
 
-### CommandOutputArraySchema
+#### CommandOutputArraySchema
 
 [CWL 1.0 - 5.2.5.2 CommandOutputArraySchema](https://www.commonwl.org/v1.0/CommandLineTool.html#CommandOutputArraySchema)
 
