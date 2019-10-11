@@ -22,7 +22,8 @@ If you are using a Linux distribution, please ensure that the packages `nano` (o
 On Ubuntu 18.04:
 
 ```bash
-sudo groupadd docker  # to avoid reboot
+sudo groupadd docker
+sudo usermod -aG docker $(whoami)  # before docker install to avoid reboot
 sudo apt-get update
 sudo apt-get install nano python3 python3-pip python3-venv git docker.io
 ```
@@ -30,11 +31,15 @@ sudo apt-get install nano python3 python3-pip python3-venv git docker.io
 On Fedora 30:
 
 ```bash
-sudo groupadd docker  # to avoid reboot
+sudo groupadd docker
+sudo usermod -aG docker $(whoami)  # before docker install to avoid reboot
 sudo dnf install nano python3 python3-pip python3-venv git moby-engine
 ```
 
 Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
+
+If you plan on using the Nvidia GPU of your system later, you should install the [docker-ce](https://docs.docker.com/install/) version of Docker.
+The `docker.io` or `moby-engine` versions from your Linux distribution's package repositories will not work with [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker).
 
 
 ## Option 2: Mac Setup
@@ -204,7 +209,7 @@ Set the executable flag for `grepwrap`.
 chmod u+x grepwrap
 ```
 
-The program is a wrapper for `grep`. It stores results to `out.txt` and has a simplified interface. Use `grepwrap --help` to show all CLI arguments.
+The program is a wrapper for `grep`. It stores results to `out.txt` and has a simplified interface. Use `./grepwrap --help` to show all CLI arguments.
 
 
 Create a new file with sample data by inserting the text below with `nano in.txt`. Then save and close the file.
@@ -223,9 +228,17 @@ Then execute `grepwrap` as follows.
 ./grepwrap -B 1 QU in.txt
 ```
 
-Use `cat out.txt` to check the programs output.
+In this case the command `./grepwrap -B 1 QU in.txt` is an **experiment** based on the program `grepwrap`, which has a defined **CLI** and has `python3` and `grep` as **dependencies**.
+It is executed with `in.txt` as **input** file, as well as `-B 1` and `QU` as **input** arguments.
+It produces a single file `out.txt` as **output**. Use `cat out.txt` to check the programs output.
 
-In this case the command `grepwrap -B 1 QU in.txt` is an **experiment** based on the program `grepwrap`, which has a defined **CLI** and has `python3` and `grep` as **dependencies**. It is executed with `in.txt` as **input** file, as well as `-B 1` and `QU` as **input** arguments. It produces a single file `out.txt` as **output**.
+You should add the directory, that contains the executble, to your `PATH` variable.
+This way, you can run the program without having to specify the path to the executable.
+
+```bash
+export PATH=$(pwd):${PATH}
+grepwrap -B 1 QU in.txt
+```
 
 The next steps of this guide, will demonstrate the formalization of the experiment, which allows for persistent storage, enables distribution and improves reproducibility. In order to do so, we need to describe the **CLI**, **dependencies**, **inputs** and **outputs**.
 
@@ -264,8 +277,14 @@ ADD --chown=cc:cc grepwrap /home/cc/.local/bin/grepwrap
 As can be seen in the Dockerfile, we extend a slim Debian image from the official [DockerHub](https://hub.docker.com/) registry.
 To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
-As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors. Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned. This is important, because CC-FAICE will always start a container with `uid:gid` set to `1000:1000`. This behavior is equivalent to the CWL reference implementation CWLTool. As a next step the Dockerfile switches to the `cc` user and installs the application. In this case the `grepwrap` script is added to the image.
-As a last step we install `red-connector-http` and `red-connector-ssh`, that we want to use to transfer data into and out of the Docker container.
+As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors.
+Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned.
+This is important, because CC-FAICE will always start a container with `uid:gid` set to `1000:1000`.
+As a next step the Dockerfile switches to the `cc` user and installs RED connectors into a virtual environment using `pip`.
+The `red-connector-http` and `red-connector-ssh` programs will be used to use to transfer data into and out of the Docker container when using a CC exectuion engine.
+As a last step the `grepwrap` application is added to the image.
+Please note, that the `ENV` command sets the `PATH` variable, such that `grepwrap` and the connectors are executable from any working directory.
+
 
 Use the Docker client to build the image and name it `grepwrap`.
 
@@ -444,7 +463,14 @@ The output file will be automatically copied from the container filesystem to th
 
 ## Push Image to Container Registry
 
-In order to have a fully portable experiment, the `grepwrap` Docker image must be pushed to a [Docker registry](https://docs.docker.com/registry/). This allows you to reference the image using a URL in the RED file. You can connect to a private registry or create a free account on [DockerHub](https://hub.docker.com/). Please note, that the free DockerHub account will only allow publicly accessible images.
+In order to have a fully portable experiment, the `grepwrap` Docker image must be pushed to a [Docker registry](https://docs.docker.com/registry/).
+This allows you to reference the image using a URL in the RED file.
+You can connect to a private registry or create a free account on [DockerHub](https://hub.docker.com/).
+Please note, that the free DockerHub account will only allow publicly accessible images.
+
+The following commands can be used to publish an image.
+In this case, the image has already been pushed to the `curouscontainers` organization on DockerHub and it is not required to push the image yourself in order to follow the tutorial.
+If you want to push the image to your own registry or [organization](https://docs.docker.com/docker-hub/orgs/), change the variable values accordingly.
 
 ```bash
 REGISTRY=docker.io
@@ -505,6 +531,7 @@ Instead, output files and directories should be uploaded to a remote server loca
 
 Since CC is a framework and not a tightly integrated research platform, you must have access to a storage server.
 In this section, the non-public storage server `avocado01.f4.htw-berlin.de` is used.
+Accessing `avocado01.f4.htw-berlin.de` requires you to be in the HTW Berlin university network or to use the [HTW Berlin VPN](https://anleitungen.rz.htw-berlin.de/de/vpn/).
 If you do not have access to this server, you have to replace the output connector `access` information in the RED file to fit your **own SSH server**.
 
 Append the following section to the RED file using `nano grepwrap.red.yml`.
@@ -529,6 +556,9 @@ This is a powerful feature of RED, that allows you to share or publish these fil
 The `faice agent red` and `faice exec` commands will interactively ask you to fill in this information on the command-line.
 You have the option to store these values in a keyring application, if one is installed on your system.
 {% endraw %}
+
+Please note, that CC will **not** use any SSH private keys that are stored on your system.
+If you want to use key authentication, the SSH private key and passphrase must be specified in the RED file according to the  [red-connector-ssh](/docs/red-connector-ssh#send-file) docs.
 
 The name `outputs.out_file` refers to the arbitrary name, that is specified under `cli.outputs.out_file`.
 While the information under `cli.outputs.out_file` tells the connector where the file is located in the container filesytem, the information under `outputs.out_file` tells the connector the desired upload destination.
