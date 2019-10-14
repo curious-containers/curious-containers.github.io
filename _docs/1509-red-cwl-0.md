@@ -7,7 +7,7 @@ permalink: /docs/red-cwl-0
 RED-CWL 0 is a subset of the CWL 1.0 standard.
 RED-CWL 0 is a pre-release version of [RED-CWL 1](/docs/red-cwl-1) and reflects the current implementation status in RED 8.
 
-The CWL reference implementation `cwltool` requires a `*.cwl` file as generic description of CommandLineTool and a `*.yml` job file to define an input object, that contain actual parameters to run the experiment.
+The CWL reference implementation `cwltool` requires a `*.cwl` file as generic description of CommandLineTool and a `*.yml` job file to define an input object, that contains actual parameters to run the experiment.
 In contrast, a RED file embeds the contents of a `*.cwl` file under the `cli` keyword and embeds the input object under the `inputs` keyword.
 Depending on the RED execution engine, defining an output object might be optional and can be embedded under the `outputs` keyword.
 
@@ -24,6 +24,19 @@ On the other hand, not every CWL description can be embedded into a RED file wit
 
 Optional inputs and outputs can be defined as `<T>?`. Input arrays can be defined as `<T>[]`. Optional input arrays can be defined as `<T>[]?`.
 `<T>` refers to the input type. Output arrays are not allowed.
+
+
+# Running a Command
+
+## Runtime Environment
+
+[CWL 1.0 - 4.2 Document preprocessing](https://www.commonwl.org/v1.0/CommandLineTool.html#Runtime_environment)
+
+Setting `runtime` parameters like `runtime.ram` is not supported.
+In the context of RED, this information is part of the `container` section, because the container engine enforces these settings.
+
+In addtion, the resource requirements of a CLI tool are in many cases influenced by the input data size.
+This makes resource requirements more of an experiment setting than a CLI tool setting.
 
 
 # CommandLineTool
