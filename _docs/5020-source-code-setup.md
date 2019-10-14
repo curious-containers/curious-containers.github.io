@@ -8,25 +8,42 @@ The following instructions have been tested on Fedora 28 with Python 3.6. Instru
 All software components have dependencies defined in pyproject.toml and pyproject.lock files (see [PEP 518](https://www.python.org/dev/peps/pep-0518/)). [Poetry](https://poetry.eustace.io/) is used to work with these files, to automatically create virtual environments and to build and deploy the resulting Python packages.
 
 
-# System Dependencies
+# Development Setup
+
+## System Packages
 
 Curious Containers requires a Linux distribution of your choice and the **latest** stable version of Docker to be installed. It is recommended to install Docker-CE from the official external Docker repository (see [instructions](https://docs.docker.com/install/linux/docker-ce/fedora/)), because Docker packages shipped by Linux distributions are often outdated.
 
 In addition to Docker-CE, install the following system packages.
 
 ```bash
-sudo dnf install git python3-pip python3-venv 
+sudo dnf install git python3-pip python3-venv               # general dev dependencies
+sudo dnf install uwsgi uwsgi-plugin-python3 docker-compose  # ccagency dev dependencies
 ```
 
-# Python Dependencies
+
+## Python Virtual Environments
+
+```bash
+mkdir -p ~/.cache/cc/
+python3 -m venv ~/.cache/cc/poetry
+python3 -m venv ~/.cache/cc/dev
+```
+
+
+## Poetry
 
 Install [Poetry](https://github.com/sdispater/poetry), which will handle all the Python dependencies of each package.
 
 ```bash
+source ~/.cache/cc/poetry/bin/activate
 curl -sSL https://raw.githubusercontent.com/sdispater/poetry/master/get-poetry.py | python
+deactivate
+source ~/.poetry/env
 ```
 
-# Git Repositories
+
+## Git Repositories
 
 Clone the git repostories of the software components and place them in a folder next to each other.
 
@@ -36,65 +53,57 @@ git clone https://github.com/curious-containers/cc-faice.git
 git clone https://github.com/curious-containers/cc-agency.git
 ```
 
-# CC-Core
+## Python Packages
 
-Use `poetry` to install Python dependencies in a virtual environment.
+The `cc-core`, `cc-faice` and `cc-agency` packages have complementary dependencies, that can be installed into a single venv.
+Shared dependencies of `cc-faice` and `cc-agency` are defined in `cc-core`.
 
 ```bash
+# activate venv
+source ~/.cache/cc/dev/bin/activate
+
+# add source code folders to PYTHONPATH
+export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
+
+# optional: add PYTHONPATH change to .bashrc to make it permanent
+echo export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:'${PYTHONPATH}' >> .bashrc
+
+# install cc-core dependencies
 cd cc-core
 poetry install
-```
+cd ..
 
-Run CLI modules.
-
-```bash
-poetry run ccagent --help
-```
-
-Most CLI modules in the Curious Containers ecosystem provide subcommands, which have their own `--help` flags for detailed usage information.
-
-```bash
-poetry run ccagent red --help
-```
-
-# CC-FAICE
-
-Use `poetry` to install Python dependencies in a virtual environment.
-
-```bash
+# install cc-faice dependencies
 cd cc-faice
 poetry install
-```
+cd ..
 
-Run CLI modules.
-
-```bash
-PYTHONPATH=../cc-core poetry run faice --help
-```
-
-# CC-Agency
-
-Install additional system packages.
-
-```bash
-sudo dnf install uwsgi uwsgi-plugin-python3 docker-compose
-```
-
-Use `poetry` to install Python dependencies in a virtual environment.
-
-```bash
+# install cc-agency dependencies
 cd cc-agency
 poetry install
+cd ..
 ```
+
+
+Check if commandline tools work as expected.
+
+```bash
+faice --help
+ccagency --help
+```
+
+
+# Running CC-Agency
 
 Run the following components in separate terminals.
 
 
 ## Terminal 1 - MongoDB
 
-Run MongoDB in a Docker container.
+Run MongoDB in a Docker container. Make sure that
 
 ```bash
+cd cc-agency
 docker-compose -f dev/docker-compose.yml up
 ```
 
@@ -108,7 +117,11 @@ A MongoDB admin user account is created automatically by a `mongo-seed` containe
 You can only run one process/thread of CC-Agency Trustee at a time. It provides a central in-memory secrets storage for experiments. If you restart this service all secrets will be lost and unfinished experiments will fail.
 
 ```bash
-PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi-trustee.ini
+source ~/.cache/cc/dev/bin/activate
+export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
+
+cd cc-agency
+uwsgi --ini dev/uwsgi-trustee.ini
 ```
 
 
@@ -117,7 +130,11 @@ PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi-trustee.ini
 You can only run one process/thread of CC-Agency Controller at a time. It provides the central scheduling component, which connectes to a cluster of docker-engines.
 
 ```bash
-PYTHONPATH=../cc-core poetry run ccagency-controller -c dev/cc-agency.yml
+source ~/.cache/cc/dev/bin/activate
+export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
+
+cd cc-agency
+ccagency-controller -c dev/cc-agency.yml
 ```
 
 
@@ -126,7 +143,11 @@ PYTHONPATH=../cc-core poetry run ccagency-controller -c dev/cc-agency.yml
 CC-Agency Broker provides a REST API, to schedule RED experiments, receive agent callbacks and to query information. It informs the Controller about changes via a ZMQ socket. Edit `dev/uwsgi.ini` to increase the number of Broker processes or threads.
 
 ```bash
-PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi-broker.ini
+source ~/.cache/cc/dev/bin/activate
+export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
+
+cd cc-agency
+uwsgi --ini dev/uwsgi-broker.ini
 ```
 
 ## Create Users
@@ -134,7 +155,11 @@ PYTHONPATH=../cc-core poetry run uwsgi --ini dev/uwsgi-broker.ini
 Create users to authenticate with the CC-Agency Broker REST API, with or without admin privileges. Admin privileges can change the behaviour of certain API endpoints.
 
 ```bash
-PYTHONPATH=../cc-core poetry run ccagency create-broker-user -c dev/cc-agency.yml
+source ~/.cache/cc/dev/bin/activate
+export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
+
+cd cc-agency
+ccagency create-broker-user -c dev/cc-agency.yml
 ```
 
 ## Reset Database
@@ -142,6 +167,10 @@ PYTHONPATH=../cc-core poetry run ccagency create-broker-user -c dev/cc-agency.ym
 If you need to reset the database during development, run the following command and specify the collections to be dropped.
 
 ```bash
+source ~/.cache/cc/dev/bin/activate
+export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
+
+cd cc-agency
 COLLECTIONS="experiments batches users tokens block_entries callback_tokens"
-PYTHONPATH=../cc-core poetry run ccagency drop-db-collections -c dev/cc-agency.yml ${COLLECTIONS}
+ccagency drop-db-collections -c dev/cc-agency.yml ${COLLECTIONS}
 ```
