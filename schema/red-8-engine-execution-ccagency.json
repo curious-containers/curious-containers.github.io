@@ -1,0 +1,98 @@
+{
+    "definitions": {
+        "auth": {
+            "oneOf": [
+                {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "username",
+                        "password"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "_username": {
+                            "type": "string"
+                        },
+                        "password": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "_username",
+                        "password"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "username": {
+                            "type": "string"
+                        },
+                        "_password": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "username",
+                        "_password"
+                    ]
+                },
+                {
+                    "type": "object",
+                    "properties": {
+                        "_username": {
+                            "type": "string"
+                        },
+                        "_password": {
+                            "type": "string"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "_username",
+                        "_password"
+                    ]
+                }
+            ]
+        }
+    },
+    "type": "object",
+    "properties": {
+        "access": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string"
+                },
+                "auth": {
+                    "$ref": "#/definitions/auth"
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "url"
+            ]
+        },
+        "retryIfFailed": {
+            "type": "boolean"
+        },
+        "batchConcurrencyLimit": {
+            "type": "integer",
+            "minimum": 1
+        }
+    },
+    "additionalProperties": false
+}

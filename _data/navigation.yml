@@ -17,6 +17,8 @@ docs:
         url: /docs/machine-learning-guide
   - title: "Specs"
     children:
+      - title: "JSON Schema"
+        url: "/docs/json-schema"
       - title: "RED-CWL 0"
         url: "/docs/red-cwl-0"
       - title: "RED-CWL 1"
