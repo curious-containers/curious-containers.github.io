@@ -19,7 +19,7 @@ Make sure you trust the executor of your RED file.
 # Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ssh==1.0
+pip3 install --user --upgrade red-connector-ssh==1.1
 ```
 
 Additionally, if you would like to use [mount-dir](#mount-dir) functionality, the SSHFS CLI tools must be installed.
@@ -101,7 +101,9 @@ Optional. If listing exists, only the specified subdirectories and files are bei
 | host | string | no | | Remote host domain name or IP address |
 | port | integer | yes | 22 | TCP port of SSH service on remote host |
 | auth.username | string | no | | Username |
-| auth.password | string | no | | Password |
+| auth.password | string | yes, if auth.privateKey | | Password |
+| auth.privateKey | string | yes, if auth.password | | SSH Private Key |
+| auth.passphrase | string | yes | | Passphrase for SSH Private Key |
 | dirPath | string | no | | Directory path on remote host |
 | writable | boolean | yes | false | Enable write access to mounted directory |
 
