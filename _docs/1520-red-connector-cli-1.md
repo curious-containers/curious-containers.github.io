@@ -124,8 +124,9 @@ The content of an access file is extracted from the corresponding `connector.acc
 
 ## Subcommand Interfaces
 
-This section shows the possible commandline interface calls of a connector named `example-connector`.
+This section shows the variations of commandline interface calls that a connector must accept if the corresponding functionality is implemented.
 
+The name of the connector executable used in these examples is `example connector`.
 
 ### cli-version
 
@@ -159,22 +160,28 @@ example-connector receive-file-validate /path/to/access.json
 ### receive-dir-validate
 
 ```bash
+# Option 1
 example-connector receive-dir-validate /path/to/access.json
-```
 
-```bash
+# Option 2
 example-connector receive-dir-validate /path/to/access.json --listing /path/to/listing.json
+
+# Option 3
+example-connector receive-dir-validate --listing /path/to/listing.json /path/to/access.json
 ```
 
 
 ### receive-dir
 
 ```bash
+# Option 1
 example-connector receive-dir /path/to/access.json /path/to/input/directory
-```
 
-```bash
+# Option 2
 example-connector receive-dir /path/to/access.json /path/to/input/directory --listing /path/to/listing.json
+
+# Option 3
+example-connector receive-dir --listing /path/to/listing.json /path/to/access.json /path/to/input/directory
 ```
 
 
@@ -216,20 +223,26 @@ example-connector send-file /path/to/access.json /path/to/output/file
 ### send-dir-validate
 
 ```bash
+# Option 1
 example-connector send-dir-validate /path/to/access.json
-```
 
-```bash
+# Option 2
 example-connector send-dir-validate /path/to/access.json --listing /path/to/listing.json
+
+# Option 3
+example-connector --listing /path/to/listing.json send-dir-validate /path/to/access.json
 ```
 
 
 ### send-dir
 
 ```bash
+# Option 1
 example-connector send-dir /path/to/access.json /path/to/output/directory
-```
 
-```bash
+# Option 2
 example-connector send-dir /path/to/access.json /path/to/output/directory --listing /path/to/listing.json
+
+# Option 3
+example-connector send-dir --listing /path/to/listing.json /path/to/access.json /path/to/output/directory
 ```
