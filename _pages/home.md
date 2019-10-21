@@ -45,10 +45,10 @@ If a connector for a certain storage solution does not yet exist, the user can p
 
 CC implements two execution engines that run experiments defined in RED files.
 *CC-FAICE* is simple to install on a local computer and can run one experiment at a time.
-*CC-Agency* is a server side execution engine, that connects to docker-engines in compute cluster for parallel execution, tracks the execution state of scheduled experiments in a database and provides a REST web interface.
+*CC-Agency* is a server side execution engine, that connects to docker-engines in a compute cluster for parallel execution, tracks the execution state of scheduled experiments in a database and provides a REST web interface.
 
 CC and RED support the [FAIR principles](https://www.force11.org/fairprinciples) for reproducible research, that require all experiment resources to be findable, accessible, interoperable and reusable.
-Therefore, the command-line interface (CLI) description of the experiment's script or executable, that is embedded in a RED file, follows the command-line tool specification of the [Common Workflow Language](https://www.commonwl.org/v1.0/CommandLineTool.html) (CWL).
+Therefore, the command-line interface (CLI) description of the experiment's script or executable, that is embedded in a RED file, follows the CommandLine Description of the [Common Workflow Language](https://www.commonwl.org/v1.0/CommandLineTool.html) (CWL).
 This enables portability between CC execution engines and a CWL runtime.
 
 
