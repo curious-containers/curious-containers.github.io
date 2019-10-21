@@ -4,7 +4,7 @@ permalink: /docs/red-cwl-0
 ---
 
 
-RED-CWL 0 is a subset of the CWL 1.0 standard.
+RED-CWL 0 is a subset of the [CWL 1.0 CommandLineTool Description](https://www.commonwl.org/v1.0/CommandLineTool.html).
 RED-CWL 0 is a pre-release version of [RED-CWL 1](/docs/red-cwl-1) and reflects the current implementation status in RED 8.
 
 The CWL reference implementation `cwltool` requires a `*.cwl` file as generic description of CommandLineTool and a `*.yml` job file to define an input object, that contains actual parameters to run the experiment.
@@ -14,6 +14,8 @@ Depending on the RED execution engine, defining an output object might be option
 The RED-CWL description can be extracted from a RED file's `cli` section and stored in a `*.cwl` file.
 Since RED-CWL is a subset of the CWL standard, this extracted description should always be compatible with CWL runtimes like `cwltool`.
 On the other hand, not every CWL description can be embedded into a RED file without modification.
+
+This spec refers to individial sections of the [CWL 1.0 CommandLineTool Description](https://www.commonwl.org/v1.0/CommandLineTool.html) to define wether a certain part of the standard is supported or not.
 
 
 # Data model
