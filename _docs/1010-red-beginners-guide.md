@@ -308,13 +308,16 @@ docker run --rm -u 1000:1000 grepwrap red-connector-ssh --version
 
 The Common Workflow Language (CWL) provides a [syntax](http://www.commonwl.org/v1.0/CommandLineTool.html) for describing a commandline tool's interface (CLI). Curious Containers and the RED format build upon this CLI description syntax, but only support a subset of the CWL specification. In other words, every CWL description compatible with RED is also compatible with the CWL standard (e.g. with [cwltool](https://github.com/common-workflow-language/cwltool), a CWL reference implementation) but not the other way round.
 
-The supported CWL subset is specified as a jsonschema description in the `cc-core` Python package. Use the following `faice` command to show the jsonschema.
+The supported CWL subset is specified as a part of the RED jsonschema description in the `cc-core` Python package.
+Use the following `faice` command to show the jsonschema.
+The relevant section of the schema is `definitions.cli`
 
 ```bash
-faice schema show cwl
+faice schema show red
 ```
 
-You can use `faice schema --help` and `faice schema show --help` to learn more about these subcommands. The `faice schema list` command prints all available schemas.
+You can use `faice schema --help` and `faice schema show --help` to learn more about these subcommands.
+The `faice schema list` command prints all available schemas.
 
 Create a new file and insert the following CWL description with `nano grepwrap.cwl.yml`. Then save and close the file.
 
