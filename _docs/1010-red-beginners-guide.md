@@ -310,7 +310,7 @@ The Common Workflow Language (CWL) provides a [syntax](http://www.commonwl.org/v
 
 The supported CWL subset is specified as a part of the RED jsonschema description in the `cc-core` Python package.
 Use the following `faice` command to show the jsonschema.
-The relevant section of the schema is `definitions.cli`
+The relevant section of the schema is `definitions.cli`.
 
 ```bash
 faice schema show red
