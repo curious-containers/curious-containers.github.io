@@ -4,9 +4,10 @@ permalink: /docs/cc-agency-advanced-configuration
 ---
 
 
-# GPU Nodes
+# GPU Blacklist
 
-If Nvidia GPUs are available on a node, they can be configured as follows.
+Starting with version 8.1.0, CC-Agency will automatically detect available Nvidia GPUs.
+You can exclude certain GPUs from being used by CC-Agency by defining a blacklist.
 
 ```yaml
 controller:
@@ -21,17 +22,12 @@ controller:
             - "/home/cc/.docker/machine/machines/gpu_node1/key.pem"
           assert_hostname: False
         hardware:
-          gpus:
-            - id: 0
-              vram: 1024
-            - id: 1
-              vram: 1024
+          gpu_blacklist:
+            - 0
+            - 1
 ```
 
-This configuration means that two GPUs are present on a node "gpu\_node1". Each GPU has 1024 MB VRAM.
-Currently only Nvidia-GPUs are supported. To make the GPUs accessible for docker, you have to install the proprietary Nvidia GPU driver and the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker) or its predecessor [Nvidia-Docker 2](https://github.com/NVIDIA/nvidia-docker) on each GPU node.
-
-The IDs shown in the configuration, are the nvidia-device-IDs, which can be identified with `nvidia-smi` (see [nvidia-smi](https://developer.nvidia.com/nvidia-system-management-interface)).
+Here `0` and `1` are the GPU IDs as shown by the [/nodes](/docs/cc-agency-api#get-nodes) endpoint of the CC-Agency REST interface.
 
 
 # Notification Hooks
