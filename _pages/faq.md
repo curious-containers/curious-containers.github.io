@@ -6,7 +6,7 @@ toc: true
 toc_label: "Table of Contents"
 ---
 
-If you have another **question** please open an [issue on Github](https://github.com/curious-containers/curious-containers/issues). Please note that we only accept issues in the [meta project](https://github.com/curious-containers/curious-containers).
+If you have another **question** please open an issue in the [curious-containers](https://github.com/curious-containers/curious-containers/issues) project on Github.
 
 
 ## What is the purpose of the Curious Containers project?
