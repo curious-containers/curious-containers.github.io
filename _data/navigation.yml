@@ -65,7 +65,7 @@ docs:
         url: /docs/cc-agency-advanced-configuration
   - title: "Developer Docs"
     children:
-      - title: "Source Code Repositories"
-        url: /docs/source-code-repositories
+      - title: "Developer Resources"
+        url: /docs/developer-resources
       - title: "Source Code Setup"
         url: /docs/source-code-setup
