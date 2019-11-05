@@ -21,7 +21,7 @@ RED connector FTP Archive is included with RED connector FTP. For installation i
 | archiveFormat | enum: zip, tar, gztar, bztar, xztar | no | | Archive format supported by Python 3 shutil |
 
 ```yaml
-command: "red-connector-ftp"
+command: "red-connector-ftp-archive"
 access:
   url: "ftp://example.com/files/data.tar.gz"
   archiveFormat: "gztar"
