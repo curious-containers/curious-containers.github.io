@@ -53,18 +53,6 @@ gunzip *.h5.gz
 When following the tutorial, you have to **replace** all occurrences of `/data/ldap/histopathologic/original_read_only/PCAM_extracted` with `PCAM` and all occurrences of `avocado01.f4.htw-berlin.de` with your own SSH server.
 
 
-## Create Log Directory
-
-Create an empty `cnn-training/log` directory on in your SSH user's home directory, such that it can be mounted via SSHFS later.
-
-```bash
-SSH_USERNAME=christoph
-SSH_HOST=avocado01.f4.htw-berlin.de
-ssh ${SSH_USERNAME}@${SSH_HOST}
-mkdir -p cnn-training/log
-```
-
-
 # Training Experiment
 
 This part of the guide describes the setup of the experiment.
@@ -302,7 +290,7 @@ RUN mkdir -p /home/cc/.local/bin
 RUN python3 -m venv /home/cc/.local/red \
 && . /home/cc/.local/red/bin/activate \
 && pip install wheel \
-&& pip install red-connector-ssh==1.1 \
+&& pip install red-connector-ssh==1.2 \
 && ln -s /home/cc/.local/red/bin/red-connector-* /home/cc/.local/bin
 
 # install app

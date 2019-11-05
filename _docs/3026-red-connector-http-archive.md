@@ -1,9 +1,9 @@
 ---
-title: "RED Connector HTTP JSON"
+title: "RED Connector HTTP Archive"
 permalink: /docs/red-connector-http-archive
 ---
 
-This connector can be used to receive an archive file via HTTP and HTTPS connections and then extract it into a directory. This connector is a variant of [RED Connector HTTP](/docs/red-connector-http) connector.
+This connector can be used to receive an archive file via HTTP and HTTPS connections and then extract it into a directory. This connector is a variant of [RED Connector HTTP](/docs/red-connector-http).
 
 **Current CLI version**: 1
 

@@ -41,16 +41,20 @@ docs:
         url: /docs/versioning
   - title: "User Docs"
     children:
-      - title: "RED Connector: SSH"
+      - title: "RED Connector SSH"
         url: /docs/red-connector-ssh
-      - title: "RED Connector: HTTP"
+      - title: "RED Connector HTTP"
         url: /docs/red-connector-http
-      - title: "RED Connector: HTTP JSON"
+      - title: "RED Connector HTTP JSON"
         url: /docs/red-connector-http-json
-      - title: "RED Connector: HTTP Archive"
+      - title: "RED Connector HTTP Archive"
         url: /docs/red-connector-http-archive
-      - title: "RED Connector: XNAT"
+      - title: "RED Connector XNAT"
         url: /docs/red-connector-xnat
+      - title: "RED Connector FTP"
+        url: /docs/red-connector-ftp
+      - title: "RED Connector FTP Archive"
+        url: /docs/red-connector-ftp-archive
       - title: "RED Container Engines"
         url: /docs/red-container-engines
       - title: "RED Execution Engines"
