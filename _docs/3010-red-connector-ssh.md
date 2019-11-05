@@ -8,7 +8,7 @@ RED Connector SSH is currently the only complete connector implementation for Cu
 **Current CLI version**: 1
 
 
-## Important Security Information
+# Important Security Information
 
 In order to access the requested data, this connector creates a ssh connection to the host.
 To make this work the connector requires a password or a valid private key to connect to the host.
