@@ -435,7 +435,7 @@ cwltool ./grepwrap.cwl.yml ./job.yml
 
 The CWL `job.yml` has been used to reference input files in the local file system. To achieve reproducibility accross different computers, all input files should be accessed via network protocols instead of local filesystem paths.
 
-Unfortunately, the CWL `location` keyword in a job file can only hold a single URI (e.g. `http://example.com`), which is a limiting factor when connecting to a non-standard API is required (e.g. the REST API of [XNAT](https://www.xnat.org/) 1.6.5 is not stateless and requires explicit session deletion). RED execution engines like CC-FAICE therefore use dedicated connector programs provided by the user as part of the container image. If you go back to [Container Image](#container-image) section, you can see that `red-connector-http` is used in this guide, but other connector implementations for various network protocols exist.
+Unfortunately, the CWL `location` keyword in a job file can only hold a single URI (e.g. `http://example.com`), which is a limiting factor when connecting to a non-standard API is required (e.g. the REST API of [XNAT](https://www.xnat.org/) 1.6.5 is not stateless and requires explicit session deletion). RED Execution Engines like CC-FAICE therefore use dedicated connector programs provided by the user as part of the container image. If you go back to [Container Image](#container-image) section, you can see that `red-connector-http` is used in this guide, but other connector implementations for various network protocols exist.
 
 Create a new file and insert the following RED data with `nano grepwrap.red.yml`.
 
@@ -503,7 +503,7 @@ This RED file contains five sections:
 * `cli`: contains the application's CLI description in CWL format, without a `requirements` section
 * `inputs`: is similar to a CWL job description, but requires RED connectors
 * `container`: container engine settings to replace the `requirements.DockerRequirement` section of CWL
-* `execution`: set the RED execution engine to be `ccfaice`.
+* `execution`: set the RED Execution Engine to be `ccfaice`.
 
 
 The RED inputs format is very similar to a CWL job. Note that the `connector` keyword replaces CWL's `location`.
@@ -524,7 +524,7 @@ The output file will be automatically copied from the container filesystem to th
 
 ## Upload Output to a Remote Destination
 
-As demonstrated in this guide, the RED execution engine of CC-FAICE will copy the `out.txt` file to the local filesystem for the user to inspect.
+As demonstrated in this guide, the RED Execution Engine of CC-FAICE will copy the `out.txt` file to the local filesystem for the user to inspect.
 This is a convenience feature of CC-FAICE, that is not available in other execution engines like CC-Agency.
 Instead, output files and directories should be uploaded to a remote server location using connectors.
 
