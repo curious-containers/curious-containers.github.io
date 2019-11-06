@@ -427,7 +427,7 @@ requirements:
 
 This allows you to run cwltool without the `--disable-pull` flag.
 
-```yaml
+```bash
 cwltool ./grepwrap.cwl.yml ./job.yml
 ```
 
