@@ -120,7 +120,7 @@ They will be stored as:
 
 
 ```yaml
-command: "red-connector-httpdirfs"
+command: "red-connector-http"
 mount: true
 access:
   url: "http://example.com/files"
