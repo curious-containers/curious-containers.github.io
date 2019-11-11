@@ -13,7 +13,7 @@ Docker makes it possible to run the applications specified in the RED file in an
 
 ## Nvidia GPUs
 
-If you are using the RED execution engine `faice agent red` from CC-FAICE and want your application to use Nvidia GPUs for CUDA support, you have to install the proprietary Nvidia GPU driver and the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker) or its predecessor [Nvidia-Docker 2](https://github.com/NVIDIA/nvidia-docker).
+If you are using the local RED execution engine `ccfaice` and want your application to use Nvidia GPUs for CUDA support, you have to install the proprietary Nvidia GPU driver and the [Nvidia Container Toolkit](https://github.com/NVIDIA/nvidia-docker) or its predecessor [Nvidia-Docker 2](https://github.com/NVIDIA/nvidia-docker).
 
 It is not required to have CUDA installed on the host operating system, but it must be installed in the container image. See the [CUDA](/docs/container-images#cuda) section in the container images documentation for more information on building compatible images.
 
