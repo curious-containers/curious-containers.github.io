@@ -552,8 +552,8 @@ outputs:
 
 Please note, that `{{ssh_username}}` and `{{ssh_password}}` are [variables](/docs/red-format-protecting-credentials).
 This is a powerful feature of RED, that allows you to share or publish these files, even if the configuration requires authentication credentials.
-The `faice agent red` and `faice exec` commands will interactively ask you to fill in this information on the command-line.
-You have the option to store these values in a keyring application, if one is installed on your system.
+The RED client `faice exec` will interactively ask you to fill in this information on the command-line.
+You have the option to store these values in a keyring service, if one is installed on your system.
 {% endraw %}
 
 Please note, that CC will **not** use any SSH private keys that are stored on your system.
