@@ -21,8 +21,6 @@ docs:
         url: "/docs/json-schema"
       - title: "RED-CWL 0"
         url: "/docs/red-cwl-0"
-      - title: "RED-CWL 1"
-        url: "/docs/red-cwl-1"
       - title: "RED Connector CLI 1"
         url: "/docs/red-connector-cli-1"
   - title: "General Docs"
