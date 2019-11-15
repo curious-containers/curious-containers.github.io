@@ -121,7 +121,7 @@ Not supported.
 
 | Symbol | Supported | Description |
 | --- | --- | --- |
-| null | no | |
+| null | yes | |
 | boolean | yes | |
 | int | yes | |
 | long | yes | |
