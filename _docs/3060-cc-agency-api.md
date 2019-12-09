@@ -32,6 +32,7 @@ yaml = YAML(typ='safe')
 | /batches/count | [GET](#get-batchescount) |
 | /batches | [GET](#get-batches) |
 | /batches/BATCH_ID | [GET](#get-batchesbatch_id), [DELETE](#delete-batchesbatch_id) |
+| /batches/BATCH_ID/FILENAME | [GET](#get-batchesbatch_idfilename) |
 | /nodes | [GET](#get-nodes) |
 
 # GET /
@@ -200,7 +201,7 @@ with open('red.yml') as f:
 
 requests.post(
     'https://example.com/red',
-    auth=(guest, guest),
+    auth=('guest', 'guest'),
     json=red
 )
 ```
@@ -229,7 +230,7 @@ Request (Python):
 ```python
 requests.get(
     'https://example.com/experiments/count',
-    auth=(guest, guest)
+    auth=('guest', 'guest')
 )
 ```
 
@@ -260,7 +261,7 @@ Request (Python):
 ```python
 requests.get(
     'https://example.com/experiments?ascending=true&limit=10',
-    auth=(guest, guest)
+    auth=('guest', 'guest')
 )
 ```
 
@@ -276,7 +277,7 @@ Request (Python):
 ```python
 requests.get(
     'https://example.com/experiments/5b7b2c98aafce967d9e2709b',
-    auth=(guest, guest)
+    auth=('guest', 'guest')
 )
 ```
 
@@ -301,7 +302,7 @@ Request (Python):
 ```python
 requests.get(
     'https://example.com/batches/count',
-    auth=(guest, guest)
+    auth=('guest', 'guest')
 )
 ```
 
@@ -335,7 +336,7 @@ Request (Python):
 ```python
 requests.get(
     'https://example.com/batches?ascending=true&limit=10',
-    auth=(guest, guest)
+    auth=('guest', 'guest')
 )
 ```
 
@@ -351,7 +352,7 @@ Request (Python):
 ```python
 requests.get(
     'https://example.com/batches/5b7b2c98aafce967d9e2709c',
-    auth=(guest, guest)
+    auth=('guest', 'guest')
 )
 ```
 
@@ -367,7 +368,25 @@ Request (Python):
 ```python
 requests.delete(
     'https://example.com/batches/5b7b2c98aafce967d9e2709c',
-    auth=(guest, guest)
+    auth=('guest', 'guest')
+)
+```
+
+
+# GET /batches/BATCH_ID/FILENAME
+
+Get the stdout/stderr of the batch by its `batchId`. The stdout/stderr files are only provided, if the given batch failed
+or if the user specified the `cli.stdout`/`cli.stderr` files in the RED experiment.
+
+To get the stdout of the user process use `/batches/BATCH_ID/stdout`. To get the stderr of the user process use `/batches/BATCH_ID/stderr`.
+Using the filename(s) specified in the RED file will **not** work.
+
+*Hint: Users without admin priviliges will only receive information about their own database entries.*
+
+```python
+requests.get(
+    'https://example.com/batches/5b7b2c98aafce967d9e2709c/stdout',
+    auth=('guest', 'guest')
 )
 ```
 
