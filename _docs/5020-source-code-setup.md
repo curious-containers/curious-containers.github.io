@@ -43,22 +43,15 @@ source ~/.poetry/env
 ```
 
 
-## Git Repositories
-
-Clone the git repostories of the software components and place them in a folder next to each other.
-
-```bash
-git clone https://github.com/curious-containers/cc-core.git
-git clone https://github.com/curious-containers/cc-faice.git
-git clone https://github.com/curious-containers/cc-agency.git
-```
-
 ## Python Packages
 
 The `cc-core`, `cc-faice` and `cc-agency` packages have complementary dependencies, that can be installed into a single venv.
 Shared dependencies of `cc-faice` and `cc-agency` are defined in `cc-core`.
 
 ```bash
+git clone https://github.com/curious-containers/curious-containers.git
+cd curious-containers
+
 # activate venv
 source ~/.cache/cc/dev/bin/activate
 
@@ -66,7 +59,7 @@ source ~/.cache/cc/dev/bin/activate
 export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
 
 # optional: add PYTHONPATH change to .bashrc to make it permanent
-echo export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:'${PYTHONPATH}' >> .bashrc
+echo export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:'${PYTHONPATH}' >> ~/.bashrc
 
 # install cc-core dependencies
 cd cc-core
@@ -83,7 +76,6 @@ cd cc-agency
 poetry install
 cd ..
 ```
-
 
 Check if commandline tools work as expected.
 

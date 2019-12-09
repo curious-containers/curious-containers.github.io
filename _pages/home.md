@@ -29,7 +29,7 @@ As an introduction (in german), watch the following [talk at the deRSE 2019](htt
 
 ## Issues and Feedback
 
-If you have problems or want to give feedback, please open an issue in the [curious-containers](https://github.com/curious-containers/curious-containers/issues) meta project on Github. Issue trackers of every other repository are closed.
+If you have problems or want to give feedback, please open an issue in the [curious-containers](https://github.com/curious-containers/curious-containers/issues) project on Github. Issue trackers of every other repository are closed.
 
 
 ## How it works

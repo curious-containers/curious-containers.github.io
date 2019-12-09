@@ -3,25 +3,21 @@ title: "RED Execution Engines"
 permalink: /docs/red-execution-engines
 ---
 
-A RED execution engine is a software, which executes an experiment based on a given RED file. Two execution engines are
-implemented by the Curious Containers project: the `faice agent red` command included in the CC-FAICE package and
-CC-Agency.
-
+A RED execution engine is a software, that executes an experiment based on a given RED file.
+Two execution engines are implemented by the Curious Containers project:
+The CC-FAICE toolsuite includes a local execution engine and CC-Agency implements a remote execution engine.
 Both execution engines implement the [Docker container engine](/docs/red-container-engines).
 
-Use `faice exec` CLI tool to automatically invoke the engine specified in your RED file for execution.
+The RED client `faice exec` is also part of the CC-FAICE toolsuite and is used to send the experiment to one of the two execution engines.
 
 
 # CC-FAICE
 
-Set `execution.engine` as `ccfaice`in your RED file, then use `faice exec red.yml`. This is equivalent to `faice agent red --debug red.yml`, if no output connectors are specified, or to `faice agent red --debug --outputs red.yml`, if output connectors are specified in the RED file.
+Set `execution.engine` as `ccfaice` in your RED file `red.yml` and invoke the RED client.
 
 ```bash
-
+faice exec red.yml
 ```
-
-If you want more control over `faice agent red`, you should invoke it directly.
-
 
 ## Example Configuration
 
@@ -39,8 +35,13 @@ Not available. Insert empty dict, for `ccfaice` engine settings.
 
 # CC-Agency
 
-Set `execution.engine` as `ccagency`, which allows `faice exec` to contact the CC-Agency Broker REST interface
-(`${url}/red`) to register the experiment on your behalf.
+Set `execution.engine` as `ccagency` in your RED file `red.yml` and invoke the RED client.
+
+```bash
+faice exec red.yml
+```
+
+The RED client will contact the CC-Agency Broker REST interface (`${url}/red`) to register the experiment on your behalf.
 
 
 ## Example Configuration
