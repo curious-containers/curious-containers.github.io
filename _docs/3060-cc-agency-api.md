@@ -375,10 +375,13 @@ requests.delete(
 
 # GET /batches/BATCH_ID/FILENAME
 
-Get the stdout/stderr of the batch by its `batchId`. The stdout/stderr files are only provided, if the given batch failed
-or if the user specified the `cli.stdout`/`cli.stderr` files in the RED experiment.
+Get the stdout/stderr of the user process of the batch with the given `batchId`.
 
-To get the stdout of the user process use `/batches/BATCH_ID/stdout`. To get the stderr of the user process use `/batches/BATCH_ID/stderr`.
+The stdout/stderr files are only provided, if the given batch failed or if the
+user specified the `cli.stdout`/`cli.stderr` files in the RED experiment.
+
+To get the stdout of the user process use `/batches/BATCH_ID/stdout`.
+To get the stderr of the user process use `/batches/BATCH_ID/stderr`.
 Using the filename(s) specified in the RED file will **not** work.
 
 *Hint: Users without admin priviliges will only receive information about their own database entries.*
