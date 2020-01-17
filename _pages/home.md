@@ -59,18 +59,9 @@ Available NVIDIA graphics processing units are accessible in Docker containers u
 Large training data directories, that are multiple terabytes in size, can be mounted via [FUSE](https://de.wikipedia.org/wiki/Filesystem_in_Userspace).
 
 
-## The Road to RED 10
+## Stability
 
-In the past, Curious Containers was mainly a research project to develop ideas and try new concepts in the context of computational reproducibility. Our existing file formats and software components are considered BETA releases.
-
-It is now time to stabilize the ecosystem as a major step towards long-term reproducibility. RED 10 will be the first stable release, such that experiments defined in the RED 10 format will be supported in all future Curious Containers software releases.
-
-
-### RED 10 Pre-Releases
-
-We have released RED 8, that includes the RED Connector CLI 1 specification. Therefore container images and their installed RED connectors, that are prepared to work with RED 8, will be compatible with all future RED versions.
-
-With RED 9, we will move from the CWL 1.0 to the CWL 1.1 standard. RED 9 will be tested extensively without many additional changes, hopefully leading to a rock solid RED 10 release.
+The upcoming release of RED 9 will be the first stable version of this format. RED 9 will be supported from Curious Containers 9 onwards.
 
 
 ## Acknowledgements
