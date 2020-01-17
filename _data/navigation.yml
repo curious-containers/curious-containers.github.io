@@ -35,8 +35,6 @@ docs:
         url: /docs/cc-faice
       - title: "CC-Agency"
         url: /docs/cc-agency
-      - title: "Versioning"
-        url: /docs/versioning
   - title: "User Docs"
     children:
       - title: "RED Connector SSH"
