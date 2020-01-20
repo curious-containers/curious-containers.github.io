@@ -61,7 +61,8 @@ Large training data directories, that are multiple terabytes in size, can be mou
 
 ## Stability
 
-The upcoming release of RED 9 will be the first stable version of this format. RED 9 will be supported from Curious Containers 9 onwards.
+Version 9 is the first stable release of RED and the Curious Containers framework.
+Support for RED 9 will continue in future versions of Curious Containers, even if an updated RED format is released.
 
 
 ## Acknowledgements
