@@ -71,6 +71,13 @@ pip install cc-faice==9.*
 faice --version
 ```
 
+### Troubleshooting
+
+If you are using `faice exec` to run an experiment and get an error message related to "npipe" support, then the Python package "pywin32" is not installed properly.
+Follow the [setup instructions of pywin32](https://github.com/mhammond/pywin32#installing-via-pip) and run the post-install script in an admin shell.
+The functionality is required to connect to Docker for Windows.
+As an alternative, configure Docker for Windows to expose a TCP port on localhost and configure your `DOCKER_HOST` environment variable to point to the exposed Docker service before running `faice exec`.
+
 
 ## Option 4: Vagrant VM Setup
 
