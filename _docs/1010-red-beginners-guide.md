@@ -10,7 +10,7 @@ This tutorial explains how to create a reproducible data-driven experiment and h
 
 Curious Containers is best supported on Linux distributions and all experiments run as CLI tools in Linux containers using Docker.
 
-From the Curious Container 8 release onwards, CC-FAICE supports Mac using [Docker for Mac](https://docs.docker.com/docker-for-mac/). Please note, that Docker for Mac internally uses a virtual machine to run Linux containers.
+From the Curious Containers 8 release onwards, CC-FAICE supports Mac using [Docker for Mac](https://docs.docker.com/docker-for-mac/). From the Curious Containers 9 release onwards, CC-FAICE supports Windows using [Docker for Windows](https://docs.docker.com/docker-for-windows/). Both, Docker for Mac and Docker for Windows, internally use a virtual machines to run Linux containers.
 
 The last section of this guide, [Upload Output to a Remote Destination](#upload-output-to-a-remote-destination), requires you to have write access to an arbitrary SSH server.
 
@@ -25,7 +25,7 @@ On Ubuntu 18.04:
 sudo groupadd docker
 sudo usermod -aG docker $(whoami)  # before docker install to avoid reboot
 sudo apt-get update
-sudo apt-get install nano python3 python3-pip python3-venv git docker.io
+sudo apt-get install nano python3 python3-pip python3-venv docker.io
 ```
 
 On Fedora 30:
@@ -33,7 +33,7 @@ On Fedora 30:
 ```bash
 sudo groupadd docker
 sudo usermod -aG docker $(whoami)  # before docker install to avoid reboot
-sudo dnf install nano python3 python3-pip python3-venv git moby-engine
+sudo dnf install nano python3 python3-pip python3-venv moby-engine
 ```
 
 Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
@@ -50,14 +50,15 @@ The `docker.io` or `moby-engine` versions from your Linux distribution's package
 3. Install required packages via `brew`.
 
 ```bash
-brew install nano python git
+brew install nano python
 ```
 
 
 ## Option 3: Windows Setup
 
-Windows support is planned for the upcoming Curious Container 8.1 release.
-As of now, please skip to [Option 4](#option-4-vagrant-vm-setup) or use a different virtualization technology, like [Hyper-V](https://docs.microsoft.com/en-us/windows-server/virtualization/hyper-v/supported-ubuntu-virtual-machines-on-hyper-v) or [Windows Subsystem for Linux 2 (WSL2)](https://devblogs.microsoft.com/commandline/wsl-2-is-now-available-in-windows-insiders/).
+1. [Install Docker for Windows](https://docs.docker.com/docker-for-windows/install/).
+    * Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
+2. [Install Python](https://www.python.org/downloads/windows/).
 
 
 ## Option 4: Vagrant VM Setup
@@ -137,7 +138,7 @@ python3 -m venv ~/.local/red-guide/cc-faice
 
 # install packages
 pip install wheel
-pip install cc-faice==8.*
+pip install cc-faice==9.*
 
 # deactivate venv
 deactivate
@@ -284,9 +285,9 @@ As can be seen in the Dockerfile, we extend a slim Debian image from the officia
 To improve reproducibility, you should always add a very specific tag like `9.5-slim` or an [image digest](https://docs.docker.com/engine/reference/commandline/images/#list-image-digests).
 
 As a first step, `python3-venv` is installed from Debian repositories which is used to create a Python virtual environment for the connectors.
-Then a new user `cc` is created. The name of this user is not relevant, but since it is the first user created in this image, user id and group id `1000` will be assigned.
-This is important, because CC-FAICE will always start a container with `uid:gid` set to `1000:1000`.
-As a next step the Dockerfile switches to the `cc` user and installs RED connectors into a virtual environment using `pip`.
+Then a new unprivileged user `cc` is created. The name of this user is not relevant.
+CC-FAICE will always start a container as the user last set by the `USER` keyword in a Dockerfile.
+As a next step the RED connectors in a virtual environment using `pip`.
 The `red-connector-http` and `red-connector-ssh` programs will be used to use to transfer data into and out of the Docker container when using a CC exectuion engine.
 As a last step the `grepwrap` application is added to the image.
 Please note, that the `ENV` command sets the `PATH` variable, such that `grepwrap` and the connectors are executable from any working directory.
@@ -303,10 +304,10 @@ Use `docker image list` to check if the new image exists.
 To check if the container image is configured correctly, try running the installed commands in a container based on the new image.
 
 ```bash
-docker run --rm -u 1000:1000 grepwrap whoami  # should print cc
-docker run --rm -u 1000:1000 grepwrap grepwrap --help
-docker run --rm -u 1000:1000 grepwrap red-connector-http --version
-docker run --rm -u 1000:1000 grepwrap red-connector-ssh --version
+docker run --rm grepwrap whoami  # should print cc
+docker run --rm grepwrap grepwrap --help
+docker run --rm grepwrap red-connector-http --version
+docker run --rm grepwrap red-connector-ssh --version
 ```
 
 
@@ -440,7 +441,7 @@ Unfortunately, the CWL `location` keyword in a job file can only hold a single U
 Create a new file and insert the following RED data with `nano grepwrap.red.yml`.
 
 ```yaml
-redVersion: "8"
+redVersion: "9"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"

@@ -106,8 +106,8 @@ Response (JSON):
 
 ```json
 {
-    "agencyVersion": "8.0.0",
-    "coreVersion": "8.0.0"
+    "agencyVersion": "9.0.0",
+    "coreVersion": "9.0.0"
 }
 ```
 
@@ -125,7 +125,7 @@ Additionally **required** fields:
 File red.yml:
 
 ```yaml
-redVersion: "8"
+redVersion: "9"
 cli:
   cwlVersion: "v1.0"
   class: "CommandLineTool"
@@ -189,7 +189,6 @@ outputs:
 execution:
   engine: "ccagency"
   settings:
-    retryIfFailed: True
     batchConcurrencyLimit: 8
 ```
 
@@ -210,6 +209,20 @@ Response (JSON):
 
 ```json
 {"experimentId": "5b7b30f2aafce97767a50a95"}
+```
+
+URL arguments:
+
+| Argument | Type | Optional | Default | Description |
+| --- | --- | --- | --- | --- |
+| disableRetry | boolean | yes | 0 (false) | Debug option to not retry the execution of a failed batch |
+
+```python
+requests.post(
+    'https://example.com/red?disableRetry=1',
+    auth=('guest', 'guest'),
+    json=red
+)
 ```
 
 

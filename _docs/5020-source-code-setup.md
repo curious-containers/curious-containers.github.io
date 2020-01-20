@@ -45,8 +45,7 @@ source ~/.poetry/env
 
 ## Python Packages
 
-The `cc-core`, `cc-faice` and `cc-agency` packages have complementary dependencies, that can be installed into a single venv.
-Shared dependencies of `cc-faice` and `cc-agency` are defined in `cc-core`.
+The Python packages of Curious Containers have complementary dependencies, that can be installed into a single venv.
 
 ```bash
 git clone https://github.com/curious-containers/curious-containers.git
@@ -55,24 +54,26 @@ cd curious-containers
 # activate venv
 source ~/.cache/cc/dev/bin/activate
 
-# add source code folders to PYTHONPATH
-export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
-
-# optional: add PYTHONPATH change to .bashrc to make it permanent
-echo export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:'${PYTHONPATH}' >> ~/.bashrc
-
-# install cc-core dependencies
-cd cc-core
-poetry install
-cd ..
-
-# install cc-faice dependencies
+# install packages via poetry
+# the order of installation matters, because otherwise poetry replaces the source code installation of a package (egg)
+# with the PyPI version of a package
 cd cc-faice
 poetry install
 cd ..
 
-# install cc-agency dependencies
 cd cc-agency
+poetry install
+cd ..
+
+cd cc-core
+poetry install
+cd ..
+
+cd red-val
+poetry install
+cd ..
+
+cd red-fill
 poetry install
 cd ..
 ```
@@ -110,7 +111,6 @@ You can only run one process/thread of CC-Agency Trustee at a time. It provides 
 
 ```bash
 source ~/.cache/cc/dev/bin/activate
-export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
 
 cd cc-agency
 uwsgi --ini dev/uwsgi-trustee.ini
@@ -123,7 +123,6 @@ You can only run one process/thread of CC-Agency Controller at a time. It provid
 
 ```bash
 source ~/.cache/cc/dev/bin/activate
-export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
 
 cd cc-agency
 ccagency-controller -c dev/cc-agency.yml
@@ -136,7 +135,6 @@ CC-Agency Broker provides a REST API, to schedule RED experiments, receive agent
 
 ```bash
 source ~/.cache/cc/dev/bin/activate
-export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
 
 cd cc-agency
 uwsgi --ini dev/uwsgi-broker.ini
@@ -148,7 +146,6 @@ Create users to authenticate with the CC-Agency Broker REST API, with or without
 
 ```bash
 source ~/.cache/cc/dev/bin/activate
-export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
 
 cd cc-agency
 ccagency create-broker-user -c dev/cc-agency.yml
@@ -160,7 +157,6 @@ If you need to reset the database during development, run the following command 
 
 ```bash
 source ~/.cache/cc/dev/bin/activate
-export PYTHONPATH=$(pwd)/cc-core:$(pwd)/cc-faice:$(pwd)/cc-agency:${PYTHONPATH}
 
 cd cc-agency
 COLLECTIONS="experiments batches users tokens block_entries callback_tokens"

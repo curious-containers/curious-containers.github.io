@@ -7,7 +7,7 @@ main:
 docs:
   - title: "Release"
     children:
-      - title: "Version 8"
+      - title: "Version 9"
         url: /docs/release
   - title: "Guides"
     children:

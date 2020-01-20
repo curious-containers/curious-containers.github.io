@@ -93,7 +93,7 @@ Install Python packages for user `cc`.
 python3 -m venv ~/ccagency-venv
 . ~/ccagency-venv/bin/activate
 pip install wheel
-pip install --upgrade cc-agency==8.*
+pip install --upgrade cc-agency==9.*
 ```
 
 Run CLI tool.

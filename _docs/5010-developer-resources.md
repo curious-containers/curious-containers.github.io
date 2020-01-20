@@ -9,7 +9,7 @@ toc: false
 # Git Repositories
 
 * [curious-containers](https://github.com/curious-containers/curious-containers)
-    * source code of `cc-core`, `cc-faice` and `cc-agency` Python packages
+    * source code of `red-val`, `red-fill`, `cc-core`, `cc-faice` and `cc-agency` Python packages
     * issue tracker
 * [curious-containers.github.io](https://github.com/curious-containers/curious-containers.github.io)
     * source code of this website

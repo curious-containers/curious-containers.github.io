@@ -4,7 +4,7 @@ permalink: /docs/release
 toc: false
 ---
 
-The documentation refers to release version `8`.
+The documentation refers to release version `9`.
 
 If you need an older version of this documentation go to the [curious-containers.github.io](https://github.com/curious-containers/curious-containers.github.io) software repository.
 
@@ -14,10 +14,10 @@ All CC Python package versions consist of three distict numbers separated by `.`
 The first number refers to the supported RED version.
 
 For **users** only this RED version is relevant.
-For example, if `redVersion: "8"` is set in a RED file, install `cc-faice` 8.x.y as follows.
+For example, if `redVersion: "9"` is set in a RED file, install `cc-faice` 8.x.y as follows.
 
 ```bash
-pip3 install --user --upgrade cc-faice==8.*
+pip3 install --user --upgrade cc-faice==9.*
 ```
 
 If you want to send an experiment to CC-Agency it must also match the RED version.

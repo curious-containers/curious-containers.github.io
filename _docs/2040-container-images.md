@@ -8,13 +8,18 @@ The following sections show how to prepare a Docker container image for RED.
 
 # Docker
 
-There are many ways to build a Docker image. In our examples we chose `docker.io/debian:9.5-slim` as a base image, because it is relatively small and dependencies can easily be installed from the Debian package repositories via `apt-get install`. A POSIX shell (`/bin/sh`), as it is preconfigured in most images, and a Python3 interpreter (version >= 3.4), must be installed.
+There are many ways to build a Docker image.
+In our examples we chose `docker.io/debian:9.5-slim` as a base image, because it is relatively small and dependencies can easily be installed from the Debian package repositories via `apt-get install`. A POSIX shell (`/bin/sh`), as it is preconfigured in most images, and a Python3 interpreter (version >= 3.4), must be installed.
 
-For the image to be used effectively, RED connector commandline applications have to be installed. In order to use any of the standard connectors provided by the Curious Containers project, a Python3 interpreter must be installed as well. Since Docker provides a clean environment by default, we have to set the `PATH` environment variables explicitely. Please note, that your own application also needs to be located in a directory which is included in `PATH`.
+For the image to be used effectively, RED connector commandline applications have to be installed.
+In order to use any of the standard connectors provided by the Curious Containers project, a Python3 interpreter must be installed as well. Since Docker provides a clean environment by default, we have to set the `PATH` environment variables explicitely.
+Please note, that your own application also needs to be located in a directory which is included in `PATH`.
 
-Another requirement is, that the application and the RED connectors are executed as user with uid:gid set to `1000:1000`. The debian base image does not have such a user configured. We can therefore create the first user called `cc`, wich will by default be assigned the uid:gid pair `1000:1000`. Please note, that the user's name does not matter.
+Another requirement is, that the application and the RED connectors are executed as the user last set by the `USER` keyword in a Dockerfile.
+Please note, that the user's name does not matter.
 
-The Dockerfile below does not include an application. For a more complete example we advise you to work through the [RED Beginner's Guide](/docs/red-beginners-guide).
+The Dockerfile below does not include an application.
+For a more complete example we advise you to work through the [RED Beginner's Guide](/docs/red-beginners-guide).
 
 ```docker
 FROM docker.io/debian:9.5-slim
@@ -46,10 +51,10 @@ After adding your own application to the Dockerfile, create the image using the 
 docker build -t docker.io/myorganization/myimage .
 ```
 
-To check your image, you can run a container based on the image with uid:gid `1000:1000`.
+To check your image, you can run a container based on the image.
 
 ```bash
-docker run --rm -u 1000:1000 docker.io/myorganization/myimage red-connector-http --version
+docker run --rm docker.io/myorganization/myimage red-connector-http --version
 ```
 
 As you can see, we tagged the image with a URL, pointing to a location in the `docker.io` registry, also known as [DockerHub](https://hub.docker.com/). If you want to share your experiment with others or to execute it in a compute cluster via CC-Agency, you have to push your locally created image to a Docker registry. You can either use a public or paid organization on DockerHub or setup a private Docker registry on your own server.

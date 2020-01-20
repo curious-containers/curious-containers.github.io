@@ -310,9 +310,9 @@ You can build a new image and push it to the DockerHub registry using the follow
 ```bash
 IMAGE=docker.io/curiouscontainers/cnn-training
 docker build --tag ${IMAGE} .
-docker run --rm -u 1000:1000 ${IMAGE} cnn-training.py --help
-docker run --rm -u 1000:1000 ${IMAGE} red-connector-ssh --version
-docker run --rm -u 1000:1000 ${IMAGE} sshfs --version
+docker run --rm ${IMAGE} cnn-training.py --help
+docker run --rm ${IMAGE} red-connector-ssh --version
+docker run --rm ${IMAGE} sshfs --version
 docker push ${IMAGE}
 ```
 
@@ -397,7 +397,7 @@ with open('cnn-training.cwl.json') as f:
     cli = json.load(f)
 
 red = {
-    'redVersion': '8',
+    'redVersion': '9',
     'cli': cli,
     'batches': batches,
     'container': {
