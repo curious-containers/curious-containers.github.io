@@ -56,9 +56,20 @@ brew install nano python
 
 ## Option 3: Windows Setup
 
+Please note, that while CC-FAICE runs on Windows, this guide is written for Bash on Linux or Mac.
+CMD and Powershell on Windows require a different syntax.
+Therefore you can only follow along this guide, if you are able to translate the code samples.
+
 1. [Install Docker for Windows](https://docs.docker.com/docker-for-windows/install/).
     * Use `docker info`, to verify that the Docker daemon is running and that your user is allowed to connect.
-2. [Install Python](https://www.python.org/downloads/windows/).
+2. [Install Miniconda3](https://docs.conda.io/en/latest/miniconda.html).
+
+Open "Anaconda Powershell Prompt" from the Start Menu and install `cc-faice` via pip.
+
+```
+pip install cc-faice==9.*
+faice --version
+```
 
 
 ## Option 4: Vagrant VM Setup
