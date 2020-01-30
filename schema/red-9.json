@@ -9,9 +9,8 @@
             "type": "object",
             "properties": {
                 "cwlVersion": {
-                    "type": [
-                        "string",
-                        "number"
+                    "enum": [
+                        "v1.0"
                     ]
                 },
                 "class": {
