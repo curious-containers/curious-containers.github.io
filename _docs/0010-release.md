@@ -14,7 +14,7 @@ All CC Python package versions consist of three distict numbers separated by `.`
 The first number refers to the supported RED version.
 
 For **users** only this RED version is relevant.
-For example, if `redVersion: "9"` is set in a RED file, install `cc-faice` 8.x.y as follows.
+For example, if `redVersion: "9"` is set in a RED file, install `cc-faice` 9.x.y as follows.
 
 ```bash
 pip3 install --user --upgrade cc-faice==9.*
