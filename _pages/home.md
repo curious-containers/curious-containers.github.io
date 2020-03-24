@@ -20,7 +20,7 @@ An execution engine provided by CC interprets the RED file and combines all reso
 This concept allows resources to be interchangeable and to have individual access restriction based on the chosen network transmission and authentication protocol.
 
 If you are new to the project, we advise you to work through the [RED Beginner's Guide](docs/red-beginners-guide).
-As an introduction (in german), watch the following [talk at the deRSE 2019](https://www.de-rse.org/de/conf2019/talk/7LLTCN/) conference for research software engineering ([PDF Slides](https://www.de-rse.org/de/conf2019/talk/7LLTCN/slides.pdf)).
+As an introduction (in german), watch the following [talk at the deRSE 2019](https://www.de-rse.org/de/conf2019/talk/7LLTCN/) conference for research software engineering ([PDF Slides](https://www.de-rse.org/de/conf2019/talk/7LLTCN/slides.pdf), [Video](https://doi.org/10.5446/42497)).
 
 {% raw %}
 <iframe width="560" height="315" scrolling="no" src="//av.tib.eu/player/42497" frameborder="0" allowfullscreen></iframe>

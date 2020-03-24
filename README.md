@@ -11,7 +11,7 @@ Markdown content is located in the [_pages](_pages) and [_docs](_docs) directori
 ## Local Installation
 
 ```bash
-gem install bundler
+gem install --user bundler -v 1.17.2
 bundle install --path vendor/bundle
 bundle exec jekyll serve
 ```
