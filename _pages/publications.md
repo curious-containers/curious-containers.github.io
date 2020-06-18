@@ -6,6 +6,29 @@ toc: true
 toc_label: "Table of Contents"
 ---
 
+## Curious Containers: A framework for computational reproducibility in life sciences with support for Deep Learning applications (2020)
+
+*Christoph Jansen, Jonas Annuscheit, Bruno Schilling, Klaus Strohmenger, Michael Witt, Felix Bartusch, Christian Herta, Peter Hufnagl, Dagmar Krefting*
+
+[DOI: 10.1016/j.future.2020.05.007](https://doi.org/10.1016/j.future.2020.05.007)
+
+We introduce the RED file format and the CC-FAICE and CC-Agency execution engines. To demonstrate the capablities of the system, a reproducible training of a Convolutional Neural Network (CNN) for tumor classification is performed on pathological image data. The CNN training requires CUDA GPU acceleration and FUSE file systems to mount large datasets in a container.
+
+```bibtex
+@article{Jansen2020,
+  title = "Curious Containers: A framework for computational reproducibility in life sciences with support for Deep Learning applications",
+  journal = "Future Generation Computer Systems",
+  volume = "112",
+  pages = "209 - 227",
+  year = "2020",
+  issn = "0167-739X",
+  doi = "10.1016/j.future.2020.05.007",
+  url = "http://www.sciencedirect.com/science/article/pii/S0167739X19318096",
+  author = "Christoph Jansen and Jonas Annuscheit and Bruno Schilling and Klaus Strohmenger and Michael Witt and Felix Bartusch and Christian Herta and Peter Hufnagl and Dagmar Krefting",
+  keywords = {publication}
+}
+```
+
 
 ## Reproducibility and Performance of Deep Learning Applications for Cancer Detection in Pathological Images (2019)
 
