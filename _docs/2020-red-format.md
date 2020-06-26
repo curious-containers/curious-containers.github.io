@@ -3,7 +3,7 @@ title: "RED Format"
 permalink: /docs/red-format
 ---
 
-A Reproducible Experiment Description (RED) contains all details about a data-driven experiment in YAML or JSON format. To process RED files or execute experiments use the [CC-FAICE](/docs/cc-core-cc-faice-cc-agency#cc-faice) commandline tools.
+A Reproducible Experiment Description (RED) contains all details about a data-driven experiment in YAML or JSON format. To process RED files or execute experiments use the [CC-FAICE](/docs/cc-faice) commandline tools.
 
 
 The following listings show two possible YAML structures.
