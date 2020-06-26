@@ -6,7 +6,7 @@ toc: false
 
 This is a documentation of the available REST API endpoints of CC-Agency. 
 
-**Before using** the CC-Agency API, you should read the [Introduction to CC-Agency](/docs/cc-core-cc-faice-cc-agency#cc-agency), especially the section about [data security](/docs/cc-core-cc-faice-cc-agency#data-security).
+**Before using** the CC-Agency API, you should read the [Introduction to CC-Agency](/docs/cc-agency), especially the section about [data security](/docs/cc-agency#data-security).
 
 Usage examples are provided as Python code. Install and import the following Python modules to prepare for the examples.
 
