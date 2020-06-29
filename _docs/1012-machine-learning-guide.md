@@ -83,8 +83,8 @@ from tensorflow.keras.metrics import AUC
 WEIGHTS_FILE = 'weights.h5'
 TRAIN_X_FILE = 'camelyonpatch_level_2_split_train_x.h5'
 TRAIN_Y_FILE = 'camelyonpatch_level_2_split_train_y.h5'
-VALID_X_FILE = 'camelyonpatch_level_2_split_train_x.h5'
-VALID_Y_FILE = 'camelyonpatch_level_2_split_train_y.h5'
+VALID_X_FILE = 'camelyonpatch_level_2_split_valid_x.h5'
+VALID_Y_FILE = 'camelyonpatch_level_2_split_valid_y.h5'
 INPUT_SHAPE = (96, 96, 3)
 
 
@@ -294,7 +294,8 @@ RUN python3 -m venv /home/cc/.local/red \
 && ln -s /home/cc/.local/red/bin/red-connector-* /home/cc/.local/bin
 
 # install app
-RUN pip3 install --user numpy h5py tensorflow-gpu==2.0.0b1
+RUN pip3 install --user --upgrade pip six \
+&& pip install --user numpy h5py tensorflow-gpu==2.*
 
 ADD --chown=cc:cc cnn-training.py /home/cc/.local/bin/cnn-training.py
 ```
