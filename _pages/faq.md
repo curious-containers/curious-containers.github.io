@@ -11,7 +11,7 @@ If you have another **question** please open an issue in the [curious-containers
 
 ## What is the purpose of the Curious Containers project?
 
-The Curious Conatiners (CC) project allows for data-driven experiments to be executed, shared and reproduced. It is built around Docker container technologies, which enables the usage of local or distributed compute resources.
+The Curious Containers (CC) project allows for data-driven experiments to be executed, shared and reproduced. It is built around Docker container technologies, which enables the usage of local or distributed compute resources.
 
 
 ## What is unique about CC?
