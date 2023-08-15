@@ -51,6 +51,8 @@ docs:
         url: /docs/red-connector-ftp
       - title: "RED Connector FTP Archive"
         url: /docs/red-connector-ftp-archive
+      - title: "RED Connector Semcon"
+        url: /docs/red-connector-semcon
       - title: "RED Container Engines"
         url: /docs/red-container-engines
       - title: "RED Execution Engines"
