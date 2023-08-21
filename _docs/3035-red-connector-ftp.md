@@ -10,7 +10,7 @@ This connector can be used for FTP connections.
 # Installation
 
 ```bash
-pip3 install --user --upgrade red-connector-ftp==1.1
+pip3 install --user --upgrade red-connector-ftp==1.2
 ```
 
 
@@ -21,6 +21,7 @@ pip3 install --user --upgrade red-connector-ftp==1.1
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
 | url | string | no | | URL starting with ftp:// |
+| port | integer | yes | 21 | TCP port of FTP service on remote host |
 | auth.username | string | yes | anonymous | Username |
 | auth.password | string | yes | | Password |
 
@@ -29,6 +30,7 @@ pip3 install --user --upgrade red-connector-ftp==1.1
 command: "red-connector-ftp"
 access:
   url: "ftp://example.com/files/data.csv"
+  port: 21
   auth:
     username: "username"
     password: "password"
@@ -39,6 +41,7 @@ access:
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
 | url | string | no | | URL starting with ftp:// |
+| port | integer | yes | 21 | TCP port of FTP service on remote host |
 | auth.username | string | yes | anonymous | Username |
 | auth.password | string | yes | | Password |
 
@@ -47,6 +50,7 @@ access:
 command: "red-connector-ftp"
 access:
   url: "ftp://example.com/files"
+  port: 21
   auth:
     username: "username"
     password: "password"
@@ -63,6 +67,7 @@ Optional. If listing exists, only the specified subdirectories and files are bei
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
 | url | string | no | | URL starting with ftp:// |
+| port | integer | yes | 21 | TCP port of FTP service on remote host |
 | auth.username | string | yes | anonymous | Username |
 | auth.password | string | yes | | Password |
 
@@ -71,6 +76,7 @@ Optional. If listing exists, only the specified subdirectories and files are bei
 command: "red-connector-ftp"
 access:
   url: "ftp://example.com/files/data.csv"
+  port: 21
   auth:
     username: "username"
     password: "password"
@@ -81,6 +87,7 @@ access:
 | Access | Type | Optional | Default | Description |
 | --- | --- | --- | --- | --- |
 | url | string | no | | URL starting with ftp:// |
+| port | integer | yes | 21 | TCP port of FTP service on remote host |
 | auth.username | string | yes | anonymous | Username |
 | auth.password | string | yes | | Password |
 
@@ -89,6 +96,7 @@ access:
 command: "red-connector-ftp"
 access:
   url: "ftp://example.com/files"
+  port: 21
   auth:
     username: "username"
     password: "password"
